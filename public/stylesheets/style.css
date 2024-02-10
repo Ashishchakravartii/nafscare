@@ -1,0 +1,705 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "jostRegular";
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: "jostRegular";
+  src: url(../fonts/Jost/static/Jost-Regular.ttf);
+}
+
+.green {
+  color: #9ee281;
+}
+
+.main {
+  width: 100vw;
+}
+
+/* =============================          Nav styles              ================================= */
+
+.navBox {
+  width: 100vw;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+.topGreenBar {
+  width: 100%;
+  background-color: #9ee281;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2vmax 6vmax;
+  color: white;
+  font-family: "jostRegular";
+  font-size: 01vmax;
+  font-weight: 400;
+}
+
+.topGreenBar-btnDiv > button {
+  border: 0;
+  background-color: transparent;
+  color: white;
+}
+
+.subNavBar {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vmax;
+  font-weight: 400;
+}
+
+.navimgbox {
+  width: 5vmax;
+  display: flex;
+  align-items: center;
+  gap: 1vmax;
+  margin-left: -3vmax;
+}
+.navimgbox > img {
+  width: 100%;
+  object-fit: cover;
+}
+.brandName {
+  letter-spacing: 0.2vmax;
+}
+
+.navLiBox {
+  margin-left: 6vmax;
+}
+.navLiBox > ul {
+  display: flex;
+  list-style: none;
+  gap: 3.5vmax;
+  font-weight: 400;
+  font-size: 0.9vmax;
+}
+.navCartDiv {
+  display: flex;
+  gap: 0.3vmax;
+}
+.navCartDiv > img {
+  width: 1.8vmax;
+  scale: 0.85;
+  margin-bottom: 0.3vmax;
+}
+.navCartDiv-searchDiv > input {
+  border: 0;
+}
+.navCartDiv-searchDiv {
+  scale: 0.85;
+  display: flex;
+}
+
+/* ------------------------------Silder Box start---------------------------------------- */
+
+.swiper {
+  width: 100%;
+  height: 100vh;
+  /* background-color: lightgreen; */
+}
+
+.swiper-slide {
+  width: 100%;
+  height: 60vh;
+  text-align: center;
+  font-size: 18px;
+  /* background: #fff; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 40vmax;
+  height: 50vh;
+  object-fit: cover;
+}
+
+.sliderdiv1 {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+.sliderdiv1-top {
+  width: 100vw;
+  height: 72.9%;
+  /* background-color: red; */
+  background-image: url("/images/homeimg.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sliderdiv2-top {
+  width: 100vw;
+  height: 72.9%;
+  /* background-color: red; */
+  background-image: url("/images/homeimg22.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+.homeWaveDiv > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sliderdiv1Content {
+  width: 100vw;
+  height: 95vw;
+  /* background-color: red; */
+}
+
+.homeContentDiv {
+  width: 40%;
+  height: 60%;
+  text-align: start;
+  margin-left: 40vmax;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1vmax 0;
+}
+.homeBrand {
+  color: #9ee281;
+}
+.homeH1 {
+  font-weight: 700;
+  letter-spacing: 0.1vmin;
+  word-spacing: 0.1vmin;
+}
+.homeBtn {
+  border: 0;
+  background-color: #9ee281;
+  color: white;
+  padding: 0.7vmax 1.8vmax;
+  width: 13vmax;
+}
+.homeP {
+  font-weight: 400;
+  letter-spacing: 0.1vmin;
+  /* background-color: red; */
+}
+
+/* -------------------------------Silder Box End----------------------------------------- */
+
+/* -------------------------------Nafcare's deals section start----------------------------------------- */
+
+.dealsBox {
+  width: 100vw;
+  height: 80vh;
+}
+.dealsBox-headBox {
+  width: 100%;
+  padding-top: 3vmax;
+  /* height: 20%; */
+  /* padding: 2vh 2vw; */
+
+  text-align: center;
+}
+.dealsBox-BottomBox {
+  height: 80%;
+  width: 100%;
+  margin-top: 3.5vmax;
+}
+
+.dealsBox-headBox-greenBorder {
+  padding: 1vmax;
+}
+.dealsBox-headBox-greenBorder {
+  margin: auto;
+  width: 7vmax;
+  border-top: 3px solid #9ee281;
+}
+.dealsBox-headBox-para {
+  font-size: 0.9vmax;
+  letter-spacing: 0.1vmin;
+  margin-top: -0.5vmax;
+}
+
+.dealsBox-BottomBox {
+  display: flex;
+  justify-content: center;
+  gap: 1vmax;
+}
+
+.dealsBox-BottomBox > div {
+  width: 22%;
+  height: 100%;
+}
+.dealsBoxImgDiv {
+  width: 22vw;
+  height: 80%;
+  background-color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.dealsBoxImgDiv > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #f0eeee;
+  /* box-shadow: -31px 31px 61px #d3d3d3, 31px -31px 61px #ededed; */
+}
+.dealsBox-BottomBox-prod > h6 {
+  text-align: center;
+  margin-top: 2vmax;
+}
+
+/* -------------------------------Nafcare's deals section End----------------------------------------- */
+
+/* -------------------------------Section 3 start----------------------------------------- */
+
+.section3-mainBox {
+  width: 100vw;
+  height: 110vh;
+  margin-top: 5vmax;
+  padding-bottom: 3vmax;
+}
+
+.section3-top {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  gap: 7vmax;
+}
+.section3-top-iconDiv {
+  width: 20%;
+  height: 58%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-around; */
+  padding: 0.5vmax;
+  margin-top: 4vmax;
+}
+.section3div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.section3LogoDiv {
+  display: flex;
+  align-items: end;
+}
+.section3LogoDiv > div {
+  width: 28px;
+  height: 28px;
+  background-color: #9ee281;
+  border-radius: 50%;
+  margin-left: 1.5vmax;
+}
+.section3LogoDiv > img {
+  width: 3vmax;
+  position: absolute;
+}
+.section3-top-iconDiv > h6 {
+  font-weight: 700;
+}
+.section3-top-iconDiv > p {
+  text-align: center;
+}
+
+.section3-bottom {
+  width: 100%;
+  height: 60%;
+  display: flex;
+}
+
+.section3-bottom-subDiv {
+  width: 50%;
+  height: 100%;
+}
+
+.section3-bottom-contentDiv {
+  background-color: #f3f3f3;
+  padding: 3vmax 10vmax;
+}
+.section3-bottom-contentDiv > p {
+  padding: 1vmax 2.6vmax;
+  margin-top: 1vmax;
+  margin-left: -2.5vmax;
+}
+
+.section3-bottom-contentDiv > button {
+  margin-top: 1vmax;
+  padding: 1vmax 2.6vmax;
+  border: 2px solid #9ee281;
+}
+
+.section3-bottom-subDiv h1 {
+  line-height: 3.5vmax;
+}
+.section3-bottom-imgDiv {
+  display: flex;
+}
+.section3-bottom-imgDiv > div {
+  width: 45%;
+  height: 100%;
+}
+.section3-bottom-imgDiv-right {
+  margin-left: 1vmax;
+}
+.section3-bottom-imgDiv-left > div {
+  width: 100%;
+  height: 48%;
+  background-color: yellow;
+}
+.section3-bottom-imgDiv-left > div > img {
+  width: 100%;
+  height: 100%;
+  object-position: top;
+  object-fit: cover;
+}
+.section3-bottom-imgDiv-left > div:first-child {
+  margin-bottom: 1.15vmax;
+}
+
+.section3-bottom-imgDiv-right > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* -------------------------------Section 3 End------------------------------------------ */
+
+/* -------------------------------Section 4 start product section------------------------------------------ */
+.prodPriceSec4 {
+  text-align: center;
+}
+
+/* -------------------------------Section 4 End product section------------------------------------------ */
+
+/* -------------------------------Testimonial section section 5 start------------------------------------------ */
+
+.testimonialBox {
+  width: 100vw;
+  height: 80vh;
+  margin-top: 8vmax;
+  /* background-color: aquamarine; */
+}
+.testimonialWaveDiv {
+  width: 100%;
+  height: 15%;
+  /* background-color: #9ee281; */
+}
+.testimonial-contentBox {
+  width: 100%;
+  height: 70%;
+  background-color: #f2f2f3;
+}
+.testimonialWaveDiv {
+  filter: rotate(50);
+}
+.testimonialWaveDiv > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* filter: grayscale(0%); */
+  /* background-color: gray; */
+}
+
+.testimonial-contentBox {
+  display: flex;
+  justify-content: center;
+}
+
+.testimonial-contentBox-div {
+  width: 28%;
+  height: 100%;
+}
+
+.testimonial-contentBox-img > img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+}
+.testimonial-contentBox-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 5vmax 0;
+}
+
+.testimonial-contentBox-content > div > button {
+  padding: 0.2vmax 0.4vmax;
+  background: none;
+  border: 1.5px solid grey;
+}
+.testimonial-contentBox-content > p {
+  width: 80%;
+}
+
+/* ------------------------------------ shop section start -------------------------- */
+
+.shopBox {
+  margin-top: 2vmax;
+}
+
+/* ----------------------------------------- latest  news section ------------------------------------ */
+
+.latestNewsBox {
+  width: 100vw;
+  height: 70vh;
+  margin-top: 5vmax;
+}
+.latestNewsBox-top {
+  width: 100%;
+  height: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2vmax;
+}
+.latestNewsBox-bottom {
+  width: 100vw;
+  height: calc(100% - 12%);
+  display: flex;
+  justify-content: center;
+  gap: 0.8vmax;
+}
+.latestNewsBox-bottom-div {
+  width: 25%;
+  height: 100%;
+}
+.latestNewsBox-bottom-div > div {
+  width: 100%;
+  height: 50%;
+}
+
+.latestNewsBox-imgDiv > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.latestNewsBox-contentDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2vmax 2vmax 0 2vmax;
+  text-align: center;
+}
+.latestNewsBox-contentDiv > button {
+  border: 0;
+  background-color: #9ee281;
+  color: white;
+  padding: 0.5vmax 1.8vmax;
+}
+
+/* --------------------------------- silder ----------------------------- */
+.slider {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 5vmax;
+}
+.slider ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  animation: scroll 20s linear infinite;
+}
+.slider li {
+  list-style: none;
+  margin-right: 10px;
+}
+.slider-headBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vmax;
+}
+
+.slider img {
+  width: 260px;
+  height: auto;
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* -------------------------------- footer ----------------------------------------- */
+
+.site-footer {
+  background-color: #fff9f7;
+  padding: 45px 0 20px;
+  font-size: 15px;
+  line-height: 24px;
+  color: #737373;
+}
+.site-footer hr {
+  border-top-color: #bbb;
+  opacity: 0.5;
+}
+.site-footer hr.small {
+  margin: 20px 0;
+}
+.site-footer h6 {
+  color: black;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  letter-spacing: 2px;
+}
+.site-footer a {
+  color: #737373;
+}
+.site-footer a:hover {
+  color: #3366cc;
+  text-decoration: none;
+}
+.footer-links {
+  padding-left: 0;
+  list-style: none;
+}
+.footer-links li {
+  display: block;
+  color: black;
+}
+.footer-links a {
+  color: black;
+}
+.footer-links a:active,
+.footer-links a:focus,
+.footer-links a:hover {
+  color: #3366cc;
+  text-decoration: none;
+}
+.footer-links.inline li {
+  display: inline-block;
+}
+.site-footer .social-icons {
+  text-align: right;
+}
+.site-footer .social-icons a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 6px;
+  margin-right: 0;
+  border-radius: 100%;
+  background-color: #33353d;
+}
+.copyright-text {
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .site-footer [class^="col-"] {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .site-footer {
+    padding-bottom: 0;
+  }
+  .site-footer .copyright-text,
+  .site-footer .social-icons {
+    text-align: center;
+  }
+}
+.social-icons {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.social-icons li {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.social-icons li.title {
+  margin-right: 15px;
+  text-transform: uppercase;
+  color: #96a2b2;
+  font-weight: 700;
+  font-size: 13px;
+}
+.social-icons a {
+  background-color: #eceeef;
+  color: #818a91;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 44px;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  margin-right: 8px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.social-icons a:active,
+.social-icons a:focus,
+.social-icons a:hover {
+  color: #fff;
+  background-color: #29aafe;
+}
+.social-icons.size-sm a {
+  line-height: 34px;
+  height: 34px;
+  width: 34px;
+  font-size: 14px;
+}
+.social-icons a.facebook:hover {
+  background-color: #3b5998;
+}
+.social-icons a.twitter:hover {
+  background-color: #00aced;
+}
+.social-icons a.linkedin:hover {
+  background-color: #007bb6;
+}
+.social-icons a.dribbble:hover {
+  background-color: #ea4c89;
+}
+@media (max-width: 767px) {
+  .social-icons li.title {
+    display: block;
+    margin-right: 0;
+    font-weight: 600;
+  }
+}
+
+.footerBox {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.footerWave {
+  margin-top: 2vmax;
+}
+.Footerlogo {
+  width: 6vmax;
+  margin-top: -3vmax;
+  padding-bottom: 1vmax;
+  border-radius: 50%;
+}
