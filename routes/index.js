@@ -12,4 +12,10 @@ router.get('/shop', function(req, res, next) {
   res.render('shop', { title: 'shop' });
 });
 
+
+/* GET Checkout page. */
+router.get('/checkout', function(req, res, next) {
+  res.render('checkout', { title: 'checkout' });
+});
+
 module.exports = router;

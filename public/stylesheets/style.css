@@ -738,7 +738,7 @@ body {
 
 .shopBox {
   width: 100vw;
-  height: 100vh;
+  /* min-height: 100vh; */
   /* background-color: salmon; */
 }
 .shop-top {
@@ -750,6 +750,9 @@ body {
   padding: 0 3vmax;
   align-items: center;
   border-bottom: 1px solid rgb(192, 190, 190);
+}
+.filterHead {
+  margin-left: -1vmax;
 }
 
 .shop-bottom {
@@ -763,25 +766,83 @@ body {
 
 .shopContent {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
 }
 .filters {
   width: 15%;
-  height: 100%;
-  background-color: purple;
+  /* height: 100%; */
+  /* background-color: purple; */
+  border-right: 1px solid grey;
+  padding-top: 1.8vmax;
 }
+.filters > .priceBoxFilter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  border-bottom: 1px solid rgb(214, 217, 214);
+  /* padding-top: 2vmax; */
+  height: 15vh;
+  /* background-color: #007bb6; */
+  /* overflow-y: scroll; */
+}
+.scrollFilterBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  border-bottom: 1px solid rgb(214, 217, 214);
+  padding-top: 2vmax;
+  height: 28vh;
+  /* background-color: #007bb6; */
+  overflow-y: scroll;
+}
+.scrollFilterBox::-webkit-scrollbar {
+  background-color: white;
+}
+.scrollFilterBox::-webkit-scrollbar-thumb {
+  width: 2px;
+  background-color: #9ee281;
+}
+.scrollFilterBox::-webkit-scrollbar {
+  width: 0.5vmax;
+}
+.filters > .priceBoxFilter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  border-bottom: 1px solid rgb(214, 217, 214);
+  /* padding-top: 2vmax; */
+  height: 15vh;
+  /* background-color: #007bb6; */
+  /* overflow-y: scroll; */
+}
+.filters > div > ul {
+  list-style: none;
+}
+
+.filters > div > h6 {
+  margin-left: 2vmax;
+}
+
 .productsDiv {
   width: 85%;
   height: 100%;
   padding: 2vmax 3vmax;
+  /* display:; */
 }
 
 .product {
-  width: 23%;
+  width: calc(85% / 4);
   height: 55vh;
-   box-shadow: 13px 13px 28px #cac9c9, -13px -13px 28px #ffffff;
+  display: inline-block;
+  margin-top: 2vmax;
+
+  box-shadow: 13px 13px 28px #cac9c9, -13px -13px 28px #ffffff;
   transition: cubic-bezier(0.19, 1, 0.22, 1) 1s;
+  margin-left: 2vmax;
 }
 .imgDiv {
   width: 100%;
@@ -819,5 +880,279 @@ body {
   color: white;
   border: 0;
   padding: 0.2vmax 5vmax;
-  margin-left: 1.4vmax;
+  margin-left: 0.85vmax;
+}
+
+/* ------------------------------------- checkout page ------------------------------------------ */
+
+#r_page1 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  padding-top: 2vmax;
+}
+
+#r_page1 #r_part1 {
+  height: 100%;
+  width: 55%;
+  background-color: white;
+  /* border-right: 1px solid rgb(171, 169, 169); */
+}
+
+#r_page1 #r_part2 {
+  height: 100%;
+  width: 45%;
+  background-color: #f9f9f9;
+}
+
+#r_part1 #r_payment {
+  height: 35%;
+  width: 80%;
+  /* background-color: aliceblue; */
+  margin-left: 140px;
+}
+
+#r_payment h3 {
+  font-family: yellowtail;
+  font-size: 2.8em;
+  padding-top: 15px;
+}
+
+#info {
+  margin-top: 3%;
+}
+
+#info a {
+  text-decoration: none;
+  color: rgb(101, 99, 99);
+}
+
+#info i {
+  color: #85d264;
+}
+
+#r_express {
+  height: 50%;
+  width: 80%;
+  /* background-color: aquamarine; */
+  margin-top: 5%;
+}
+
+#r_express h5 {
+  margin-left: 38%;
+  font-size: 18px;
+  font-weight: 400;
+  color: #85d264;
+}
+
+#r_express h4 {
+  font-size: 10px;
+  color: rgb(100, 97, 97);
+  margin-top: 2%;
+  margin-left: 24%;
+}
+
+#r_pay-button {
+  height: 40%;
+  width: 100%;
+  border: 1px solid rgb(153, 152, 152);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5vmax 1.5vmax;
+}
+
+#r_pay-button button {
+  padding: 10px 30px;
+  border-radius: 8px;
+  border: none;
+  scale: 0.8;
+}
+
+#r_delivery {
+  background-color: #4e11f5d5;
+  color: white;
+  font-weight: 900;
+}
+
+#phonepe {
+  overflow: hidden;
+  height: 40%;
+  scale: 0.7;
+}
+
+#phonepe img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#r_razorpay {
+  overflow: hidden;
+  height: 40%;
+  scale: 0.7;
+}
+
+#r_razorpay img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#r_contact-info {
+  height: 65%;
+  width: 100%;
+  /* background-color: azure; */
+  position: relative;
+}
+
+#r_email {
+  /* background-color: pink; */
+  height: 16%;
+  width: 100%;
+}
+
+#r_email #login {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 2%;
+}
+
+#login h3 {
+  font-weight: 900;
+  font-size: 16px;
+}
+
+#login h4 {
+  font-weight: 500;
+  font-size: 13px;
+  color: rgb(100, 97, 97);
+}
+
+#login h4 a {
+  color: black;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+#r_email form {
+  border: 1px solid rgb(171, 169, 169);
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 2%;
+  padding: 1.5% 1%;
+  border-radius: 5px;
+}
+
+#r_shipp-address {
+  height: 84%;
+  width: 100%;
+  /* background-color: aqua; */
+}
+
+#r_shipp-address {
+  padding-top: 5%;
+  padding-left: 14%;
+}
+
+#r_name {
+  height: 9%;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3%;
+}
+
+#r_name form {
+  border: 1px solid rgb(171, 169, 169);
+  width: 48%;
+  padding: 1% 1%;
+  border-radius: 2px;
+}
+
+#r_details {
+  height: 84%;
+  /* background-color: red; */
+  width: 100%;
+  margin-top: 3%;
+}
+
+#r_details form {
+  border: 1px solid rgb(171, 169, 169);
+  padding: 2% 1%;
+  width: 99%;
+  border-radius: 2px;
+}
+
+#r_part2 #r_order {
+  height: 40%;
+  width: 90%;
+  /* background-color: red; */
+  margin-left: 1%;
+  margin-top: 4%;
+  font-size: 20px;
+  color: rgb(116, 113, 113);
+}
+
+#r_product {
+  height: 100%;
+  width: 100%;
+  /* background-color: yellow; */
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#r_product #heading {
+  height: 10%;
+  width: 100%;
+  /* background-color: black; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid black;
+  margin-top: 3%;
+}
+
+#heading h3 {
+  font-size: 16px;
+  color: black;
+}
+
+#r_items {
+  height: 75%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#r_items h4 {
+  padding: 5px 19px;
+  font-size: 16px;
+  color: #85d264;
+}
+
+#r_total {
+  height: 20%;
+  width: 100%;
+  border-top: 1px solid black;
+  padding-left: 3%;
+  font-size: 16px;
+  color: black;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#r_order button {
+  padding: 8px 60px;
+  margin: 3% 30%;
+  color: white;
+  background-color: #85d264;
+  border: none;
 }
