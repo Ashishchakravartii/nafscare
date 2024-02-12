@@ -18,4 +18,10 @@ router.get('/checkout', function(req, res, next) {
   res.render('checkout', { title: 'checkout' });
 });
 
+
+/* GET MyAccount page. */
+router.get('/account', function(req, res, next) {
+  res.render('myAccount', { title: 'MyAccount' });
+});
+
 module.exports = router;
