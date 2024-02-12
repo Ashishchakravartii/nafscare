@@ -138,12 +138,10 @@ body {
 .sliderdiv1-top {
   width: 100vw;
   height: 72.9%;
-  /* background-color: red; */
   background-image: url("/images/homeimg.png");
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,6 +190,10 @@ body {
   color: white;
   padding: 0.7vmax 1.8vmax;
   width: 13vmax;
+  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.5s;
+}
+.homeBtn:hover {
+  background-color: #6ead53;
 }
 .homeP {
   font-weight: 400;
@@ -251,6 +253,12 @@ body {
   background-color: white;
   text-align: center;
   overflow: hidden;
+  box-shadow: 13px 13px 28px #cac9c9, -13px -13px 28px #ffffff;
+  transition: cubic-bezier(0.19, 1, 0.22, 1) 1s;
+  border-radius: 5px;
+}
+.dealsBoxImgDiv:hover {
+  box-shadow: -13px 13px 28px #c9c2c2, 13px -13px 28px #ffffff;
 }
 
 .dealsBoxImgDiv > img {
@@ -258,7 +266,10 @@ body {
   height: 100%;
   object-fit: cover;
   background: #f0eeee;
-  /* box-shadow: -31px 31px 61px #d3d3d3, 31px -31px 61px #ededed; */
+  transition: cubic-bezier(0.19, 1, 0.22, 1) 1s;
+}
+.dealsBoxImgDiv > img:hover {
+  scale: 1.1;
 }
 .dealsBox-BottomBox-prod > h6 {
   text-align: center;
@@ -345,6 +356,10 @@ body {
   margin-top: 1vmax;
   padding: 1vmax 2.6vmax;
   border: 2px solid #9ee281;
+  transition: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.5s;
+}
+.section3-bottom-contentDiv > button:hover {
+  background-color: #85d264;
 }
 
 .section3-bottom-subDiv h1 {
@@ -502,10 +517,24 @@ body {
   text-align: center;
 }
 .latestNewsBox-contentDiv > button {
-  border: 0;
-  background-color: #9ee281;
+  border: 1px solid rgba(245, 244, 244, 1);
+  /* background-color: #9ee281; */
+  background-color: white;
+  /* color: white; */
+  color: #9ee281;
+  padding: 0.8vmax 2vmax;
+  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.5s;
+  /* box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+    inset 10px 10px 15px rgba(152, 152, 152, 0.12); */
+  box-shadow: 6px 9px 4px -4px rgba(245, 244, 244, 1);
+  border-radius: 5px;
+  /* box-shadow: inset 0px 1px 4px 4px rgba(245, 244, 244, 1); */
+}
+.latestNewsBox-contentDiv > button:hover {
+  box-shadow: none;
+  scale: 1.02;
+  background-color: #6ead53;
   color: white;
-  padding: 0.5vmax 1.8vmax;
 }
 
 /* --------------------------------- silder ----------------------------- */
