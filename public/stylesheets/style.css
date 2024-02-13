@@ -1368,7 +1368,7 @@ div.tab button.active {
 
 .shopping-cart {
   width: 65vw;
-  /* min-height: vh; */
+  height: 80vh;
   margin: 80px auto;
   background: #ffffff;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
@@ -1389,14 +1389,27 @@ div.tab button.active {
 
 .cart_item {
   padding: 20px 30px;
-  height: 10%;
+  height: 33.33%;
   display: flex;
   justify-content: space-evenly;
 }
+.itemCartShowingWindow {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
 
-.cart_item:nth-child(3) {
-  border-top: 1px solid #e1e8ee;
-  border-bottom: 1px solid #e1e8ee;
+.itemCartShowingWindow::-webkit-scrollbar {
+  background-color: white;
+}
+.itemCartShowingWindow::-webkit-scrollbar-thumb {
+  width: 2px;
+  background-color: #9ee281;
+}
+.itemCartShowingWindow::-webkit-scrollbar {
+  width: 0.5vmax;
 }
 
 .cart_item {
@@ -1438,8 +1451,9 @@ div.tab button.active {
   margin-right: 50px;
 }
 .cart_image {
-  width: 5vmax;
-  height: 5vmax;
+  width: 3.5vmax;
+  height: 3.5vmax;
+  margin-top: 1.1vmax;
 }
 .total-price {
   width: 83px;
@@ -1510,6 +1524,33 @@ button[class*="btn"] {
 button:focus,
 input:focus {
   outline: 0;
+}
+
+.feeDivCard {
+  width: 65vw;
+  height: 19.1%;
+  border-radius: 6px;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+}
+
+.feeDivCard-ul {
+  width: 100%;
+  height: 70%;
+  /* background-color: red; */
+  list-style: none;
+  padding: 1vmax 10vmax 1.1vmax 10vmax;
+}
+.feeDivCard-ul > li {
+  width: 100%;
+  height: 70%;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+}
+.feeDivCard-ul > li > span {
+  color: #9ee281;
 }
 
 /*---------------------------------- cart responsive ------------------------------- */
