@@ -60,20 +60,31 @@
       <div class="authBox">
         <div class="signUpBox">
           <h4 class="signUpHead">Sign Up</h4>
-          <form class="updateForm" action="">
-            <input style="width: 30vmax" type="text" placeholder="Full Name" />
+          <form class="updateForm" action="/signup" method="post">
+            <input
+              style="width: 30vmax"
+              type="text"
+              placeholder="Full Name"
+              name="name"
+            />
             <div>
-              <input style="width: 30vmax" type="email" placeholder="email" />
-              <input style="width: 30vmax" type="number" placeholder="Phone" />
               <input
                 style="width: 30vmax"
-                type="password"
-                placeholder="Password"
+                type="email"
+                placeholder="email"
+                name="email"
+              />
+              <input
+                style="width: 30vmax"
+                type="number"
+                placeholder="Phone"
+                name="phone"
               />
               <input
                 style="width: 30vmax"
                 type="password"
-                placeholder="Confirm Password"
+                placeholder="Password"
+                name="password"
               />
             </div>
             <button

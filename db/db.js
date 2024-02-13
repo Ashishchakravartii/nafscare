@@ -19,3 +19,5 @@ connection.connect((err) => {
   console.log("Connected to MySQL");
 
 });
+
+module.exports = connection;
