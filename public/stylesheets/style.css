@@ -1171,7 +1171,7 @@ body {
 
 .myAccountMainBox {
   width: 100vmax;
-  min-height: 10vh;
+  /* min-height: 10vh; */
   margin-top: 1.2vmax;
 }
 
@@ -1185,7 +1185,7 @@ div.tab {
   align-items: center;
 }
 
-/* Style the buttons inside the tab */
+/* Style the cart_buttons inside the tab */
 div.tab button {
   background-color: inherit;
   float: left;
@@ -1194,6 +1194,10 @@ div.tab button {
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+}
+.cart_buttons {
+  width: 2vmax;
+  padding-top: 1.8vmax;
 }
 
 /* Change background color of buttons on hover */
@@ -1297,13 +1301,16 @@ div.tab button.active {
 }
 
 .updateForm {
-  width: 100%;
+  width: 45%;
   height: 5vmax;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-top: 5vmax;
   padding-left: 4.5vmax;
+}
+.addForm1 {
+  margin-top: 1vmax;
 }
 .updateForm > input {
   border: 1px solid black;
@@ -1319,14 +1326,254 @@ div.tab button.active {
   border-radius: 5px;
   padding: 0.5vmax;
 }
-.updateForm > button {
+.updateAddBtn {
   margin-top: 1vmax;
   border: 0;
   border-radius: 10px;
   background-color: #9ee281;
-  width: 30vmax;
-  color: #545252;
+  width: 40.5vmax;
+  color: white;
 }
-.accountBox {
-  height: 20vmax;
+.accountDetailUpdateBTn {
+  width: 30.1vmax;
+  margin-top: 1vmax;
+  border: 0;
+  border-radius: 10px;
+  background-color: #9ee281;
+  color: white;
+  margin-bottom: 1vmax;
+}
+.updatePasswordForm {
+  margin-left: 10vmax;
+}
+
+.userInfoUpdateBox {
+  /* background-color: red; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0 5vmax;
+}
+.userInfoUpdateBox > div {
+  width: 50%;
+  height: 60vh;
+}
+.userInfoUpdateBox > div:nth-child(2) {
+  width: 50%;
+  height: 60vh;
+  padding-right: 15vmax;
+}
+
+/* --------------------------------- cart -------------------------------------- */
+
+.shopping-cart {
+  width: 65vw;
+  /* min-height: vh; */
+  margin: 80px auto;
+  background: #ffffff;
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  border-top: 1px solid #9ee281;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 60px;
+  border-bottom: 1px solid #e1e8ee;
+  padding: 20px 30px;
+  color: #5e6977;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.cart_item {
+  padding: 20px 30px;
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cart_item:nth-child(3) {
+  border-top: 1px solid #e1e8ee;
+  border-bottom: 1px solid #e1e8ee;
+}
+
+.cart_item {
+  position: relative;
+  padding-top: 30px;
+  margin-right: 60px;
+}
+.delete-btn {
+  display: inline-block;
+  cursor: pointer;
+}
+.delete-btn > img {
+  width: 20px;
+  height: 20px;
+}
+
+/* delete-btn */
+
+.is-active {
+  animation-name: animate;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(28);
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: right;
+  }
+}
+.Cartimage {
+  margin-right: 50px;
+}
+.cart_image {
+  width: 5vmax;
+  height: 5vmax;
+}
+.total-price {
+  width: 83px;
+  padding-top: 27px;
+  text-align: center;
+  font-size: 18px;
+  color: #9ee281;
+  font-weight: 400;
+}
+
+.prodImgCart {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Let’s add some basic style to  product name and description. */
+.description {
+  padding-top: 10px;
+  margin-right: 60px;
+  width: 115px;
+}
+
+.description span {
+  display: block;
+  font-size: 14px;
+  color: #43484d;
+  font-weight: 400;
+}
+
+.description span:first-child {
+  margin-bottom: 5px;
+}
+.description span:last-child {
+  font-weight: 300;
+  margin-top: 8px;
+  color: #86939e;
+}
+.cart_quantity {
+  padding-top: 20px;
+  margin-right: 60px;
+}
+.cart_quantity input {
+  border: none;
+  text-align: center;
+  width: 32px;
+  font-size: 16px;
+  color: #43484d;
+  font-weight: 300;
+}
+
+button[class*="btn"] {
+  width: 30px;
+  height: 30px;
+  background-color: #e1e8ee;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.minus-btn img {
+  margin-top: -0.2vmax;
+  width: 1.1vmax;
+}
+.plus-btn img {
+  margin-top: -0.2vmax;
+  width: 1.1vmax;
+}
+
+button:focus,
+input:focus {
+  outline: 0;
+}
+
+/*---------------------------------- cart responsive ------------------------------- */
+
+@media (max-width: 800px) {
+  .shopping-cart {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  .item {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .image img {
+    width: 50%;
+  }
+  .image,
+  .quantity,
+  .description {
+    width: 100%;
+    text-align: center;
+    margin: 6px 0;
+  }
+  .buttons {
+    margin-right: 20px;
+  }
+}
+
+/* ----------------------------------- Auth page -------------------------------- */
+
+.authBox {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+.authBox > div {
+  width: 50%;
+  height: 100%;
+}
+.signUpBox {
+  /* background-color: plum; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-right: 15vmax;
+  text-align: center;
+}
+.signUpHead {
+  margin-bottom: -2vmax;
+  color: #9ee281;
+  margin-top: 4vmax;
+}
+.forgetPara {
+  width: 25vw;
+}
+.forgetPara > a {
+  text-decoration: none;
+  color: #85d264;
+}
+.signInHead {
+  margin-bottom: -2vmax;
+  color: #9ee281;
+  margin-top: 4vmax;
+  margin-left: 4.5vmax;
 }

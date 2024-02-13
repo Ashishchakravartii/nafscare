@@ -212,24 +212,17 @@
           Address
         </h6>
         <div style="height: 30vmax" class="addressTab">
-          <div class="productNameDiv">
-            <h6>USERNAME</h6>
-            <span style="color: #9ee281"
-              >&nbsp;<br />94 , new hcf qtrs , Tata chemicals township mithapur
-              Mithapur, Gujarat 361345</span
-            >&nbsp;&nbsp;&nbsp;
-          </div>
-          <h6 style="margin-left: 4.5vmax; margin-top: 1vmax">
-            Mobile: <span style="color: #9ee281">9789733133</span>
-          </h6>
-
           <div class="updateFormBox">
             <form class="updateForm" action="">
               <input
                 class="addForm1"
-                style="width: 100%"
                 type="text"
-                placeholder="Update Address"
+                placeholder="Address line 1"
+              />
+              <input
+                class="addForm1"
+                type="text"
+                placeholder="Address line 2"
               />
               <div>
                 <input type="text" placeholder="Contact" />
@@ -238,7 +231,9 @@
                 <input type="text" placeholder="State" />
                 <input type="text" placeholder="Zip Code" />
               </div>
-              <button style="padding: 0.5vmax" class="">Save</button>
+              <button class="updateAddBtn" style="padding: 0.5vmax" class="">
+                Update Changes
+              </button>
             </form>
           </div>
         </div>
@@ -250,40 +245,63 @@
           Account Details
         </h6>
         <div style="display: flex" class="accDetBox">
-          <div>
-            <form class="updateForm" action="">
-              <input
-                style="width: 30vmax"
-                type="text"
-                placeholder="Full Name"
-              />
-              <div>
-                <input style="width: 30vmax" type="email" placeholder="email" />
-              </div>
-              <button style="padding: 0.3vmax" class="">Save Changes</button>
-            </form>
-          </div>
-          <div>
-            <form class="updateForm" action="">
-              <input
-                style="width: 30vmax"
-                type="text"
-                placeholder="Current Password"
-              />
-              <div style="display: flex">
+          <div class="updateFormBox userInfoUpdateBox">
+            <div>
+              <form class="updateForm" action="">
                 <input
-                  style="width: 14.5vmax"
-                  type="email"
-                  placeholder="New Password"
+                  style="width: 30vmax"
+                  type="text"
+                  placeholder="Full Name"
                 />
+                <div>
+                  <input
+                    style="width: 30vmax"
+                    type="email"
+                    placeholder="email"
+                  />
+                  <input
+                    style="width: 30vmax"
+                    type="number"
+                    placeholder="Phone"
+                  />
+                </div>
+                <button
+                  class="accountDetailUpdateBTn"
+                  style="padding: 0.3vmax"
+                  class=""
+                >
+                  Save Changes
+                </button>
+              </form>
+            </div>
+            <div>
+              <form class="updateForm updatePasswordForm" action="">
                 <input
-                  style="width: 14.5vmax; margin-left: 0.9vmax"
-                  type="email"
-                  placeholder="Confirm Password"
+                  style="width: 30vmax"
+                  type="text"
+                  placeholder="Current Password"
                 />
-              </div>
-              <button style="padding: 0.3vmax" class="">Save Changes</button>
-            </form>
+                <div style="display: flex">
+                  <input
+                    style="width: 14.5vmax"
+                    type="email"
+                    placeholder="New Password"
+                  />
+                  <input
+                    style="width: 14.5vmax; margin-left: 0.9vmax"
+                    type="email"
+                    placeholder="Confirm Password"
+                  />
+                </div>
+                <button
+                  class="accountDetailUpdateBTn"
+                  style="padding: 0.3vmax"
+                  class=""
+                >
+                  Save Changes
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
