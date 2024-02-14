@@ -26,23 +26,24 @@
         <div class="topGreenBar">
           <p>Afterpay, Laybuy & Genoapay | Free Delivery*</p>
           <div class="topGreenBar-btnDiv">
-            <button>Sign In</button> /
-            <button>Register</button>
+            <% if (!user) { %>
+            <button><a href="/auth">Sign In</a></button> /
+            <button><a href="/auth">Register</a></button>
+            <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
           </div>
         </div>
         <div class="subNavBar">
           <div class="navimgbox">
             <img src="/images/logo.png" alt="logo" />
-            <h5 class="brandName">NAFSCARE</h5>
+            <a href="/" class="brandName"><h5>NAFSCARE</h5></a>
           </div>
           <div class="navLiBox">
             <ul>
               <li><span style="color: #9ee281">HOME</span></li>
-              <li>BEAUTY</li>
-              <li>HAIR</li>
-              <li>FACE</li>
-              <li>BODY</li>
-              <li>STORES</li>
+              <li><a href="/shop">SHOP</a></li>
+              <li><a href="/shop">FACE</a></li>
+              <li><a href="/shop">BODY</a></li>
+              <li><a href="/shop">STORES</a></li>
             </ul>
           </div>
           <div class="navCartDiv">
@@ -50,7 +51,10 @@
               <input type="search" placeholder="" />
               <label for=""><img src="/images/searchIcon.png" alt="" /></label>
             </div>
-            <img src="/images/cartIcon.png" alt="" />
+            <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+            <a href="/account"
+              ><img width="25px" src="/images/icons/myAccount.png" alt=""
+            /></a>
           </div>
         </div>
       </nav>

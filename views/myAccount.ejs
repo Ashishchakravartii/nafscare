@@ -26,8 +26,10 @@
         <div class="topGreenBar">
           <p>Afterpay, Laybuy & Genoapay | Free Delivery*</p>
           <div class="topGreenBar-btnDiv">
-            <button>Sign In</button> /
-            <button>Register</button>
+            <% if (!user) { %>
+            <button><a href="/auth">Sign In</a></button> /
+            <button><a href="/auth">Register</a></button>
+            <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
           </div>
         </div>
         <div class="subNavBar">
@@ -38,11 +40,10 @@
           <div class="navLiBox">
             <ul>
               <li><span style="color: #9ee281">HOME</span></li>
-              <li>BEAUTY</li>
-              <li>HAIR</li>
-              <li>FACE</li>
-              <li>BODY</li>
-              <li>STORES</li>
+              <li><a href="/shop">SHOP</a></li>
+              <li><a href="/shop">FACE</a></li>
+              <li><a href="/shop">BODY</a></li>
+              <li><a href="/shop">STORES</a></li>
             </ul>
           </div>
           <div class="navCartDiv">
@@ -50,7 +51,10 @@
               <input type="search" placeholder="" />
               <label for=""><img src="/images/searchIcon.png" alt="" /></label>
             </div>
-            <img src="/images/cartIcon.png" alt="" />
+            <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+            <a href="/account"
+              ><img width="25px" src="/images/icons/myAccount.png" alt=""
+            /></a>
           </div>
         </div>
       </nav>
@@ -213,23 +217,47 @@
         </h6>
         <div style="height: 30vmax" class="addressTab">
           <div class="updateFormBox">
-            <form class="updateForm" action="">
+            <form class="updateForm" action="/updateAddress" method="post">
               <input
                 class="addForm1"
                 type="text"
                 placeholder="Address line 1"
+                name="addressLine1"
+                value="<%=user.addressLine1%>"
               />
               <input
                 class="addForm1"
                 type="text"
                 placeholder="Address line 2"
+                name="addressLine2"
+                value="<%=user.addressLine2%>"
               />
               <div>
-                <input type="text" placeholder="Contact" />
+                <input
+                  value="<%= user.contact %>"
+                  type="text"
+                  placeholder="Contact"
+                  name="contact"
+                />
 
-                <input type="text" placeholder="City" />
-                <input type="text" placeholder="State" />
-                <input type="text" placeholder="Zip Code" />
+                <input
+                  type="text"
+                  placeholder="City"
+                  name="city"
+                  value="<%=user.city%>"
+                />
+                <input
+                  type="text"
+                  placeholder="State"
+                  name="state"
+                  value="<%=user.state%>"
+                />
+                <input
+                  type="text"
+                  placeholder="Zip Code"
+                  name="zipcode"
+                  value="<%=user.zipcode%>"
+                />
               </div>
               <button class="updateAddBtn" style="padding: 0.5vmax" class="">
                 Update Changes
@@ -247,22 +275,32 @@
         <div style="display: flex" class="accDetBox">
           <div class="updateFormBox userInfoUpdateBox">
             <div>
-              <form class="updateForm" action="">
+              <form
+                class="updateForm"
+                action="/updateAccountDetails"
+                method="post"
+              >
                 <input
                   style="width: 30vmax"
                   type="text"
                   placeholder="Full Name"
+                  value="<%=user.name%>"
+                  name="name"
                 />
                 <div>
                   <input
                     style="width: 30vmax"
                     type="email"
                     placeholder="email"
+                    value="<%=user.email%>"
+                    name="email"
                   />
                   <input
                     style="width: 30vmax"
                     type="number"
                     placeholder="Phone"
+                    value="<%=user.phone%>"
+                    name="phone"
                   />
                 </div>
                 <button
@@ -275,22 +313,29 @@
               </form>
             </div>
             <div>
-              <form class="updateForm updatePasswordForm" action="">
+              <form
+                class="updateForm updatePasswordForm"
+                action="/updatePassword"
+                method="post"
+              >
                 <input
                   style="width: 30vmax"
-                  type="text"
+                  type="password"
                   placeholder="Current Password"
+                  name="currentPassword"
                 />
                 <div style="display: flex">
                   <input
                     style="width: 14.5vmax"
-                    type="email"
+                    type="password"
                     placeholder="New Password"
+                    name="newPassword"
                   />
                   <input
                     style="width: 14.5vmax; margin-left: 0.9vmax"
-                    type="email"
+                    type="password"
                     placeholder="Confirm Password"
+                    name="confirmPassword"
                   />
                 </div>
                 <button

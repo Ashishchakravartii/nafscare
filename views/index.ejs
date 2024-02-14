@@ -26,8 +26,10 @@
         <div class="topGreenBar">
           <p>Afterpay, Laybuy & Genoapay | Free Delivery*</p>
           <div class="topGreenBar-btnDiv">
-            <button> <a href="/auth">Sign In</a> </button> /
-            <button> <a href="/auth">Register</a> </button>
+            <% if (!user) { %>
+            <button><a href="/auth">Sign In</a></button> /
+            <button><a href="/auth">Register</a></button>
+            <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
           </div>
         </div>
         <div class="subNavBar">
@@ -50,6 +52,9 @@
               <label for=""><img src="/images/searchIcon.png" alt="" /></label>
             </div>
             <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+            <a href="/account"
+              ><img width="25px" src="/images/icons/myAccount.png" alt=""
+            /></a>
           </div>
         </div>
       </nav>

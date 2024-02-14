@@ -78,6 +78,8 @@ body {
 }
 .brandName {
   letter-spacing: 0.2vmax;
+  text-decoration: none;
+  color: black;
 }
 
 .navLiBox {
@@ -1177,6 +1179,10 @@ body {
   width: 100vmax;
   /* min-height: 10vh; */
   margin-top: 1.2vmax;
+}
+.tablinks > a {
+  text-decoration: none;
+  color: black;
 }
 
 /* Style the tab */
