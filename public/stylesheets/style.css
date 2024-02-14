@@ -50,6 +50,10 @@ body {
   background-color: transparent;
   color: white;
 }
+.topGreenBar-btnDiv > button > a {
+  text-decoration: none;
+  color: white;
+}
 
 .subNavBar {
   width: 100%;
