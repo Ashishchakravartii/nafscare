@@ -20,32 +20,98 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   </head>
   <body>
-    <div class="k_product">
+    <!-------------------------------- Nav bar -------------------------------------->
+
+    <nav class="navBox">
+      <div class="topGreenBar">
+        <p>Afterpay, Laybuy & Genoapay | Free Delivery*</p>
+        <div class="topGreenBar-btnDiv">
+          <% if (!user) { %>
+          <button><a href="/auth">Sign In</a></button> /
+          <button><a href="/auth">Register</a></button>
+          <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
+        </div>
+      </div>
+      <div class="subNavBar">
+        <div class="navimgbox">
+          <img src="/images/logo.png" alt="logo" />
+          <h5 class="brandName">NAFSCARE</h5>
+        </div>
+        <div class="navLiBox">
+          <ul>
+            <li><a style="color: #9ee281" href="/"></a>HOME</a></li>
+            <li><a href="/shop">SHOP</a></li>
+            <li><a href="/shop">FACE</a></li>
+            <li><a href="/shop">BODY</a></li>
+            <li><a href="/shop">STORES</a></li>
+          </ul>
+        </div>
+        <div class="navCartDiv">
+          <div class="navCartDiv-searchDiv">
+            <input type="search" placeholder="" />
+            <label for=""><img src="/images/searchIcon.png" alt="" /></label>
+          </div>
+          <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+          <a href="/account"
+            ><img width="25px" src="/images/icons/myAccount.png" alt=""
+          /></a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ---------------------------- Product page starting ----------------------------- -->
+
+    <div class="product">
       <!-- left-box -->
-      <div class="p-left-box">
-        <section id="gallery">
-          <div class="container">
-            <div id="image-gallery">
-              <div class="row">
-                <div class="image">
-                  <div class="img-wrapper">
-                    <a href="/images/chimney.webp"
-                      ><img src="/images/chimney.webp" class="img-responsive"
-                    /></a>
-                    <div class="img-overlay">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <div class="p-left-box productImgDiv">
+        <section class="productImgDiv-section" id="gallery">
+          <div class="container productImgDiv-container">
+            <div id="image-gallery productImgDiv-imageGallery">
+              <div  class="row mainImgBoxProduct">
+                <div class="k_imgLeftBox">
+
+                    <div class="image">
+                      <div class="img-wrapper">
+                        <a href="/images/chimney.webp"
+                          ><img src="/images/prod1.jpg" class="img-responsive"
+                        /></a>
+                        <div class="img-overlay">
+                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div class="image">
+                      <div class="img-wrapper">
+                        <a href="/images/image2.jpg"
+                          ><img src="/images/prod2.jpg" class="img-responsive"
+                        /></a>
+                        <div class="img-overlay">
+                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                <div class="image">
-                  <div class="img-wrapper">
-                    <a href="/images/image2.jpg"
-                      ><img src="/images/image2.jpg" class="img-responsive"
-                    /></a>
-                    <div class="img-overlay">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                <div class="k_imgRightBox">
+ <div class="image">
+                      <div class="img-wrapper">
+                        <a href="/images/chimney.webp"
+                          ><img src="/images/prod1.jpg" class="img-responsive"
+                        /></a>
+                        <div class="img-overlay">
+                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div class="image">
+                      <div class="img-wrapper">
+                        <a href="/images/image2.jpg"
+                          ><img src="/images/prod2.jpg" class="img-responsive"
+                        /></a>
+                        <div class="img-overlay">
+                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
               <!-- End row -->
@@ -295,6 +361,125 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!--------------------------------------Footer --------------------------------------  -->
+    <!-- Site footer -->
+    <div class="footerBox">
+      <div class="footerWave">
+        <img src="/images/footerwave.png" alt="" />
+      </div>
+      <footer class="site-footer">
+        <div class="container">
+          <div
+            style="display: flex; justify-content: space-around; padding: 3vmax"
+            ;
+            class="row"
+          >
+            <div style="width: 38vw" class="col-sm-12 col-md-6">
+              <img class="Footerlogo" src="/images/logo.png" alt="" />
+              <h6>About</h6>
+              <p class="text-justify">
+                At Nafscare, we believe that beauty should be accessible to
+                everyone. That's why we strive to offer competitive prices
+                without compromising on quality. Whether you're looking for your
+                favorite beauty brands or exploring new trends, we've got you
+                covered.
+              </p>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <h6>Categories</h6>
+              <ul class="footer-links">
+                <li>
+                  <a href="#">care</a>
+                </li>
+                <li>
+                  <a href="#">face</a>
+                </li>
+                <li>
+                  <a href="#">body</a>
+                </li>
+                <li>
+                  <a href="#">hair</a>
+                </li>
+                <li>
+                  <a href="#">Products</a>
+                </li>
+                <li>
+                  <a href="">skin</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <h6>Quick Links</h6>
+              <ul class="footer-links">
+                <li><a href="http://scanfcode.com/about/">About Us</a></li>
+                <li>
+                  <a href="http://scanfcode.com/contact/">Contact Us</a>
+                </li>
+                <li>
+                  <a href="http://scanfcode.com/contribute-at-scanfcode/"
+                    >Contribute</a
+                  >
+                </li>
+                <li>
+                  <a href="http://scanfcode.com/privacy-policy/"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+              </ul>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <div class="container">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 1vmax 8vmax 0 8vmax;
+            "
+            class="row"
+          >
+            <div class="col-md-8 col-sm-6 col-xs-12">
+              <p class="copyright-text">
+                Copyright &copy; 2024 All Rights Reserved by
+                <a href="#">Nafscare</a>. <br />
+                Designed by RANDOM FOREST TECHNOLOGY
+              </p>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <ul class="social-icons">
+                <li>
+                  <a class="facebook" href="#"
+                    ><i class="ri-facebook-circle-line"></i
+                  ></a>
+                </li>
+                <li>
+                  <a class="twitter" href="#"
+                    ><i class="ri-twitter-x-line"></i
+                  ></a>
+                </li>
+                <li>
+                  <a class="dribbble" href="#"
+                    ><i class="ri-dribbble-line"></i
+                  ></a>
+                </li>
+                <li>
+                  <a class="linkedin" href="#"
+                    ><i class="ri-linkedin-fill"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <script src="/javascripts/product.js"></script>

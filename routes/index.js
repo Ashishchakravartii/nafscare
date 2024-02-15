@@ -5,6 +5,7 @@ const { pool } = require("../db/db");
 const bcrypt = require("bcrypt");
 const { generateAccessToken, generateRefreshToken } = require("../db/db.js");
 const checkLoggedIn = require("../middlewares/checkloggedin.js");
+const { sendmail } = require("../middlewares/mail.js");
 
 /* GET home page. */
 router.get("/", checkLoggedIn, function (req, res, next) {
@@ -22,44 +23,6 @@ router.get("/auth", function (req, res, next) {
 
 // POST SIGN-UP
 
-// router.post("/signup", async (req, res, next) => {
-//   const { name, email, phone, password } = req.body;
-//   // Check if all fields are provided
-//   if (!name || !email || !phone || !password) {
-//     return res.status(400).json({ message: "All fields are required" });
-//   }
-
-//   try {
-//     // Insert user into database
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     const Query =
-//       "INSERT INTO customers (name, email, phone, password) VALUES (?, ?, ?, ?)";
-//     const [result] = await pool.execute(Query, [
-//       name,
-//       email,
-//       phone,
-//       hashedPassword,
-//     ]);
-
-//     // const userId = result.insertId;
-
-//     // // Generate tokens
-//     // const accessToken = generateAccessToken({ _id: userId, name, email });
-//     // const refreshToken = generateRefreshToken({ _id: userId });
-
-//     // // Update user record with tokens
-//     // const updateQuery =
-//     //   "UPDATE customers SET accessToken = ?, refreshToken = ? WHERE id = ?";
-//     // await pool.execute(updateQuery, [accessToken, refreshToken, userId]);
-
-//     console.log("Registration successful");
-//     res.redirect("/auth");
-//   } catch (error) {
-//     console.error("Error registering user:", error);
-//     return res.status(500).json({ message: "Error registering user" });
-//   }
-// });
 router.post("/signup", async (req, res, next) => {
   const { name, email, phone, password } = req.body;
   // Check if all fields are provided
@@ -102,6 +65,7 @@ router.post("/signup", async (req, res, next) => {
     ]);
 
     console.log("Registration successful");
+    sendmail(req, res, email,name);
     res.redirect("/auth");
   } catch (error) {
     console.error("Error registering user:", error);
