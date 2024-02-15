@@ -1387,6 +1387,10 @@ div.tab button.active {
   display: flex;
   flex-direction: column;
 }
+.quanityCart {
+  border: 10px solid #9ee281;
+  background-color: rgb(230, 230, 230);
+}
 
 .title {
   height: 60px;
