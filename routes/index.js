@@ -174,7 +174,7 @@ router.get("/cart", async function (req, res, next) {
       [userIp]
     );
 
-    console.log("==============>", cartRows);
+    // console.log("==============>", cartRows);
 
     //  const [rows, fields] = await pool.execute(
     //    "SELECT price FROM provar WHERE pid = ? AND vid = ?",
@@ -182,7 +182,7 @@ router.get("/cart", async function (req, res, next) {
     //  );
 
     if (cartRows.length === 0) {
-      res.render("cart", {
+     return res.render("cart", {
         title: "myCart",
         user: req.session.user,
         products: [],
@@ -205,6 +205,7 @@ router.get("/cart", async function (req, res, next) {
     const productIdList = productIds.join(",");
     const variantIdList = variantIds.join(",");
 
+    console.log("======================>",productIdList);
     // Fetch product details from product table
     const [productRows] = await pool.execute(
       `SELECT id, name, description, image1, image2 FROM product WHERE id IN (${productIdList})`
@@ -235,7 +236,7 @@ router.get("/cart", async function (req, res, next) {
       };
     });
 
-    console.log("==============>", products);
+    // console.log("==============>", products);
 
     // Render the cart page with product details
     res.render("cart", {

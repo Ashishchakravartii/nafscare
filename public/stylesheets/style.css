@@ -684,6 +684,19 @@ body {
   font-weight: 700;
   font-size: 13px;
 }
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.emptyCartHead {
+  padding: 5vmax 0 0 24vmax;
+}
+
+.title > span > a {
+  text-decoration: none;
+  color: rgb(223, 66, 66);
+}
 .social-icons a {
   background-color: #eceeef;
   color: #818a91;
@@ -1413,7 +1426,6 @@ div.tab button.active {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  background-color: red;
 }
 
 .itemCartShowingWindow::-webkit-scrollbar {
@@ -1431,7 +1443,6 @@ div.tab button.active {
   position: relative;
   padding-top: 30px;
   margin-right: 60px;
-  background-color: blue;
 }
 .delete-btn {
   display: inline-block;
