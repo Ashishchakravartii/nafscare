@@ -1413,6 +1413,7 @@ div.tab button.active {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  background-color: red;
 }
 
 .itemCartShowingWindow::-webkit-scrollbar {
@@ -1430,6 +1431,7 @@ div.tab button.active {
   position: relative;
   padding-top: 30px;
   margin-right: 60px;
+  background-color: blue;
 }
 .delete-btn {
   display: inline-block;

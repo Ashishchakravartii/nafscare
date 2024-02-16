@@ -64,20 +64,22 @@
       <!-- ------------------------------- Cart page start------------------------------ -->
       <div class="shopping-cart">
         <!-- Title -->
-        <div class="title">Your Cart</div>
+        <div class="title">
+          <span>Your Cart</span> <span><a href="/clearCart">Clear all</a></span>
+        </div>
 
         <% totalPrice = 0 %>
 
         <div class="itemCartShowingWindow">
           <!-- item div -->
-          <% products.map((product)=>{ %>
-
+          <% products.map((product)=>{ %> <% if( products && products.length >
+          0){ %>
           <div class="cart_item">
             <div class="cart_buttons">
-              <a href="/removeCartItem"><span class="delete-btn"
-                ><img src="/images/icons/deleteIcon.png" alt=""
-              /></span></a>
-              
+              <a href="/removeCartItem"
+                ><span class="delete-btn"
+                  ><img src="/images/icons/deleteIcon.png" alt="" /></span
+              ></a>
             </div>
 
             <div class="cart_image">
@@ -115,8 +117,12 @@
               >
             </div>
           </div>
-          <% totalPrice += ( product.individualPrice * product.quantity) %> <%
-          }) %>
+          <% }else{ %>
+          <div class="cart_item">
+            <h1>hey</h1>
+          </div>
+          <% } %> <% totalPrice += ( product.individualPrice * product.quantity)
+          %> <% }) %>
         </div>
         <div class="feeDivCard">
           <ul class="feeDivCard-ul">

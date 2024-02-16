@@ -169,15 +169,24 @@ router.get("/cart", async function (req, res, next) {
 
   try {
     // Fetch cart items for the user's IP address
-    const [cartRows] = await pool.execute(
-      "SELECT pid, vid, qty FROM cart WHERE ipadd = ?",
+    const [cartRows, fields] = await pool.execute(
+      "SELECT id, pid, vid, qty FROM cart WHERE ipadd = ?",
       [userIp]
     );
 
+    console.log("==============>", cartRows);
+
+    //  const [rows, fields] = await pool.execute(
+    //    "SELECT price FROM provar WHERE pid = ? AND vid = ?",
+    //    [pid, vid]
+    //  );
+
     if (cartRows.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No items found in the cart for this user." });
+      res.render("cart", {
+        title: "myCart",
+        user: req.session.user,
+        products: [],
+      });
     }
 
     // Prepare arrays to store product IDs and variant IDs for fetching product details
@@ -240,21 +249,37 @@ router.get("/cart", async function (req, res, next) {
   }
 });
 
+router.get("/clearCart", (req, res, next) => {
+  pool.execute("DELETE FROM cart");
+  res.redirect("/cart");
+});
+
 router.post("/addCart", async (req, res) => {
   // const { pid, qty, vid } = req.body;
   const pid = 1;
-  const vid = 2;
+  const vid = 1;
   const qty = 2;
   const ipAdd = ip.address();
 
   try {
+    // Check if the combination of pid and vid already exists in the cart
+    const [existingRows] = await pool.execute(
+      "SELECT * FROM cart WHERE ipadd = ? AND pid = ? AND vid = ?",
+      [ipAdd, pid, vid]
+    );
+
+    if (existingRows.length > 0) {
+      // If the combination of pid and vid already exists, return a message
+      return res.send(
+        "<script> alert('Item already exists in the cart') </script>"
+      );
+    }
+
     // Fetch price from provar table based on pid and vid
     const [rows, fields] = await pool.execute(
       "SELECT price FROM provar WHERE pid = ? AND vid = ?",
       [pid, vid]
     );
-
-    console.log("============================>", rows);
 
     if (rows.length === 0) {
       return res
