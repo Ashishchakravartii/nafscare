@@ -7,6 +7,7 @@ const { generateAccessToken, generateRefreshToken } = require("../db/db.js");
 const checkLoggedIn = require("../middlewares/checkloggedin.js");
 const { sendmail } = require("../middlewares/mail.js");
 var ip = require("ip");
+const uuid = require("uuid");
 /* GET home page. */
 router.get("/", checkLoggedIn, function (req, res, next) {
   // console.log("----------------->", req.session.user);
@@ -151,10 +152,10 @@ router.get("/shop", function (req, res, next) {
   res.render("shop", { title: "shop", user: req.session.user });
 });
 
-/* GET Checkout page. */
-router.get("/checkout", function (req, res, next) {
-  res.render("checkout", { title: "checkout", user: req.session.user });
-});
+// /* GET Checkout page. */
+// router.get("/checkout", function (req, res, next) {
+//   res.render("checkout", { title: "checkout", user: req.session.user });
+// });
 
 /* GET MyAccount page. */
 router.get("/account", function (req, res, next) {
@@ -182,7 +183,7 @@ router.get("/cart", async function (req, res, next) {
     //  );
 
     if (cartRows.length === 0) {
-     return res.render("cart", {
+      return res.render("cart", {
         title: "myCart",
         user: req.session.user,
         products: [],
@@ -205,7 +206,7 @@ router.get("/cart", async function (req, res, next) {
     const productIdList = productIds.join(",");
     const variantIdList = variantIds.join(",");
 
-    console.log("======================>",productIdList);
+    console.log("======================>", productIdList);
     // Fetch product details from product table
     const [productRows] = await pool.execute(
       `SELECT id, name, description, image1, image2 FROM product WHERE id IN (${productIdList})`
@@ -257,8 +258,8 @@ router.get("/clearCart", (req, res, next) => {
 
 router.post("/addCart", async (req, res) => {
   // const { pid, qty, vid } = req.body;
-  const pid = 1;
-  const vid = 1;
+  const pid = 5;
+  const vid = 2;
   const qty = 2;
   const ipAdd = ip.address();
 
@@ -438,6 +439,190 @@ router.post("/updatePassword", checkLoggedIn, async (req, res, next) => {
 router.get("/product", function (req, res, next) {
   // console.log("----------------->", req.session.user);
   res.render("productPage", { title: "product", user: req.session.user });
+});
+
+// -------------------- checkout route -----------------------
+
+router.get("/checkout", async (req, res, next) => {
+  const userIp = ip.address();
+
+  try {
+    // Fetch cart items for the user's IP address
+    const [cartRows, fields] = await pool.execute(
+      "SELECT id, pid, vid, qty FROM cart WHERE ipadd = ?",
+      [userIp]
+    );
+
+    //  const [rows, fields] = await pool.execute(
+    //    "SELECT price FROM provar WHERE pid = ? AND vid = ?",
+    //    [pid, vid]
+    //  );
+
+    // Prepare arrays to store product IDs and variant IDs for fetching product details
+    const productIds = [];
+    const variantIds = [];
+    const quantities = {};
+
+    // Extract product IDs, variant IDs, and quantities from the cartRows
+    cartRows.forEach((row) => {
+      productIds.push(row.pid);
+      variantIds.push(row.vid);
+      quantities[`${row.pid}_${row.vid}`] = row.qty;
+    });
+
+    // Generate comma-separated list of product IDs and variant IDs
+    const productIdList = productIds.join(",");
+    const variantIdList = variantIds.join(",");
+
+    // Fetch product details from product table
+    const [productRows] = await pool.execute(
+      `SELECT id, name, description, image1, image2 FROM product WHERE id IN (${productIdList})`
+    );
+
+    // Fetch individual prices from provar table
+    const [priceRows] = await pool.execute(
+      `SELECT pid, vid, price FROM provar WHERE pid IN (${productIdList}) AND vid IN (${variantIdList})`
+    );
+
+    // Construct the response object with product details and individual prices
+    const products = productRows.map((product) => {
+      const variantId = variantIds[productIds.indexOf(product.id)]; // Get variant ID for the current product
+      const quantity = quantities[`${product.id}_${variantId}`] || 0; // Get quantity for the current product variant
+      const price =
+        priceRows.find(
+          (priceRow) =>
+            priceRow.pid === product.id && priceRow.vid === variantId
+        )?.price || 0; // Get individual price for the current product variant
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        image1: product.image1,
+        image2: product.image2,
+        quantity: quantity,
+        individualPrice: price,
+      };
+    });
+
+    // Render the checkout page with product details
+    res.render("checkout", {
+      title: "checkout",
+      user: req.session.user,
+      products: products,
+    });
+  } catch (error) {
+    console.error("Error fetching product details:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+router.get("/cod", async (req, res, next) => {
+  const userIp = ip.address();
+
+  try {
+    // Fetch cart items for the user's IP address
+    const [cartRows, fields] = await pool.execute(
+      "SELECT id, pid, vid, qty FROM cart WHERE ipadd = ?",
+      [userIp]
+    );
+
+    //  const [rows, fields] = await pool.execute(
+    //    "SELECT price FROM provar WHERE pid = ? AND vid = ?",
+    //    [pid, vid]
+    //  );
+
+    // Prepare arrays to store product IDs and variant IDs for fetching product details
+    const productIds = [];
+    const variantIds = [];
+    const quantities = {};
+
+    // Extract product IDs, variant IDs, and quantities from the cartRows
+    cartRows.forEach((row) => {
+      productIds.push(row.pid);
+      variantIds.push(row.vid);
+      quantities[`${row.pid}_${row.vid}`] = row.qty;
+    });
+
+    // Generate comma-separated list of product IDs and variant IDs
+    const productIdList = productIds.join(",");
+    const variantIdList = variantIds.join(",");
+
+    // Fetch product details from product table
+    const [productRows] = await pool.execute(
+      `SELECT id, name, description, image1, image2 FROM product WHERE id IN (${productIdList})`
+    );
+
+    // Fetch individual prices from provar table
+    const [priceRows] = await pool.execute(
+      `SELECT pid, vid, price FROM provar WHERE pid IN (${productIdList}) AND vid IN (${variantIdList})`
+    );
+
+    // Construct the response object with product details and individual prices
+    const products = productRows.map((product) => {
+      const variantId = variantIds[productIds.indexOf(product.id)]; // Get variant ID for the current product
+      const quantity = quantities[`${product.id}_${variantId}`] || 0; // Get quantity for the current product variant
+      const price =
+        priceRows.find(
+          (priceRow) =>
+            priceRow.pid === product.id && priceRow.vid === variantId
+        )?.price || 0; // Get individual price for the current product variant
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        image1: product.image1,
+        image2: product.image2,
+        quantity: quantity,
+        individualPrice: price,
+      };
+    });
+
+    for (const product of products) {
+      const [rows, fields] = await pool.execute(
+        "SELECT orderId FROM orders ORDER BY id DESC LIMIT 1"
+      );
+
+      let lastOrderId = 0;
+      if (rows.length > 0) {
+        lastOrderId = parseInt(rows[0].orderId);
+      }
+
+      const orderId = lastOrderId + 1;
+      console.log("order id =======================>", orderId);
+      let userId = req.session.user.id;
+      let qty = product.quantity;
+      let productName = product.name;
+      let paymentType = "COD";
+      let price = product.individualPrice * product.quantity;
+
+      console.log(
+        "===============>",
+        orderId,
+        userId,
+        qty,
+        productName,
+        paymentType,
+        price
+      );
+
+      const Query =
+        "INSERT INTO orders (orderId, userId, qty, productName, paymentType, price) VALUES (?, ?, ?, ?, ?, ?)";
+      await pool.execute(Query, [
+        orderId,
+        userId,
+        qty,
+        productName,
+        paymentType,
+        price,
+      ]);
+    }
+
+    pool.execute("DELETE FROM cart");
+    res.redirect("/account");
+  } catch (error) {
+    console.error("Error fetching product details:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
 });
 
 module.exports = router;

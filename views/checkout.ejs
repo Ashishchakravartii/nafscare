@@ -26,8 +26,10 @@
         <div class="topGreenBar">
           <p>Afterpay, Laybuy & Genoapay | Free Delivery*</p>
           <div class="topGreenBar-btnDiv">
-            <button>Sign In</button> /
-            <button>Register</button>
+            <% if (!user) { %>
+            <button><a href="/auth">Sign In</a></button> /
+            <button><a href="/auth">Register</a></button>
+            <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
           </div>
         </div>
         <div class="subNavBar">
@@ -93,25 +95,32 @@
             <div id="r_email">
               <div id="login">
                 <h3>Contact information</h3>
+                <% if(!user){ %>
                 <h4>Already have an account ? <a href="#">Log in</a></h4>
+                <% }else{ %>
+                <button class="upAddBtnChkout">
+                  <a href="/account">Update Address</a>
+                </button>
+                <% } %>
               </div>
-              <form action="">Email</form>
+              <form action=""><%= user.email %></form>
             </div>
             <!-- shipping address -->
             <div id="r_shipp-address">
               <h3>Shipping address</h3>
               <div id="r_name">
-                <form action="">First name</form>
-                <form action="">Last name</form>
+                <form action=""><%= user.name %></form>
               </div>
               <div id="r_details">
-                <form action="">Address</form>
+                <form action="">
+                  <%= user.addressLine1 %> , <%= user.addressLine2 %>
+                </form>
                 <br />
-                <form action="">state/city</form>
+                <form action=""><%= user.city %>, <%= user.state %></form>
                 <br />
-                <form action="">Pin code</form>
+                <form action=""><%= user.zipcode %></form>
                 <br />
-                <form action="">Phone</form>
+                <form action=""><%= user.phone %></form>
                 <br />
               </div>
             </div>
@@ -127,27 +136,30 @@
                 <h3>Quantity</h3>
                 <h3>Subtotal</h3>
               </div>
+              <% totalPrice = 0 %> <% products.map((product)=>{ %>
+
               <div id="r_items">
+                <h4><%= product.name %></h4>
+                <h4><%= product.quantity %></h4>
+                <h4>
+                  <%= product.individualPrice %> x <%= product.quantity %>
+                </h4>
+              </div>
+              <% totalPrice += (product.individualPrice * product.quantity) %>
+              %> <% }) %>
+              <!-- <div id="r_items">
                 <h4>beyceyvsh</h4>
                 <h4>1</h4>
                 <h4>10$</h4>
-              </div>
-              <div id="r_items">
-                <h4>beyceyvsh</h4>
-                <h4>1</h4>
-                <h4>10$</h4>
-              </div>
-              <div id="r_items">
-                <h4>beyceyvsh</h4>
-                <h4>1</h4>
-                <h4>10$</h4>
-              </div>
+              </div> -->
               <div id="r_total">
                 <h4>Total</h4>
-                <h4>10$</h4>
+                <h4><%= totalPrice %></h4>
               </div>
             </div>
-            <button>PLACE ORDER</button>
+            <div class="checkoutBtnsBox">
+              <a href="/cod"><button class="codBtn">COD - PLACE ORDER</button></a>
+            </div>
           </div>
         </div>
       </div>

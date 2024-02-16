@@ -1088,7 +1088,7 @@ body {
 }
 
 #r_name {
-  height: 9%;
+  height: 20%;
   width: 100%;
   /* background-color: red; */
   display: flex;
@@ -1098,7 +1098,7 @@ body {
 
 #r_name form {
   border: 1px solid rgb(171, 169, 169);
-  width: 48%;
+  width: 100%;
   padding: 1% 1%;
   border-radius: 2px;
 }
@@ -1162,6 +1162,17 @@ body {
   padding: 5px 19px;
   font-size: 16px;
   color: #85d264;
+}
+.codBtn {
+  scale: 0.8;
+}
+
+.upAddBtnChkout {
+  background-color: transparent;
+  border: 0;
+}
+.upAddBtnChkout > a {
+  color: black;
 }
 
 #r_total {
@@ -1405,6 +1416,31 @@ div.tab button.active {
   background-color: rgb(230, 230, 230);
 }
 
+.checkoutAtag {
+  width: 20vw;
+  /* margin-top: 4vmax; */
+  margin: auto;
+  color: white;
+  background-color: #9ee281;
+  border: 0;
+  border-radius: 5px;
+  padding: 1vmax;
+  transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+}
+.checkoutAtag:hover {
+  background-color: #79ac63;
+}
+.checkoutBtn {
+  background-color: transparent;
+  color: white;
+  border: 0;
+  margin-left: 6vmax;
+}
+
+.checkoutBtn > a {
+  color: white;
+  text-decoration: none;
+}
 .title {
   height: 60px;
   border-bottom: 1px solid #e1e8ee;
