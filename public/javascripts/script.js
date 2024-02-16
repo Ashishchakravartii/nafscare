@@ -87,3 +87,33 @@ gsap.from(".section3-bottom-imgDiv-right", {
       evt.currentTarget.className += " active";
 
     }
+
+
+    // ---------------------------- search bar -------------------------------
+
+    const searchForm = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
+
+    searchInput.addEventListener(onchange, async (event) => {
+      // event.preventDefault();
+      const searchTerm = searchInput.value.trim();
+      console.log("===================>", searchTerm);
+      if (searchTerm === "") return;
+
+      // Make AJAX request to fetch search results
+      fetch(`/search/${searchTerm}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Clear previous results
+          searchResults.innerHTML = "";
+
+          // Display search results
+          data.forEach((product) => {
+            const productElement = document.createElement("div");
+            productElement.textContent = product.name;
+            searchResults.appendChild(productElement);
+          });
+        })
+        .catch((error) => console.error("Error:", error));
+    });

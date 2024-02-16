@@ -29,7 +29,9 @@
             <% if (!user) { %>
             <button><a href="/auth">Sign In</a></button> /
             <button><a href="/auth">Register</a></button>
-            <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
+            <% } else { %>
+            <button><a href="/logout">Logout</a></button>
+            <% } %>
           </div>
         </div>
         <div class="subNavBar">
@@ -108,6 +110,8 @@
           <!-- -------------------- loop here for new order box ---------------------- -->
 
           <div class="orderTab">
+            <% orders.map((order)=>{ %>
+
             <div
               class="subOrderTab"
               style="
@@ -120,92 +124,42 @@
 
               <div>
                 <!-- <h6>Order Id</h6> -->
-                <span style="color: #9ee281">01</span> &nbsp;&nbsp;&nbsp;
+                <span style="color: #9ee281"> <%= order.orderId %> </span>
+                &nbsp;&nbsp;&nbsp;
               </div>
               <div>
                 <!-- <h6>Product</h6> -->
                 <span class="prodNameAccountPage" style="color: #9ee281"
-                  ><img src="/images/prod1.jpg" alt="product" /> MULTI-VITAMIN:
-                  EVERYDAY WELLNESS <span style="color: black">- 2</span></span
+                  ><img src="/images/prod1.jpg" alt="product" /><%=
+                  order.productName %>
+                  <span style="color: black">- <%= order.qty %></span></span
                 >
-                <span class="prodNameAccountPage" style="color: #9ee281"
-                  ><img src="/images/prod2.jpg" alt="product" /> MULTI-VITAMIN:
-                  EVERYDAY WELLNESS <span style="color: black">- 1</span></span
-                >
+
                 &nbsp;&nbsp;&nbsp;
               </div>
               <div class="inVoiceDivAccount">
                 <!-- <h6>Invoice No</h6> -->
                 <span style="color: #9ee281">01</span>&nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">01</span>&nbsp;&nbsp;&nbsp;
               </div>
 
               <div>
                 <!-- <h6>Order Date</h6> -->
-                <span style="color: #9ee281">01/01/24</span>&nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">01/01/24</span>&nbsp;&nbsp;&nbsp;
+                <span style="color: #9ee281"
+                  ><%= order.date.toLocaleDateString() %></span
+                >&nbsp;&nbsp;&nbsp;
               </div>
               <div>
                 <!-- <h6>Status</h6> -->
-                <span style="color: #9ee281">COD</span> &nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">COD</span> &nbsp;&nbsp;&nbsp;
+                <span style="color: #9ee281"><%= order.paymentType %></span>
+                &nbsp;&nbsp;&nbsp;
               </div>
               <div class="amountDivAccount">
                 <!-- <h6>Amount</h6> -->
-                <span style="color: #9ee281">1000/-</span>&nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">1780/-</span>&nbsp;&nbsp;&nbsp;
+                <span style="color: #9ee281"><%= order.price %></span
+                >&nbsp;&nbsp;&nbsp;
               </div>
             </div>
-          </div>
-          <div class="orderTab">
-            <div
-              class="subOrderTab"
-              style="
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-              "
-            >
-              <!-- ---------------------------- show order history here --------------------------- -->
-
-              <div>
-                <!-- <h6>Order Id</h6> -->
-                <span style="color: #9ee281">01</span> &nbsp;&nbsp;&nbsp;
-              </div>
-              <div>
-                <!-- <h6>Product</h6> -->
-                <span class="prodNameAccountPage" style="color: #9ee281"
-                  ><img src="/images/prod1.jpg" alt="product" /> MULTI-VITAMIN:
-                  EVERYDAY WELLNESS <span style="color: black">- 2</span></span
-                >
-                <span class="prodNameAccountPage" style="color: #9ee281"
-                  ><img src="/images/prod2.jpg" alt="product" /> MULTI-VITAMIN:
-                  EVERYDAY WELLNESS <span style="color: black">- 1</span></span
-                >
-                &nbsp;&nbsp;&nbsp;
-              </div>
-              <div class="inVoiceDivAccount">
-                <!-- <h6>Invoice No</h6> -->
-                <span style="color: #9ee281">01</span>&nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">01</span>&nbsp;&nbsp;&nbsp;
-              </div>
-
-              <div>
-                <!-- <h6>Order Date</h6> -->
-                <span style="color: #9ee281">01/01/24</span>&nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">01/01/24</span>&nbsp;&nbsp;&nbsp;
-              </div>
-              <div>
-                <!-- <h6>Status</h6> -->
-                <span style="color: #9ee281">COD</span> &nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">COD</span> &nbsp;&nbsp;&nbsp;
-              </div>
-              <div>
-                <!-- <h6>Amount</h6> -->
-                <span style="color: #9ee281">1000/-</span>&nbsp;&nbsp;&nbsp;
-                <span style="color: #9ee281">1780/-</span>&nbsp;&nbsp;&nbsp;
-              </div>
-            </div>
+            <% }) %>
           </div>
         </div>
       </div>

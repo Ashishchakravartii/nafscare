@@ -158,9 +158,34 @@ router.get("/shop", function (req, res, next) {
 // });
 
 /* GET MyAccount page. */
-router.get("/account", function (req, res, next) {
-  console.log(req.session.user);
-  res.render("myAccount", { title: "MyAccount", user: req.session.user });
+router.get("/account", checkLoggedIn, async function (req, res, next) {
+  try {
+    // Fetch orders data from the orders table
+    const [ordersRows] = await pool.execute(
+      "SELECT * FROM orders WHERE userId = ?",
+      [req.session.user.id]
+    );
+
+    console.log(ordersRows);
+
+    if (ordersRows.length === 0) {
+      return res.render("myAccount", {
+        title: "MyAccount",
+        user: req.session.user,
+        orders: [],
+      });
+    }
+
+    // Render the "myAccount" page with the orders data
+    res.render("myAccount", {
+      title: "MyAccount",
+      user: req.session.user,
+      orders: ordersRows,
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
 });
 
 /* GET cart page. */
@@ -615,6 +640,10 @@ router.get("/cod", async (req, res, next) => {
         paymentType,
         price,
       ]);
+
+      const updateQuery =
+        "UPDATE orders SET reviewed = ? WHERE orderId = ? AND userId = ?";
+      await pool.execute(updateQuery, [false, orderId, userId]);
     }
 
     pool.execute("DELETE FROM cart");
@@ -623,6 +652,24 @@ router.get("/cod", async (req, res, next) => {
     console.error("Error fetching product details:", error);
     res.status(500).json({ message: "Internal server error." });
   }
+});
+
+// Route to handle search query
+router.get("/search/:q", (req, res) => {
+  console.log("ghg");
+  const searchTerm = req.params.q; // Get search term from query parameter
+  console.log(searchTerm);
+  const query = `SELECT * FROM product WHERE name LIKE '%${searchTerm}%'`;
+
+  pool.execute(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json(results); // Send JSON response with search results
+      console.log("================> from search backend ", results);
+    }
+  });
 });
 
 module.exports = router;

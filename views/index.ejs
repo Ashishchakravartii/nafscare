@@ -48,8 +48,19 @@
           </div>
           <div class="navCartDiv">
             <div class="navCartDiv-searchDiv">
-              <input type="search" placeholder="" />
-              <label for=""><img src="/images/searchIcon.png" alt="" /></label>
+              <form id="searchForm">
+                <input
+                  type="text"
+                  id="searchInput"
+                  name="q"
+                  onchange="newf()"
+                  placeholder="Search products..."
+                />
+                <button type="submit">Search</button>
+              </form>
+              <div id="searchResults"></div>
+              <!-- <input type="search" placeholder="" />
+              <label for=""><img src="/images/searchIcon.png" alt="" /></label> -->
             </div>
             <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
             <a href="/account"
@@ -558,6 +569,29 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="/javascripts/script.js"></script>
+    <script defer src="/javascripts/script.js"></script>
+    <script>
+      function newf() {
+        console.log("H");
+        var news = document.getElementById("searchInput").value;
+        console.log(news);
+        const searchTerm = news.trim();
+
+        fetch(`/search/${searchTerm}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Clear previous results
+            searchResults.innerHTML = "";
+
+            // Display search results
+            data.forEach((product) => {
+              const productElement = document.createElement("div");
+              productElement.textContent = product.name;
+              searchResults.appendChild(productElement);
+            });
+          });
+        //.catch((error) => console.error("Error:", error));
+      }
+    </script>
   </body>
 </html>
