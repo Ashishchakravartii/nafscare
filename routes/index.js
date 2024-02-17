@@ -84,7 +84,7 @@ router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
   // Check if email and password are provided
   if (!email || !password) {
-    return res.send("<script>alert(`USER NOT FOUND!``)</script>" )
+    return res.send("<script>alert(`USER NOT FOUND!``)</script>");
   }
 
   try {
@@ -711,42 +711,64 @@ router.get("/forget", async (req, res, next) => {
 
 router.post("/forget", async (req, res, next) => {
   const { email } = req.body;
-
   try {
-    // Retrieve user from the database using the provided email
-    const [rows] = await pool.query("SELECT * FROM customers WHERE email = ?", [
-      email,
-    ]);
-
+    const [rows] = await pool.execute(
+      "SELECT * FROM customers WHERE email = ?",
+      [email]
+    );
     if (rows.length === 0) {
-      return res.send("<script>alert (`error: User not found`)</script>");
+      return res.send("<script>alert('USER NOT FOUND!');</script>");
     }
+    const user = rows[0];
+    console.log("==========>", user);
 
+    forgetMail(req, res, user);
+  } catch (error) {
+    return res.send(
+      `<script> alert('Something went wrong! please try again.') </script>`
+    );
+  }
+});
+
+// GET change password
+
+router.get("/change-password/:id", async (req, res, next) => {
+  const [rows] = await pool.execute("SELECT * FROM customers WHERE id = ?", [
+    req.params.id,
+  ]);
+  if (rows.length === 0) {
+    return res.send("<script>alert('USER NOT FOUND!');</script>");
+  }
+  const user = rows[0];
+
+  res.render("changePass", {title:"Change Password", user });
+});
+
+router.post("/change-password/:id", async (req, res, next) => {
+  try {
+    const { password } = req.body;
+
+    // Insert user into database
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const [rows] = await pool.execute("SELECT * FROM customers WHERE id = ?", [
+      req.params.id,
+    ]);
+    if (rows.length === 0) {
+      return res.send("<script>alert('USER NOT FOUND!');</script>");
+    }
     const user = rows[0];
 
-    // Decrypt password using bcrypt
-    bcrypt.compare(user.password, user.passwordHash, async (err, result) => {
-      if (err) {
-        console.error("Error decrypting password:", err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
+    const updateQuery = "UPDATE customers SET password = ? WHERE id = ?";
 
-      if (result) {
-        // Passwords match
-        // Send the password to the user via email using Nodemailer
-        console.log("fprget password", result);
+    await pool.execute(updateQuery, [ hashedPassword, user.id]);
 
-        forgetMail(req, res, email, result);
+    res
+      .send(`<script>alert('Password updated successsfully!')</script>`)
+      .redirect("/auth");
 
-        res.status(200).json({ message: "Password sent successfully" });
-      } else {
-        // Passwords do not match
-        res.status(401).json({ error: "Invalid password" });
-      }
-    });
   } catch (error) {
-    console.error("Error retrieving user from the database:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.send(error);
   }
 });
 

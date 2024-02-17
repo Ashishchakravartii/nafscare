@@ -116,7 +116,6 @@ body {
 }
 #searchResults {
   width: 15vw;
-  height: 10vh;
   position: absolute;
   z-index: 100;
   top: 120%;
