@@ -39,13 +39,12 @@
           </div>
           <div class="navLiBox">
             <ul>
-              <li>
-                <a href="/"><span style="color: #9ee281">HOME</span></a>
-              </li>
-              <li><a href="/shop">SHOP</a></li>
-              <li><a href="/shop">FACE</a></li>
-              <li><a href="/shop">BODY</a></li>
-              <li><a href="/shop">STORES</a></li>
+              <li><span style="color: #9ee281">HOME</span></li>
+              <li>BEAUTY</li>
+              <li>HAIR</li>
+              <li>FACE</li>
+              <li>BODY</li>
+              <li>STORES</li>
             </ul>
           </div>
           <div class="navCartDiv">
@@ -53,98 +52,39 @@
               <input type="search" placeholder="" />
               <label for=""><img src="/images/searchIcon.png" alt="" /></label>
             </div>
-            <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
-            <a href="/account"
-              ><img width="25px" src="/images/icons/myAccount.png" alt=""
-            /></a>
+            <img src="/images/cartIcon.png" alt="" />
           </div>
         </div>
       </nav>
 
-      <!-- ------------------------------- Cart page start------------------------------ -->
-      <div class="shopping-cart">
-        <!-- Title -->
-        <div class="title">
-          <span>Your Cart</span> <span><a href="/clearCart">Clear all</a></span>
-        </div>
+      <!-- ------------------------------- Login Signup page start------------------------------ -->
 
-        <% totalPrice = 0 %> <% if (products && products.length > 0) { %>
-        <div class="itemCartShowingWindow">
-          <!-- item div -->
-          <% products.map((product) => { %>
-          <div class="cart_item">
-            <div class="cart_buttons">
-              <a href="/removeCartItem/<%= product.pid %>,<%= product.vid %>">
-                <span class="delete-btn"
-                  ><img src="/images/icons/deleteIcon.png" alt=""
-                /></span>
-              </a>
-            </div>
-
-            <div class="cart_image">
-              <img
-                class="prodImgCart"
-                src="/images/<%= product.image1 %>"
-                alt=""
-              />
-            </div>
-
-            <div class="description">
-              <span><%= product.name %></span>
-              <span><%= product.description %></span>
-            </div>
-
-            <div class="cart_quantity">
-              <!-- <button class="plus-btn" type="button" name="button">
-                <img src="/images/icons/plusIcon.png" alt="" />
-            </button> -->
-              <span>Change Quantity &nbsp;</span>
+      <div class="authBox">
+        <div class="LoginBox">
+          <h4 class="signInHead">Forget Password</h4>
+          <form class="updateForm" action="/forget" method="post">
+            <div>
               <input
-                class="quanityCart"
-                type="text"
-                name=""
-                value="<%= product.quantity %>"
+                style="width: 30vmax"
+                type="email"
+                placeholder="email"
+                name="email"
               />
-              <!-- <button class="minus-btn" type="button" name="button">
-                <img src="/images/icons/minusIcon.png" alt="" />
-            </button> -->
             </div>
-
-            <div class="total-price">
-              <span style="color: black"
-                ><%= product.individualPrice %> x <%= product.quantity %></span
-              >
-            </div>
-          </div>
-          <% totalPrice += (product.individualPrice * product.quantity) %> <% })
-          %>
+            <button
+              class="accountDetailUpdateBTn"
+              style="padding: 0.3vmax"
+              class=""
+            >
+              Sign In
+            </button>
+            <p class="forgetPara">
+              Remeber your password ?
+              <a href="/auth">Sign-in</a> |
+              <a href="/auth">Sign-up</a>
+            </p>
+          </form>
         </div>
-        <% } else { %>
-        <div class="itemCartShowingWindow">
-          <!-- item div -->
-          <h2 class="emptyCartHead">Cart is empty.</h2>
-        </div>
-        <% } %>
-
-        <div class="feeDivCard">
-          <ul class="feeDivCard-ul">
-            <li>
-              <h6>Total</h6>
-              <span>Rs <%= totalPrice %></span>
-            </li>
-            <li>
-              <h6>Delivery Charges</h6>
-              <span>Rs 00.00</span>
-            </li>
-            <li>
-              <h6>Net Total</h6>
-              <span>Rs <%= eval( totalPrice + 00 ) %></span>
-            </li>
-          </ul>
-        </div>
-        <a class="checkoutAtag" href="/checkout"
-          ><button class="checkoutBtn">CHECKOUT</button></a
-        >
       </div>
 
       <!--------------------------------------Footer --------------------------------------  -->

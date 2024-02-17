@@ -58,7 +58,7 @@
                 />
                 <!-- <button type="submit">Search</button> -->
               </form>
-              <div style="background-color: red;" id="searchResults"></div>
+              <div id="searchResults"></div>
               <!-- <input type="search" placeholder="" />
               <label for=""><img src="/images/searchIcon.png" alt="" /></label> -->
             </div>
@@ -571,7 +571,9 @@
     ></script>
     <script defer src="/javascripts/script.js"></script>
     <script>
-      function newf() {
+      function newf(event) {
+        //  event.preventDefault()
+        console.log("yha se");
         var news = document.getElementById("searchInput").value;
         const searchTerm = news.trim();
 

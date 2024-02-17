@@ -6,15 +6,19 @@ const bcrypt = require("bcrypt");
 const { generateAccessToken, generateRefreshToken } = require("../db/db.js");
 const checkLoggedIn = require("../middlewares/checkloggedin.js");
 const { sendmail } = require("../middlewares/mail.js");
+const { forgetMail } = require("../middlewares/forgetMail.js");
+
 var ip = require("ip");
-const uuid = require("uuid");
+
 /* GET home page. */
+
 router.get("/", function (req, res, next) {
   // console.log("----------------->", req.session.user);
   res.render("index", { title: "Express", user: req.session.user });
 });
 
 /* GET cart page. */
+
 router.get("/auth", function (req, res, next) {
   res.render("authPage", {
     title: "Welcome to nafscare",
@@ -80,7 +84,7 @@ router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
   // Check if email and password are provided
   if (!email || !password) {
-    return alert("USER NOT FOUND!");
+    return res.send("<script>alert(`USER NOT FOUND!``)</script>" )
   }
 
   try {
@@ -231,7 +235,7 @@ router.get("/cart", async function (req, res, next) {
     const productIdList = productIds.join(",");
     const variantIdList = variantIds.join(",");
 
-    console.log("======================>", productIdList);
+    // console.log("======================>", productIdList);
     // Fetch product details from product table
     const [productRows] = await pool.execute(
       `SELECT id, name, description, image1, image2 FROM product WHERE id IN (${productIdList})`
@@ -252,7 +256,8 @@ router.get("/cart", async function (req, res, next) {
             priceRow.pid === product.id && priceRow.vid === variantId
         )?.price || 0; // Get individual price for the current product variant
       return {
-        id: product.id,
+        pid: product.id,
+        vid: variantId,
         name: product.name,
         description: product.description,
         image1: product.image1,
@@ -262,7 +267,7 @@ router.get("/cart", async function (req, res, next) {
       };
     });
 
-    // console.log("==============>", products);
+    console.log("==============>", products);
 
     // Render the cart page with product details
     res.render("cart", {
@@ -283,7 +288,7 @@ router.get("/clearCart", (req, res, next) => {
 
 router.post("/addCart", async (req, res) => {
   // const { pid, qty, vid } = req.body;
-  const pid = 5;
+  const pid = 2;
   const vid = 2;
   const qty = 2;
   const ipAdd = ip.address();
@@ -662,8 +667,87 @@ router.get("/search/:q", async (req, res) => {
   const [results] = await pool.query(Query);
   console.log("====================>", results);
   res.json(results); // Send JSON response with search results
+});
 
- 
+router.get("/removeCartItem/:pidVid", async (req, res, next) => {
+  try {
+    let pidVid = req.params.pidVid;
+    console.log(pidVid);
+
+    // Find the index of the "," sign
+    let separatorIndex = pidVid.indexOf(",");
+
+    if (separatorIndex !== -1) {
+      // Check if the "," sign is found
+      // Split the string into two parts based on the "," sign
+      let pid = pidVid.substring(0, separatorIndex);
+      let vid = pidVid.substring(separatorIndex + 1);
+
+      const deleteQuery = `DELETE FROM cart WHERE pid = ? AND vid = ?`;
+      await pool.execute(deleteQuery, [pid, vid]);
+
+      res.redirect("/cart");
+    }
+  } catch (error) {
+    return res.send(
+      "<script>alert(`Error deleting product, please try again.`)</script>"
+    );
+  }
+});
+
+// GET forget password
+
+router.get("/forget", async (req, res, next) => {
+  try {
+    res.render("forget", { title: "Forget Password", user: null });
+  } catch (error) {
+    return res.send(
+      "<script>alert(`Error Rendering forget page, please try again.`)</script>"
+    );
+  }
+});
+
+// POST forget password
+
+router.post("/forget", async (req, res, next) => {
+  const { email } = req.body;
+
+  try {
+    // Retrieve user from the database using the provided email
+    const [rows] = await pool.query("SELECT * FROM customers WHERE email = ?", [
+      email,
+    ]);
+
+    if (rows.length === 0) {
+      return res.send("<script>alert (`error: User not found`)</script>");
+    }
+
+    const user = rows[0];
+
+    // Decrypt password using bcrypt
+    bcrypt.compare(user.password, user.passwordHash, async (err, result) => {
+      if (err) {
+        console.error("Error decrypting password:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+
+      if (result) {
+        // Passwords match
+        // Send the password to the user via email using Nodemailer
+        console.log("fprget password", result);
+
+        forgetMail(req, res, email, result);
+
+        res.status(200).json({ message: "Password sent successfully" });
+      } else {
+        // Passwords do not match
+        res.status(401).json({ error: "Invalid password" });
+      }
+    });
+  } catch (error) {
+    console.error("Error retrieving user from the database:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 module.exports = router;
