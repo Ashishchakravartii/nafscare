@@ -9,7 +9,7 @@ const { sendmail } = require("../middlewares/mail.js");
 var ip = require("ip");
 const uuid = require("uuid");
 /* GET home page. */
-router.get("/", checkLoggedIn, function (req, res, next) {
+router.get("/", function (req, res, next) {
   // console.log("----------------->", req.session.user);
   res.render("index", { title: "Express", user: req.session.user });
 });
@@ -655,21 +655,15 @@ router.get("/cod", async (req, res, next) => {
 });
 
 // Route to handle search query
-router.get("/search/:q", (req, res) => {
-  console.log("ghg");
+router.get("/search/:q", async (req, res) => {
   const searchTerm = req.params.q; // Get search term from query parameter
-  console.log(searchTerm);
-  const query = `SELECT * FROM product WHERE name LIKE '%${searchTerm}%'`;
+  const Query = `SELECT * FROM product WHERE name LIKE '%${searchTerm}%' `;
+  //
+  const [results] = await pool.query(Query);
+  console.log("====================>", results);
+  res.json(results); // Send JSON response with search results
 
-  pool.execute(query, (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal Server Error" });
-    } else {
-      res.json(results); // Send JSON response with search results
-      console.log("================> from search backend ", results);
-    }
-  });
+ 
 });
 
 module.exports = router;

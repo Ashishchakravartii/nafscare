@@ -96,7 +96,7 @@ gsap.from(".section3-bottom-imgDiv-right", {
     const searchResults = document.getElementById("searchResults");
 
     searchInput.addEventListener(onchange, async (event) => {
-      // event.preventDefault();
+      event.preventDefault();
       const searchTerm = searchInput.value.trim();
       console.log("===================>", searchTerm);
       if (searchTerm === "") return;

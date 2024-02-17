@@ -56,9 +56,9 @@
                   onchange="newf()"
                   placeholder="Search products..."
                 />
-                <button type="submit">Search</button>
+                <!-- <button type="submit">Search</button> -->
               </form>
-              <div id="searchResults"></div>
+              <div style="background-color: red;" id="searchResults"></div>
               <!-- <input type="search" placeholder="" />
               <label for=""><img src="/images/searchIcon.png" alt="" /></label> -->
             </div>
@@ -572,9 +572,7 @@
     <script defer src="/javascripts/script.js"></script>
     <script>
       function newf() {
-        console.log("H");
         var news = document.getElementById("searchInput").value;
-        console.log(news);
         const searchTerm = news.trim();
 
         fetch(`/search/${searchTerm}`)
