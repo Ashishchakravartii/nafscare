@@ -65,66 +65,73 @@
       <div class="shopping-cart">
         <!-- Title -->
         <div class="title">
-          <span>Your Cart</span> <span><a href="/clearCart">Clear all</a></span>
+          <span>Your Cart</span>
+          <span>
+            <a class="clearCartBtn" href="/clearCart">Clear all</a>
+          </span>
         </div>
+        <form
+          class="itemCartShowingWindow-form"
+          action="/updateQty"
+          method="POST"
+        >
+          <button type="submit" class="updateQtyBtn">Update quantity</button>
 
-        <% totalPrice = 0 %> <% if (products && products.length > 0) { %>
-        <div class="itemCartShowingWindow">
-          <!-- item div -->
-          <% products.map((product) => { %>
-          <div class="cart_item">
-            <div class="cart_buttons">
-              <a href="/removeCartItem/<%= product.pid %>,<%= product.vid %>">
-                <span class="delete-btn"
-                  ><img src="/images/icons/deleteIcon.png" alt=""
-                /></span>
-              </a>
+          <% totalPrice = 0 %> <% if (products && products.length > 0) { %>
+          <div class="itemCartShowingWindow">
+            <!-- item div -->
+            <% products.map((product) => { %>
+            <div class="cart_item">
+              <div class="cart_buttons">
+                <a href="/removeCartItem/<%= product.pid %>,<%= product.vid %>">
+                  <span class="delete-btn"
+                    ><img src="/images/icons/deleteIcon.png" alt=""
+                  /></span>
+                </a>
+              </div>
+
+              <div class="cart_image">
+                <img
+                  class="prodImgCart"
+                  src="/images/<%= product.image1 %>"
+                  alt=""
+                />
+              </div>
+
+              <div class="description">
+                <span><%= product.name %></span>
+                <span><%= product.description %></span>
+              </div>
+
+              <div class="cart_quantity">
+                <span>Change Quantity &nbsp;</span>
+                <input
+                  class="quanityCart"
+                  type="text"
+                  name="updatedQuantities[<%= product.pid %>-<%= product.vid %>]"
+                  value="<%= product.quantity %>"
+                />
+              </div>
+
+              <div class="total-price">
+                <span style="color: black"
+                  ><%= product.individualPrice %> x <%= product.quantity
+                  %></span
+                >
+              </div>
             </div>
 
-            <div class="cart_image">
-              <img
-                class="prodImgCart"
-                src="/images/<%= product.image1 %>"
-                alt=""
-              />
-            </div>
-
-            <div class="description">
-              <span><%= product.name %></span>
-              <span><%= product.description %></span>
-            </div>
-
-            <div class="cart_quantity">
-              <!-- <button class="plus-btn" type="button" name="button">
-                <img src="/images/icons/plusIcon.png" alt="" />
-            </button> -->
-              <span>Change Quantity &nbsp;</span>
-              <input
-                class="quanityCart"
-                type="text"
-                name=""
-                value="<%= product.quantity %>"
-              />
-              <!-- <button class="minus-btn" type="button" name="button">
-                <img src="/images/icons/minusIcon.png" alt="" />
-            </button> -->
-            </div>
-
-            <div class="total-price">
-              <span style="color: black"
-                ><%= product.individualPrice %> x <%= product.quantity %></span
-              >
-            </div>
+            <% totalPrice += (product.individualPrice * product.quantity) %> <%
+            }) %>
           </div>
-          <% totalPrice += (product.individualPrice * product.quantity) %> <% })
-          %>
-        </div>
-        <% } else { %>
-        <div class="itemCartShowingWindow">
-          <!-- item div -->
-          <h2 class="emptyCartHead">Cart is empty.</h2>
-        </div>
-        <% } %>
+        </form>
+
+          <% } else { %>
+          <div class="itemCartShowingWindow">
+            <!-- item div -->
+            <h2 class="emptyCartHead">Cart is empty.</h2>
+          </div>
+          <% } %>
 
         <div class="feeDivCard">
           <ul class="feeDivCard-ul">

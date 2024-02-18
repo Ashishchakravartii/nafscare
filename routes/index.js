@@ -288,8 +288,8 @@ router.get("/clearCart", (req, res, next) => {
 
 router.post("/addCart", async (req, res) => {
   // const { pid, qty, vid } = req.body;
-  const pid = 2;
-  const vid = 2;
+  const pid = 1;
+  const vid = 1;
   const qty = 2;
   const ipAdd = ip.address();
 
@@ -736,12 +736,17 @@ router.get("/change-password/:id", async (req, res, next) => {
   const [rows] = await pool.execute("SELECT * FROM customers WHERE id = ?", [
     req.params.id,
   ]);
-  if (rows.length === 0) {
-    return res.send("<script>alert('USER NOT FOUND!');</script>");
-  }
   const user = rows[0];
 
-  res.render("changePass", {title:"Change Password", user });
+  if (user.passwordResetToken == 1){
+        const updateQuery =
+          "UPDATE customers SET passwordResetToken = ? WHERE id = ?";
+        await pool.execute(updateQuery, [0, user.id]);
+
+    res.render("changePass", { title: "Change Password", user });
+  }else{
+    return res.send("<script>alert('LINK EXPIRED. TRY AGAIN');</script>");
+  }
 });
 
 router.post("/change-password/:id", async (req, res, next) => {
@@ -761,15 +766,34 @@ router.post("/change-password/:id", async (req, res, next) => {
 
     const updateQuery = "UPDATE customers SET password = ? WHERE id = ?";
 
-    await pool.execute(updateQuery, [ hashedPassword, user.id]);
+    await pool.execute(updateQuery, [hashedPassword, user.id]);
 
-    res
-      .send(`<script>alert('Password updated successsfully!')</script>`)
-      .redirect("/auth");
-
+    res.send(`<script>alert('Password updated successsfully!')</script>`)
+      
+      
   } catch (error) {
     res.send(error);
   }
+});
+
+// Route to update quantities
+router.post("/updateQty", async (req, res) => {
+  const updatedQuantities = req.body;
+  console.log("==================>From update qty ", updatedQuantities);
+
+  // Loop through updated quantities and update database
+  // for (const key in updatedQuantities) {
+  //   if (updatedQuantities.hasOwnProperty(key)) {
+  //     const productId = key.split("[")[1].split("-")[0]; // Extract productId from the key
+  //     const variationId = key.split("-")[1].split("]")[0]; // Extract variationId from the key
+  //     const quantity = updatedQuantities[key];
+
+  //     const updateQuery = "UPDATE cart SET qty = ? WHERE pid = ? AND vid = ?";
+  //     await pool.execute(updateQuery, [quantity, productId, variationId]);
+  //   }
+  // }
+
+  res.redirect("/cart"); // Redirect back to the cart page
 });
 
 module.exports = router;

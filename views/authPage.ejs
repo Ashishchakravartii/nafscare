@@ -39,20 +39,39 @@
           </div>
           <div class="navLiBox">
             <ul>
-              <li><span style="color: #9ee281">HOME</span></li>
-              <li>BEAUTY</li>
-              <li>HAIR</li>
-              <li>FACE</li>
-              <li>BODY</li>
-              <li>STORES</li>
+              <li>
+                <span
+                  ><a style="color: #9ee281; text-decoration: none" href="/"
+                    >HOME</a
+                  ></span
+                >
+              </li>
+              <li><a href="/shop">SHOP</a></li>
+              <li><a href="/shop">FACE</a></li>
+              <li><a href="/shop">BODY</a></li>
+              <li><a href="/shop">STORES</a></li>
             </ul>
           </div>
           <div class="navCartDiv">
             <div class="navCartDiv-searchDiv">
-              <input type="search" placeholder="" />
-              <label for=""><img src="/images/searchIcon.png" alt="" /></label>
+              <form id="searchForm">
+                <input
+                  type="text"
+                  id="searchInput"
+                  name="q"
+                  onchange="newf()"
+                  placeholder="Search products..."
+                />
+                <!-- <button type="submit">Search</button> -->
+              </form>
+              <div id="searchResults"></div>
+              <!-- <input type="search" placeholder="" />
+              <label for=""><img src="/images/searchIcon.png" alt="" /></label> -->
             </div>
-            <img src="/images/cartIcon.png" alt="" />
+            <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+            <a href="/account"
+              ><img width="25px" src="/images/icons/myAccount.png" alt=""
+            /></a>
           </div>
         </div>
       </nav>
@@ -255,5 +274,28 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="/javascripts/script.js"></script>
+    <script>
+      function newf(event) {
+        //  event.preventDefault()
+        console.log("yha se");
+        var news = document.getElementById("searchInput").value;
+        const searchTerm = news.trim();
+
+        fetch(`/search/${searchTerm}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Clear previous results
+            searchResults.innerHTML = "";
+
+            // Display search results
+            data.forEach((product) => {
+              const productElement = document.createElement("div");
+              productElement.textContent = product.name;
+              searchResults.appendChild(productElement);
+            });
+          });
+        //.catch((error) => console.error("Error:", error));
+      }
+    </script>
   </body>
 </html>
