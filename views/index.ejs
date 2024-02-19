@@ -19,6 +19,19 @@
     />
   </head>
   <body>
+    <div class="searchDiv">
+      <form id="searchForm">
+        <input
+          type="text"
+          id="searchInput"
+          name="q"
+          onchange="newf()"
+          placeholder="Search products..."
+        />
+      </form>
+      <div id="searchResults"></div>
+    </div>
+
     <div class="main">
       <!-------------------------------- Nav bar -------------------------------------->
 
@@ -48,7 +61,7 @@
           </div>
           <div class="navCartDiv">
             <div class="navCartDiv-searchDiv">
-              <form id="searchForm">
+              <!-- <form id="searchForm">
                 <input
                   type="text"
                   id="searchInput"
@@ -56,9 +69,8 @@
                   onchange="newf()"
                   placeholder="Search products..."
                 />
-                <!-- <button type="submit">Search</button> -->
               </form>
-              <div id="searchResults"></div>
+              <div id="searchResults"></div> -->
               <!-- <input type="search" placeholder="" />
               <label for=""><img src="/images/searchIcon.png" alt="" /></label> -->
             </div>
@@ -573,7 +585,6 @@
     <script>
       function newf(event) {
         //  event.preventDefault()
-        console.log("yha se");
         var news = document.getElementById("searchInput").value;
         const searchTerm = news.trim();
 

@@ -120,14 +120,25 @@ body {
   z-index: 100;
   top: 120%;
   left: 15%;
+  background-color: white;
+  border-top: 0;
+  padding: 0.5vmax 0.8vmax;
 }
+
+.searchDiv {
+  position: absolute;
+  right: 6%;
+  top: 9%;
+  z-index: 100;
+}
+
 #searchForm {
   padding: 0vmax 3vmax;
 }
 #searchInput {
   width: 15vw;
   padding: 0.2vmax;
-  font-size: 1.2vmax;
+  font-size: 1.1vmax;
   border: 0;
 }
 

@@ -265,6 +265,12 @@
         <!-- customer reviews -->
         <div class="customer-rev">
           <h4>Customer Reviews (3)</h4>
+          <% if (reviewFormVisible) { %>
+    <form action="" method="post">
+      <span><input type="text"><button>submit</button></span>
+    </form>
+            <% } %>
+
           <div class="customer-box">
             <div class="cr-star">
               <div class="star-5">

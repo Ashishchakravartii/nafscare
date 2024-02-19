@@ -468,12 +468,42 @@ router.post("/updatePassword", checkLoggedIn, async (req, res, next) => {
 /* GET Product page. */
 router.get("/product", function (req, res, next) {
   // console.log("----------------->", req.session.user);
-  res.render("productPage", { title: "product", user: req.session.user });
+
+  const productId = 5;
+  const userId = req.session.user.id;
+
+  // Check if the user has purchased the product but has not reviewed it
+  pool
+    .execute(
+      "SELECT * FROM orders WHERE userId = ? AND pid = ? AND reviewed = 0",
+      [userId, productId]
+    )
+    .then(([orderRows]) => {
+      console.log("===================>", orderRows);
+
+      if (orderRows.length > 0) {
+        res.render("productPage", {
+          title: "Product Page",
+          user: req.session.user,
+          reviewFormVisible: true,
+        });
+      } else {
+        res.render("productPage", {
+          title: "Product Page",
+          user: req.session.user,
+          reviewFormVisible: false,
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error executing query:", error);
+      // Handle the error appropriately
+    });
 });
 
 // -------------------- checkout route -----------------------
 
-router.get("/checkout", async (req, res, next) => {
+router.get("/checkout", checkLoggedIn, async (req, res, next) => {
   const userIp = ip.address();
 
   try {
@@ -621,6 +651,7 @@ router.get("/cod", async (req, res, next) => {
       console.log("order id =======================>", orderId);
       let userId = req.session.user.id;
       let qty = product.quantity;
+      let pid = product.id;
       let productName = product.name;
       let paymentType = "COD";
       let price = product.individualPrice * product.quantity;
@@ -630,17 +661,19 @@ router.get("/cod", async (req, res, next) => {
         orderId,
         userId,
         qty,
+        pid,
         productName,
         paymentType,
         price
       );
 
       const Query =
-        "INSERT INTO orders (orderId, userId, qty, productName, paymentType, price) VALUES (?, ?, ?, ?, ?, ?)";
+        "INSERT INTO orders (orderId, userId, qty, pid, productName, paymentType, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
       await pool.execute(Query, [
         orderId,
         userId,
         qty,
+        pid,
         productName,
         paymentType,
         price,
@@ -738,13 +771,13 @@ router.get("/change-password/:id", async (req, res, next) => {
   ]);
   const user = rows[0];
 
-  if (user.passwordResetToken == 1){
-        const updateQuery =
-          "UPDATE customers SET passwordResetToken = ? WHERE id = ?";
-        await pool.execute(updateQuery, [0, user.id]);
+  if (user.passwordResetToken == 1) {
+    const updateQuery =
+      "UPDATE customers SET passwordResetToken = ? WHERE id = ?";
+    await pool.execute(updateQuery, [0, user.id]);
 
     res.render("changePass", { title: "Change Password", user });
-  }else{
+  } else {
     return res.send("<script>alert('LINK EXPIRED. TRY AGAIN');</script>");
   }
 });
@@ -768,9 +801,7 @@ router.post("/change-password/:id", async (req, res, next) => {
 
     await pool.execute(updateQuery, [hashedPassword, user.id]);
 
-    res.send(`<script>alert('Password updated successsfully!')</script>`)
-      
-      
+    res.send(`<script>alert('Password updated successsfully!')</script>`);
   } catch (error) {
     res.send(error);
   }
@@ -780,41 +811,16 @@ router.post("/change-password/:id", async (req, res, next) => {
 router.post("/updateQty", async (req, res) => {
   const updatedQuantities = req.body;
 
-  // const quantities = updatedQuantities;
-  // console.log("==================>From update qty ", quantities);
-
   // Using Object.keys()
   const keys = Object.keys(updatedQuantities);
   keys.forEach((key) => {
-    const value = updatedQuantities[key];
-
     const productId = key.split("[")[1].split("-")[0]; // Extract productId from the key
     const variationId = key.split("-")[1].split("]")[0]; // Extract variationId from the key
     const quantity = updatedQuantities[key];
 
-        const updateQuery = "UPDATE cart SET qty = ? WHERE pid = ? AND vid = ?";
-        pool.execute(updateQuery, [quantity, productId, variationId]);
-
-    console.log(`obj keys =================>Key: ${key}, Value: ${value}`);
+    const updateQuery = "UPDATE cart SET qty = ? WHERE pid = ? AND vid = ?";
+    pool.execute(updateQuery, [quantity, productId, variationId]);
   });
-
-  // Using Object.entries()
-  // const entries = Object.entries(updatedQuantities);
-  // entries.forEach(([key, value]) => {
-  //   console.log(`obj entries ===============> Key: ${key}, Value: ${value}`);
-  // });
-
-  // Loop through updated quantities and update database
-  // for (const key in updatedQuantities) {
-  //   if (updatedQuantities.hasOwnProperty(key)) {
-  //     const productId = key.split("[")[1].split("-")[0]; // Extract productId from the key
-  //     const variationId = key.split("-")[1].split("]")[0]; // Extract variationId from the key
-  //     const quantity = updatedQuantities[key];
-
-  //     const updateQuery = "UPDATE cart SET qty = ? WHERE pid = ? AND vid = ?";
-  //     await pool.execute(updateQuery, [quantity, productId, variationId]);
-  //   }
-  // }
 
   res.redirect("/cart"); // Redirect back to the cart page
 });
