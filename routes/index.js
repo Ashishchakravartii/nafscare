@@ -288,8 +288,8 @@ router.get("/clearCart", (req, res, next) => {
 
 router.post("/addCart", async (req, res) => {
   // const { pid, qty, vid } = req.body;
-  const pid = 1;
-  const vid = 1;
+  const pid = 5;
+  const vid = 2;
   const qty = 2;
   const ipAdd = ip.address();
 
@@ -779,7 +779,30 @@ router.post("/change-password/:id", async (req, res, next) => {
 // Route to update quantities
 router.post("/updateQty", async (req, res) => {
   const updatedQuantities = req.body;
-  console.log("==================>From update qty ", updatedQuantities);
+
+  // const quantities = updatedQuantities;
+  // console.log("==================>From update qty ", quantities);
+
+  // Using Object.keys()
+  const keys = Object.keys(updatedQuantities);
+  keys.forEach((key) => {
+    const value = updatedQuantities[key];
+
+    const productId = key.split("[")[1].split("-")[0]; // Extract productId from the key
+    const variationId = key.split("-")[1].split("]")[0]; // Extract variationId from the key
+    const quantity = updatedQuantities[key];
+
+        const updateQuery = "UPDATE cart SET qty = ? WHERE pid = ? AND vid = ?";
+        pool.execute(updateQuery, [quantity, productId, variationId]);
+
+    console.log(`obj keys =================>Key: ${key}, Value: ${value}`);
+  });
+
+  // Using Object.entries()
+  // const entries = Object.entries(updatedQuantities);
+  // entries.forEach(([key, value]) => {
+  //   console.log(`obj entries ===============> Key: ${key}, Value: ${value}`);
+  // });
 
   // Loop through updated quantities and update database
   // for (const key in updatedQuantities) {
