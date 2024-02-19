@@ -470,6 +470,8 @@ router.get("/product", function (req, res, next) {
   // console.log("----------------->", req.session.user);
 
   const productId = 5;
+
+  if(req.session.user){
   const userId = req.session.user.id;
 
   // Check if the user has purchased the product but has not reviewed it
@@ -494,11 +496,19 @@ router.get("/product", function (req, res, next) {
           reviewFormVisible: false,
         });
       }
+      
     })
     .catch((error) => {
       console.error("Error executing query:", error);
       // Handle the error appropriately
     });
+  }else{
+     res.render("productPage", {
+          title: "Product Page",
+          user: null,
+          reviewFormVisible: false,
+        })
+  }
 });
 
 // -------------------- checkout route -----------------------
