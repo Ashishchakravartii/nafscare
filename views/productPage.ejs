@@ -17,6 +17,11 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   </head>
   <body>
@@ -39,7 +44,7 @@
         </div>
         <div class="navLiBox">
           <ul>
-            <li><a style="color: #9ee281" href="/"></a>HOME</a></li>
+            <li><a style="color: #9ee281" href="/">HOME</a></li>
             <li><a href="/shop">SHOP</a></li>
             <li><a href="/shop">FACE</a></li>
             <li><a href="/shop">BODY</a></li>
@@ -67,51 +72,50 @@
         <section class="productImgDiv-section" id="gallery">
           <div class="container productImgDiv-container">
             <div id="image-gallery productImgDiv-imageGallery">
-              <div  class="row mainImgBoxProduct">
+              <div class="row mainImgBoxProduct">
                 <div class="k_imgLeftBox">
-
-                    <div class="image">
-                      <div class="img-wrapper">
-                        <a href="/images/chimney.webp"
-                          ><img src="/images/prod1.jpg" class="img-responsive"
-                        /></a>
-                        <div class="img-overlay">
-                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
+                  <div class="image">
+                    <div class="img-wrapper">
+                      <a href="/images/chimney.webp"
+                        ><img src="/images/prod1.jpg" class="img-responsive"
+                      /></a>
+                      <div class="img-overlay">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                       </div>
                     </div>
-                    <div class="image">
-                      <div class="img-wrapper">
-                        <a href="/images/image2.jpg"
-                          ><img src="/images/prod2.jpg" class="img-responsive"
-                        /></a>
-                        <div class="img-overlay">
-                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
+                  </div>
+                  <div class="image">
+                    <div class="img-wrapper">
+                      <a href="/images/image2.jpg"
+                        ><img src="/images/prod2.jpg" class="img-responsive"
+                      /></a>
+                      <div class="img-overlay">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                       </div>
                     </div>
+                  </div>
                 </div>
                 <div class="k_imgRightBox">
- <div class="image">
-                      <div class="img-wrapper">
-                        <a href="/images/chimney.webp"
-                          ><img src="/images/prod1.jpg" class="img-responsive"
-                        /></a>
-                        <div class="img-overlay">
-                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
+                  <div class="image">
+                    <div class="img-wrapper">
+                      <a href="/images/chimney.webp"
+                        ><img src="/images/prod1.jpg" class="img-responsive"
+                      /></a>
+                      <div class="img-overlay">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                       </div>
                     </div>
-                    <div class="image">
-                      <div class="img-wrapper">
-                        <a href="/images/image2.jpg"
-                          ><img src="/images/prod2.jpg" class="img-responsive"
-                        /></a>
-                        <div class="img-overlay">
-                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
+                  </div>
+                  <div class="image">
+                    <div class="img-wrapper">
+                      <a href="/images/image2.jpg"
+                        ><img src="/images/prod2.jpg" class="img-responsive"
+                      /></a>
+                      <div class="img-overlay">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                       </div>
                     </div>
+                  </div>
                 </div>
               </div>
               <!-- End row -->
@@ -176,13 +180,24 @@
             </label>
           </div>
           <div>
-            <h3>Quantity <input name="qty"  style="width: 2.5vmax;" value="1" type="number"></h3>
+            <h3>
+              Quantity
+              <input
+                name="qty"
+                style="width: 2.5vmax"
+                value="1"
+                type="number"
+              />
+            </h3>
           </div>
           <div class="payment-box">
-            
             <!-- <a class="pyt-btn" href=""> -->
-              <i class="ri-shopping-bag-line"></i>
-              <h4> <form action="/addCart" method="post"> <button>Add to cart</button> </form> </h4>
+            <i class="ri-shopping-bag-line"></i>
+            <h4>
+              <form action="/addCart" method="post">
+                <button>Add to cart</button>
+              </form>
+            </h4>
             <!-- </a> -->
 
             <a class="pyt-btn" href="">
@@ -266,10 +281,40 @@
         <div class="customer-rev">
           <h4>Customer Reviews (3)</h4>
           <% if (reviewFormVisible) { %>
-    <form action="" method="post">
-      <span><input type="text"><button>submit</button></span>
-    </form>
-            <% } %>
+          <form
+            class="reviewForm"
+            action="/submit-review/<%=productId %>"
+            method="post"
+          >
+            <span class="reviewSpan">
+              <textarea
+                style="resize: none"
+                class="reviewTxtArea"
+                name="review"
+              >
+Write a review...</textarea
+              >
+              <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5"><i class="fas fa-star"></i></label>
+            
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4"><i class="fas fa-star"></i></label>
+            
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3"><i class="fas fa-star"></i></label>
+            
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2"><i class="fas fa-star"></i></label>
+            
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1"><i class="fas fa-star"></i></label>
+        </div>
+
+              <button type="submit" class="reviewBtn">Submit</button>
+            </span>
+          </form>
+          <% } %>
 
           <div class="customer-box">
             <div class="cr-star">
@@ -493,5 +538,26 @@
     </div>
 
     <script src="/javascripts/product.js"></script>
+    <script>
+      function handleStarClick(selectedStar) {
+        // Loop through all star inputs
+        for (let i = 1; i <= 5; i++) {
+          const starInput = document.getElementById("star" + i);
+          const starLabel = document.querySelector(
+            'label[for="star' + i + '"] i'
+          );
+
+          // If the current star is less than or equal to the selected star, add the 'checked' class to its label
+          if (i <= selectedStar) {
+            starInput.checked = true;
+            starLabel.classList.add("checked");
+          } else {
+            // Otherwise, remove the 'checked' class from its label
+            starInput.checked = false;
+            starLabel.classList.remove("checked");
+          }
+        }
+      }
+    </script>
   </body>
 </html>

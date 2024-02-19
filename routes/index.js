@@ -471,43 +471,43 @@ router.get("/product", function (req, res, next) {
 
   const productId = 5;
 
-  if(req.session.user){
-  const userId = req.session.user.id;
+  if (req.session.user) {
+    const userId = req.session.user.id;
 
-  // Check if the user has purchased the product but has not reviewed it
-  pool
-    .execute(
-      "SELECT * FROM orders WHERE userId = ? AND pid = ? AND reviewed = 0",
-      [userId, productId]
-    )
-    .then(([orderRows]) => {
-      console.log("===================>", orderRows);
+    // Check if the user has purchased the product but has not reviewed it
+    pool
+      .execute(
+        "SELECT * FROM orders WHERE userId = ? AND pid = ? AND reviewed = 0",
+        [userId, productId]
+      )
+      .then(([orderRows]) => {
+        console.log("===================>", orderRows);
 
-      if (orderRows.length > 0) {
-        res.render("productPage", {
-          title: "Product Page",
-          user: req.session.user,
-          reviewFormVisible: true,
-        });
-      } else {
-        res.render("productPage", {
-          title: "Product Page",
-          user: req.session.user,
-          reviewFormVisible: false,
-        });
-      }
-      
-    })
-    .catch((error) => {
-      console.error("Error executing query:", error);
-      // Handle the error appropriately
+        if (orderRows.length > 0) {
+          res.render("productPage", {
+            title: "Product Page",
+            user: req.session.user,
+            reviewFormVisible: true,
+            productId: productId,
+          });
+        } else {
+          res.render("productPage", {
+            title: "Product Page",
+            user: req.session.user,
+            reviewFormVisible: false,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error executing query:", error);
+        // Handle the error appropriately
+      });
+  } else {
+    res.render("productPage", {
+      title: "Product Page",
+      user: null,
+      reviewFormVisible: false,
     });
-  }else{
-     res.render("productPage", {
-          title: "Product Page",
-          user: null,
-          reviewFormVisible: false,
-        })
   }
 });
 
@@ -833,6 +833,39 @@ router.post("/updateQty", async (req, res) => {
   });
 
   res.redirect("/cart"); // Redirect back to the cart page
+});
+
+// reviews
+
+router.post("/submit-review/:pid", async (req, res) => {
+  try {
+    const productId = req.params.pid;
+    const userId = req.session.user.id;
+    const { rating, review } = req.body;
+
+    console.log(
+      `pid ${productId}, userId ${userId}, rating ${rating}, review ${review}`
+    );
+
+    // Check if all required fields are provided
+    if (!productId || !userId || !rating || !review) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Save the rating and review to the product_reviews table
+    const query =
+      "INSERT INTO product_reviews (productId, userId, rating, review) VALUES (?, ?, ?, ?)";
+    await pool.execute(query, [productId, userId, rating, review]);
+
+    const updateQuery =
+      "UPDATE orders SET reviewed = ? WHERE userId = ? AND pid = ?";
+    await pool.execute(updateQuery, [1, userId, productId]);
+
+    res.redirect("/product");
+  } catch (error) {
+    console.error("Error submitting review:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 module.exports = router;

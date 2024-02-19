@@ -7,10 +7,16 @@
   src: url("/fonts/Assistant-Bold.ttf");
 }
 
+@font-face {
+  font-family: "jostRegular";
+  src: url(../fonts/Jost/static/Jost-Regular.ttf);
+}
+
 * {
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
+  font-family: jostRegular;
 }
 html,
 body {
@@ -792,6 +798,56 @@ body {
   margin-top: -3vmax;
   padding-bottom: 1vmax;
   border-radius: 50%;
+}
+
+.reviewForm {
+  padding: 1vmax 0.5vmax;
+}
+.reviewTxtArea {
+  width: 30vmax;
+  height: 8vmax;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 0.4vmax;
+}
+
+.reviewBtn {
+  color: white;
+  background-color: #9ee281;
+  border: 0;
+  padding: 0.5vmax 2vmax;
+  margin-top: 0.8vmax;
+  border-radius: 5px;
+}
+
+.reviewSpan {
+  display: flex;
+  flex-direction: column;
+  width: 8vmax;
+}
+
+/* ------------------------ */
+
+/* Hide the radio buttons */
+input[type="radio"] {
+  display: none;
+}
+
+.star-rating {
+  display: flex;
+}
+
+/* Style the labels to display the icons */
+.star-rating label {
+  display: inline-block;
+  font-size: 24px; /* Adjust the size of the icons */
+  color: #ccc; /* Default color of the icons */
+}
+
+/* Style the selected icon and all previous icons */
+.star-rating input[type="radio"]:checked + label,
+.star-rating input[type="radio"]:checked + label ~ label {
+  color: #ffd700; /* Color of the selected icon and all previous icons */
 }
 
 /* item box css end here */
