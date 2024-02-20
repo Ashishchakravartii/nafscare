@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Product Page</title>
 
     <link rel="stylesheet" href="/stylesheets/product.css" />
@@ -77,7 +78,9 @@
                   <div class="image">
                     <div class="img-wrapper">
                       <a href="/images/chimney.webp"
-                        ><img src="/images/prod1.jpg" class="img-responsive"
+                        ><img
+                          src="/images/<%= product.image1 %>"
+                          class="img-responsive"
                       /></a>
                       <div class="img-overlay">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -87,7 +90,9 @@
                   <div class="image">
                     <div class="img-wrapper">
                       <a href="/images/image2.jpg"
-                        ><img src="/images/prod2.jpg" class="img-responsive"
+                        ><img
+                          src="/images/<%= product.image1 %>"
+                          class="img-responsive"
                       /></a>
                       <div class="img-overlay">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -99,7 +104,9 @@
                   <div class="image">
                     <div class="img-wrapper">
                       <a href="/images/chimney.webp"
-                        ><img src="/images/prod1.jpg" class="img-responsive"
+                        ><img
+                          src="/images/<%= product.image2 %>"
+                          class="img-responsive"
                       /></a>
                       <div class="img-overlay">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -109,7 +116,9 @@
                   <div class="image">
                     <div class="img-wrapper">
                       <a href="/images/image2.jpg"
-                        ><img src="/images/prod2.jpg" class="img-responsive"
+                        ><img
+                          src="/images/<%= product.image2 %>"
+                          class="img-responsive"
                       /></a>
                       <div class="img-overlay">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -194,7 +203,7 @@
             <!-- <a class="pyt-btn" href=""> -->
             <i class="ri-shopping-bag-line"></i>
             <h4>
-              <form action="/addCart" method="post">
+              <form action="/addCart/<%= productId %>" method="post">
                 <button>Add to cart</button>
               </form>
             </h4>
@@ -295,21 +304,21 @@
 Write a review...</textarea
               >
               <div class="star-rating">
-            <input type="radio" id="star5" name="rating" value="5" />
-            <label for="star5"><i class="fas fa-star"></i></label>
-            
-            <input type="radio" id="star4" name="rating" value="4" />
-            <label for="star4"><i class="fas fa-star"></i></label>
-            
-            <input type="radio" id="star3" name="rating" value="3" />
-            <label for="star3"><i class="fas fa-star"></i></label>
-            
-            <input type="radio" id="star2" name="rating" value="2" />
-            <label for="star2"><i class="fas fa-star"></i></label>
-            
-            <input type="radio" id="star1" name="rating" value="1" />
-            <label for="star1"><i class="fas fa-star"></i></label>
-        </div>
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label for="star5"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label for="star4"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label for="star2"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label for="star1"><i class="fas fa-star"></i></label>
+              </div>
 
               <button type="submit" class="reviewBtn">Submit</button>
             </span>

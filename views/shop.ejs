@@ -2,6 +2,8 @@
 <html>
   <head>
     <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link
       rel="stylesheet"
@@ -17,6 +19,7 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="searchDiv">
@@ -73,15 +76,18 @@
       <div class="shopBox">
         <div class="shop-top">
           <h6 class="filterHead">Filters</h6>
+
           <h6>
             <a style="text-decoration: none; color: gray" href="/">HOME </a> >
             Shop All <span style="color: #9ee281">5154 Items</span>
           </h6>
-          <div>Dropdown</div>
+          <div></div>
         </div>
 
         <div class="shopContent">
+          <!-- filter-box -->
           <div class="filters">
+            <!---------------------- price-box filter start here---------------- -->
             <div class="priceBoxFilter">
               <h6>Price</h6>
               <ul>
@@ -91,122 +97,28 @@
                 </li>
               </ul>
             </div>
-            <div class="scrollFilterBox">
-              <h6>SIZE</h6>
-              <ul>
-                <li><input type="checkbox" name="" id="" /> Small</li>
-                <li><input type="checkbox" name="" id="" /> Medium</li>
-                <li><input type="checkbox" name="" id="" /> Large</li>
-                <li><input type="checkbox" name="" id="" /> Large</li>
-                <li><input type="checkbox" name="" id="" /> Large</li>
-                <li><input type="checkbox" name="" id="" /> Large</li>
-              </ul>
+            <!---------------------- price-box filter end here---------------- -->
+
+            <!------------------ category links start here------------------------->
+            <div class="scrollFilterBox cat">
+              <h6>CATEGORY</h6>
+              <div class="box-selector"></div>
             </div>
-            <div class="scrollFilterBox">
-              <h6>TYPE</h6>
-              <ul>
-                <li><input type="checkbox" name="" id="" /> Hair</li>
-                <li><input type="checkbox" name="" id="" /> Skin</li>
-                <li><input type="checkbox" name="" id="" /> Body</li>
-              </ul>
+
+            <!------------------category-links end here---------------------------->
+
+            <!------------------ sub-category links start here--------------------->
+            <div class="scrollFilterBox subcat">
+              <h6>SUB-CATEGORY</h6>
+              <div class="box-selector"></div>
             </div>
+            <!-- ----------------sub-category links end here----------------------->
           </div>
-          <div class="productsDiv">
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/prod1.jpg" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName">MULTI-VITAMIN: EVERYDAY WELLNESS</h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">3995 INR</p>
-                  <p class="mrp">8995 INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div>
-          </div>
+          <!-- filter-box -->
+
+          <div class="item-content"><%- include('product_partial.ejs') -%></div>
         </div>
       </div>
-
       <!--------------------------------------Footer --------------------------------------  -->
       <!-- Site footer -->
       <div class="footerBox">
@@ -328,6 +240,8 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/shop.js"></script>
+    
     <script>
       function newf(event) {
         //  event.preventDefault()

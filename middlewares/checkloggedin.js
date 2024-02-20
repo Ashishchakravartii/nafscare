@@ -6,7 +6,9 @@ async function checkLoggedIn(req, res, next) {
   try {
     // Check if user data exists in session
     if (!req.session.user) {
-      return res.redirect("/auth");
+      return res.send(
+        "<script>alert('Please login to see this page.')</script>"
+      );
     }
 
     // Retrieve user ID from session
@@ -20,7 +22,9 @@ async function checkLoggedIn(req, res, next) {
 
     // Check if accessToken is present
     if (rows.length === 0 || !rows[0].accessToken) {
-      return res.redirect("/auth");
+      return res.send(
+        "<script>alert('Please login to see this page.')</script>"
+      );
     }
 
     // User is logged in, proceed to the next middleware or route handler

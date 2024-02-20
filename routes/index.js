@@ -7,6 +7,7 @@ const { generateAccessToken, generateRefreshToken } = require("../db/db.js");
 const checkLoggedIn = require("../middlewares/checkloggedin.js");
 const { sendmail } = require("../middlewares/mail.js");
 const { forgetMail } = require("../middlewares/forgetMail.js");
+var { connection, queryDatabase } = require("../db/db2.js");
 
 var ip = require("ip");
 
@@ -152,15 +153,197 @@ router.get("/logout", async (req, res) => {
 });
 
 /* GET Shop page. */
-router.get("/shop", function (req, res, next) {
-  res.render("shop", { title: "shop", user: req.session.user });
+router.get("/shop", async function (req, res, next) {
+  // Fetch orders data from the product table
+
+  // ----------------------------------------------------------------------------------------------
+  try {
+    // Fetch orders data from the category table
+    const [productRows] = await pool.execute("SELECT * FROM product");
+
+    if (productRows.length == 0) {
+      console.error("Error querying database:", err);
+      res.status(500).send("Error querying database");
+      return;
+    }
+    // Fetch orders data from the category table
+    const [categoryRows] = await pool.execute("SELECT * FROM category");
+
+    if (categoryRows.length == 0) {
+      console.error("Error querying database:", err);
+      res.status(500).send("Error querying database");
+      return;
+    }
+
+    // Fetch orders data from the product table
+    const [subcategoryRows] = await pool.execute("SELECT * FROM sub_category");
+
+    if (subcategoryRows.length == 0) {
+      console.error("Error querying database:", err);
+      res.status(500).send("Error querying database");
+      return;
+    }
+
+    if (req.session.user) {
+      user = req.session.user;
+    } else {
+      user = null;
+    }
+
+    res.render("shop", {
+      title: "shop",
+      productRows,
+      categoryRows,
+      subcategoryRows,
+      user,
+    });
+  } catch {
+    res.send(`<script>alert('Somthing went wrong')</script>`);
+  }
 });
 
-// /* GET Checkout page. */
-// router.get("/checkout", function (req, res, next) {
-//   res.render("checkout", { title: "checkout", user: req.session.user });
-// });
+router.get("/category", async (req, res, next) => {
+  const [categoryRows] = await pool.execute("SELECT * FROM category");
 
+  if (categoryRows.length > 0) {
+    res.json({
+      message: "success",
+      data: categoryRows,
+    });
+  } else {
+    res.json({
+      message: "not get",
+      data: [],
+    });
+  }
+});
+
+router.get("/subcategory", async (req, res, next) => {
+  const [subcategoryRows] = await pool.execute("SELECT * FROM sub_category");
+
+  if (subcategoryRows.length > 0) {
+    res.json({
+      message: "success",
+      data: subcategoryRows,
+    });
+  } else {
+    res.json({
+      message: "not get",
+      data: [],
+    });
+  }
+});
+
+router.get("/allcat", async (req, res, next) => {
+  // ------------------------------------------------------------------------
+  try {
+    // Fetch cart items for the user's IP address
+    const [provarRows, fields] = await pool.execute(
+      "SELECT id, pid, vid, price, mrp FROM provar"
+    );
+    // Prepare arrays to store product IDs and variant IDs for fetching product details
+    const productIds = [];
+    const variantIds = [];
+    const quantities = {};
+    // Extract product IDs, variant IDs, and quantities from the provarRows
+    provarRows.forEach((row) => {
+      productIds.push(row.pid);
+      variantIds.push(row.vid);
+      quantities[`${row.pid}_${row.vid}`] = row.qty;
+    });
+    // Generate comma-separated list of product IDs and variant IDs
+    const productIdList = productIds.join(",");
+    const variantIdList = variantIds.join(",");
+    // Fetch product details from product table
+    const [productRows] = await pool.execute(
+      `SELECT id, name, description, image1, image2 FROM product WHERE id IN (${productIdList})`
+    );
+    // Fetch individual prices from provar table
+    const [priceRows] = await pool.execute(
+      `SELECT pid, vid, price, mrp FROM provar WHERE pid IN (${productIdList}) AND vid IN (${variantIdList})`
+    );
+    // Construct the response object with product details and individual prices
+    const products = productRows.map((product) => {
+      const variantId = variantIds[productIds.indexOf(product.id)]; // Get variant ID for the current product
+      const quantity = quantities[`${product.id}_${variantId}`] || 0; // Get quantity for the current product variant
+      const price =
+        priceRows.find(
+          (priceRow) =>
+            priceRow.pid === product.id && priceRow.vid === variantId
+        )?.price || 0; // Get individual price for the current product variant
+      const mrp =
+        priceRows.find(
+          (mrpRow) => mrpRow.pid === product.id && mrpRow.vid === variantId
+        )?.mrp || 0; // Get individual mrp for the current product variant
+      return {
+        pid: product.id,
+        vid: variantId,
+        name: product.name,
+        description: product.description,
+        image1: product.image1,
+        image2: product.image2,
+        quantity: quantity,
+        individualPrice: price,
+        mrp: mrp,
+      };
+    });
+    // ------------------------------------------------------------------------
+    const { category, subcategory } = req.query;
+    let sql = `SELECT DISTINCT product.* FROM product`;
+    // Join with category table if category filter is provided
+    if (category) {
+      sql += ` INNER JOIN category ON product.category_id = category.category_id WHERE category.category_id IN (${category})`;
+    } else {
+      sql += ` INNER JOIN category ON product.category_id = category.category_id`;
+    }
+    // Join with subcategory table if subcategory filter is provided
+    if (subcategory) {
+      // If category filter was applied, we use AND instead of WHERE
+      if (category) {
+        sql += ` AND`;
+      } else {
+        sql += ` WHERE`;
+      }
+      sql += ` product.subcategory_id IN (${subcategory})`;
+    }
+    try {
+      const data = await queryDatabase(connection, sql);
+      if (data.length > 0) {
+        // console.log("products ================>", products);
+
+        data.map((item) => {
+          // Find the corresponding product in the products array
+          const matchingProduct = products.find(
+            (product) => product.pid === item.id
+          );
+
+          // If a matching product is found, update the item with individualPrice and mrp
+          if (matchingProduct) {
+            item.individualPrice = matchingProduct.individualPrice;
+            item.mrp = matchingProduct.mrp;
+          }
+
+          console.log("item =========>", item);
+        });
+
+        res.json({
+          message: "Success",
+          data: data,
+        });
+      } else {
+        res.json({
+          message: "No data found",
+          data: [],
+        });
+      }
+    } catch (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  } catch {
+    res.send("404 Somthing went wrong");
+  }
+});
 /* GET MyAccount page. */
 router.get("/account", checkLoggedIn, async function (req, res, next) {
   try {
@@ -203,8 +386,6 @@ router.get("/cart", async function (req, res, next) {
       "SELECT id, pid, vid, qty FROM cart WHERE ipadd = ?",
       [userIp]
     );
-
-   
 
     if (cartRows.length === 0) {
       return res.render("cart", {
@@ -262,7 +443,6 @@ router.get("/cart", async function (req, res, next) {
       };
     });
 
-
     // Render the cart page with product details
     res.render("cart", {
       title: "myCart",
@@ -280,9 +460,9 @@ router.get("/clearCart", (req, res, next) => {
   res.redirect("/cart");
 });
 
-router.post("/addCart", async (req, res) => {
+router.post("/addCart/:pid", async (req, res) => {
   // const { pid, qty, vid } = req.body;
-  const pid = 5;
+  const pid = req.params.pid;
   const vid = 2;
   const qty = 2;
   const ipAdd = ip.address();
@@ -460,10 +640,18 @@ router.post("/updatePassword", checkLoggedIn, async (req, res, next) => {
 });
 
 /* GET Product page. */
-router.get("/product", function (req, res, next) {
-  // console.log("----------------->", req.session.user);
+router.get("/product/:pid", async function (req, res, next) {
+  const productId = req.params.pid;
 
-  const productId = 5;
+  const [productRows] = await pool.execute(
+    "SELECT * FROM product WHERE id = ?",
+    [productId]
+  );
+  if (productRows.length === 0) {
+    return res.send("<script>alert('PRODUCT NOT FOUND!');</script>");
+  }
+  const product = productRows[0];
+  console.log(product);
 
   if (req.session.user) {
     const userId = req.session.user.id;
@@ -483,12 +671,15 @@ router.get("/product", function (req, res, next) {
             user: req.session.user,
             reviewFormVisible: true,
             productId: productId,
+            product,
           });
         } else {
           res.render("productPage", {
             title: "Product Page",
             user: req.session.user,
             reviewFormVisible: false,
+            productId: productId,
+            product,
           });
         }
       })
@@ -501,6 +692,8 @@ router.get("/product", function (req, res, next) {
       title: "Product Page",
       user: null,
       reviewFormVisible: false,
+      productId: productId,
+      product,
     });
   }
 });
