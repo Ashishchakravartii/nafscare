@@ -204,12 +204,7 @@ router.get("/cart", async function (req, res, next) {
       [userIp]
     );
 
-    // console.log("==============>", cartRows);
-
-    //  const [rows, fields] = await pool.execute(
-    //    "SELECT price FROM provar WHERE pid = ? AND vid = ?",
-    //    [pid, vid]
-    //  );
+   
 
     if (cartRows.length === 0) {
       return res.render("cart", {
@@ -267,7 +262,6 @@ router.get("/cart", async function (req, res, next) {
       };
     });
 
-    console.log("==============>", products);
 
     // Render the cart page with product details
     res.render("cart", {
