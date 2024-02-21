@@ -8,24 +8,23 @@ slides.forEach((slide) => {
 
 // -----------Front page slider--------------------------
 
-  var swiper = new Swiper(".mySwiper", {
-    spaceBetween: 30,
-    loop: true,
-    centeredSlides: true,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
-
+var swiper = new Swiper(".mySwiper", {
+  spaceBetween: 30,
+  loop: true,
+  centeredSlides: true,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
 
 // -----------------------------------
 
@@ -63,57 +62,68 @@ gsap.from(".section3-bottom-imgDiv-right", {
   },
 });
 
-
 // --------------------------------- my account page --------------------------------
 
- function openCity(evt, tabDetail) {
-      // Declare all variables
-      var i, tabcontent, tablinks;
+function openCity(evt, tabDetail) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
 
-      // Get all elements with class="tabcontent" and hide them
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
 
-      // Get all elements with class="tablinks" and remove the class "active"
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
 
-      // Show the current tab, and add an "active" class to the button that opened the tab
-      document.getElementById(tabDetail).style.display = "block";
-      evt.currentTarget.className += " active";
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabDetail).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 
-    }
+// ---------------------------- search bar -------------------------------
 
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
 
-    // ---------------------------- search bar -------------------------------
+searchInput.addEventListener(onchange, async (event) => {
+  event.preventDefault();
+  const searchTerm = searchInput.value.trim();
+  console.log("===================>", searchTerm);
+  if (searchTerm === "") return;
 
-    const searchForm = document.getElementById("searchForm");
-    const searchInput = document.getElementById("searchInput");
-    const searchResults = document.getElementById("searchResults");
+  // Make AJAX request to fetch search results
+  fetch(`/search/${searchTerm}`)
+    .then((response) => response.json())
+    .then((data) => {
+      // Clear previous results
+      searchResults.innerHTML = "";
 
-    searchInput.addEventListener(onchange, async (event) => {
-      event.preventDefault();
-      const searchTerm = searchInput.value.trim();
-      console.log("===================>", searchTerm);
-      if (searchTerm === "") return;
+      // Display search results
+      data.forEach((product) => {
+        const productElement = document.createElement("div");
+        productElement.textContent = product.name;
+        searchResults.appendChild(productElement);
+      });
+    })
+    .catch((error) => console.error("Error:", error));
+});
 
-      // Make AJAX request to fetch search results
-      fetch(`/search/${searchTerm}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Clear previous results
-          searchResults.innerHTML = "";
+// --------------------------- Nav dropdown ----------------------------------
 
-          // Display search results
-          data.forEach((product) => {
-            const productElement = document.createElement("div");
-            productElement.textContent = product.name;
-            searchResults.appendChild(productElement);
-          });
-        })
-        .catch((error) => console.error("Error:", error));
-    });
+const dropDownNav = document.querySelector(".dropDownNav");
+const closeBtn = document.querySelector("#closeBtn");
+const menuBtn = document.querySelector("#menuBtn");
+
+closeBtn.addEventListener("click", () => {
+  dropDownNav.style.top = "-20%";
+});
+
+menuBtn.addEventListener("click", () => {
+  dropDownNav.style.top = "8.5%";
+});
