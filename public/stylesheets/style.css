@@ -1540,31 +1540,26 @@ div.tab button.active {
 }
 
 .updateForm {
-  width: 100%;
-  height: 5vmax;
+  width: 40vw;
+  height: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: start;
   margin-top: 5vmax;
-  padding-left: 4.5vmax;
+  margin-left: 7vmax;
+  /* padding-left: 4.5vmax; */
 }
 .addForm1 {
   margin-top: 1vmax;
 }
 .updateForm > input {
-  width: 80%;
-  border: 1px solid black;
+  width: 78%;
   border-radius: 5px;
-  font-size: 1vmax;
   padding: 0.5vmax;
-  border: 1px solid rgb(219, 216, 216);
-}
-.updateForm > div > input {
-  width: 80%;
   margin-top: 1vmax;
   font-size: 1vmax;
   border: 1px solid rgb(219, 216, 216);
-  border-radius: 5px;
   padding: 0.5vmax;
 }
 .updateAddBtn {
@@ -1576,13 +1571,14 @@ div.tab button.active {
   color: white;
 }
 .accountDetailUpdateBTn {
-  width: 30.1vmax;
+  width: 77%;
   margin-top: 1vmax;
   border: 0;
   border-radius: 10px;
   background-color: #9ee281;
   color: white;
   margin-bottom: 1vmax;
+  padding: 0.3vmax;
 }
 .updatePasswordForm {
   margin-left: 10vmax;
@@ -1749,8 +1745,9 @@ div.tab button.active {
 /* Let’s add some basic style to  product name and description. */
 .description {
   padding-top: 10px;
-  margin-right: 60px;
+  margin-right: 0;
   width: 115px;
+  background-color: red;
 }
 
 .description span {
@@ -1867,7 +1864,7 @@ input:focus {
   margin-bottom: -2vmax;
   color: #9ee281;
   margin-top: 4vmax;
-  margin-left: 4.5vmax;
+  margin-left: 23vmax;
 }
 
 .addressTab {
@@ -2332,7 +2329,7 @@ input:focus {
 
   .cart_item {
     width: 100vw;
-    padding: 20px 30px;
+    padding: 20px 10px;
     height: 33.33%;
     display: flex;
     justify-content: space-evenly;
@@ -2428,7 +2425,7 @@ input:focus {
   }
 
   .prodImgCart {
-    width: 100%;
+    width: 79%;
     height: 100%;
     object-fit: cover;
   }
@@ -2524,28 +2521,30 @@ input:focus {
 
   .authBox {
     width: 100vw;
-    height: 100vh;
+    height: 120vh;
     display: flex;
     flex-direction: column;
+    /* background-color: red; */
   }
   .authBox > div {
-    width: 96%;
+    width: 100%;
     height: 50%;
+    /* background-color: yellow; */
   }
   .signUpBox {
     /* background-color: plum; */
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-right: 15vmax;
     text-align: center;
+    padding-left: 9vmax;
   }
   .signUpHead {
     margin-bottom: -2vmax;
 
     color: #9ee281;
     margin-top: 4vmax;
-    margin-left: 13vmax;
+    margin-left: 5vmax;
     font-size: 3.6vmax;
   }
   .forgetPara {
@@ -2564,11 +2563,19 @@ input:focus {
   }
 
   .updateForm {
-    width: 100%;
+    width: 95vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 5vmax;
+    margin-left: 0 !important;
+  }
+
+  .upAccount {
+    margin-left: 0 !important;
+  }
+  .upForm2 {
+    margin-left: 0.7vmax !important;
   }
 
   .updateForm > input {
@@ -2576,11 +2583,11 @@ input:focus {
     border-radius: 5px;
     font-size: 1vmax;
     padding: 1.5vmax;
-    width: 145%;
+    width: 98%;
     border: 1px solid rgb(219, 216, 216);
     font-size: 2.2vmax;
   }
-  .updateForm > div > input {
+  .updateForm > input {
     width: 100%;
     padding: 1.5vmax;
     font-size: 1vmax;
