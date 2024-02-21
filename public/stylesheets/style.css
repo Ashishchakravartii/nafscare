@@ -1540,7 +1540,7 @@ div.tab button.active {
 }
 
 .updateForm {
-  width: 45%;
+  width: 100%;
   height: 5vmax;
   display: flex;
   flex-direction: column;
@@ -1552,6 +1552,7 @@ div.tab button.active {
   margin-top: 1vmax;
 }
 .updateForm > input {
+  width: 80%;
   border: 1px solid black;
   border-radius: 5px;
   font-size: 1vmax;
@@ -1559,6 +1560,7 @@ div.tab button.active {
   border: 1px solid rgb(219, 216, 216);
 }
 .updateForm > div > input {
+  width: 80%;
   margin-top: 1vmax;
   font-size: 1vmax;
   border: 1px solid rgb(219, 216, 216);
@@ -1600,7 +1602,7 @@ div.tab button.active {
 .userInfoUpdateBox > div:nth-child(2) {
   width: 50%;
   height: 60vh;
-  padding-right: 15vmax;
+  padding-right: 8vmax;
 }
 
 /* --------------------------------- cart -------------------------------------- */
@@ -1866,6 +1868,16 @@ input:focus {
   color: #9ee281;
   margin-top: 4vmax;
   margin-left: 4.5vmax;
+}
+
+.addressTab {
+  /* width: 50vw; */
+  height: 60vh;
+  padding-right: 14vmax;
+}
+
+.accDetBox {
+  display: flex;
 }
 
 /* --------------------------------- Responsive Properties ---------------------------------- */
@@ -2271,7 +2283,7 @@ input:focus {
 
   .shopping-cart {
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
     margin: 15px auto;
     /* background: #ffffff; */
     box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
@@ -2287,9 +2299,9 @@ input:focus {
 
   .checkoutAtag {
     width: 55vw;
-    margin-top: 4vmax;
+    margin-top: 6vmax;
     color: white;
-    background-color: #000000;
+    background-color: #9ee281;
     border: 0;
     border-radius: 5px;
     padding: 1vmax;
@@ -2349,6 +2361,9 @@ input:focus {
   }
   .itemCartShowingWindow::-webkit-scrollbar {
     width: 0.5vmax;
+  }
+  .emptyCartHead {
+    padding: 9vmax 0 0 13vmax;
   }
 
   .updateQtyBtn {
@@ -2514,7 +2529,7 @@ input:focus {
     flex-direction: column;
   }
   .authBox > div {
-    width: 100%;
+    width: 96%;
     height: 50%;
   }
   .signUpBox {
@@ -2554,7 +2569,6 @@ input:focus {
     flex-direction: column;
     justify-content: space-between;
     margin-top: 5vmax;
-    padding-left: 4.5vmax;
   }
 
   .updateForm > input {
@@ -2562,10 +2576,12 @@ input:focus {
     border-radius: 5px;
     font-size: 1vmax;
     padding: 1.5vmax;
+    width: 145%;
     border: 1px solid rgb(219, 216, 216);
     font-size: 2.2vmax;
   }
   .updateForm > div > input {
+    width: 100%;
     padding: 1.5vmax;
     font-size: 1vmax;
     margin-top: 1vmax;
@@ -2574,6 +2590,21 @@ input:focus {
     padding: 1.7vmax;
     font-size: 2vmax;
   }
+  .accountDetailUpdateBTn {
+    width: 40.1vmax;
+    margin-top: 1vmax;
+    border: 0;
+    border-radius: 10px;
+    background-color: #9ee281;
+    color: white;
+    margin-bottom: 1vmax;
+    padding: 0.8vmax 1vmax;
+  }
+  .addressTab {
+    height: 60vh;
+    padding-right: 14vmax;
+  }
+
   .updateAddBtn {
     margin-top: 1vmax;
     border: 0;
@@ -2675,5 +2706,24 @@ input:focus {
     width: 100vw;
     padding: 0 2vmax;
     overflow-x: scroll;
+  }
+
+  .userInfoUpdateBox {
+    /* background-color: red; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0vmax;
+  }
+  .userInfoUpdateBox > div {
+    width: 98%;
+    height: 50vh;
+  }
+
+  .userInfoUpdateBox > div:nth-child(2) {
+    width: 100%;
+    height: 40vh;
+    margin-right: 50vmax;
   }
 }

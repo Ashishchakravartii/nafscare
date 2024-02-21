@@ -171,7 +171,7 @@
           <a href="/">Home</a> > <a href="/account">My Account > </a>
           Address
         </h6>
-        <div style="height: 30vmax" class="addressTab">
+        <div class="addressTab">
           <div class="updateFormBox">
             <form class="updateForm" action="/updateAddress" method="post">
               <input
@@ -228,7 +228,7 @@
           <a href="/">Home</a> > <a href="/account">My Account > </a>
           Account Details
         </h6>
-        <div style="display: flex" class="accDetBox">
+        <div class="accDetBox">
           <div class="updateFormBox userInfoUpdateBox">
             <div>
               <form
@@ -237,7 +237,6 @@
                 method="post"
               >
                 <input
-                  style="width: 30vmax"
                   type="text"
                   placeholder="Full Name"
                   value="<%=user.name%>"
@@ -245,14 +244,12 @@
                 />
                 <div>
                   <input
-                    style="width: 30vmax"
                     type="email"
                     placeholder="email"
                     value="<%=user.email%>"
                     name="email"
                   />
                   <input
-                    style="width: 30vmax"
                     type="number"
                     placeholder="Phone"
                     value="<%=user.phone%>"
@@ -260,45 +257,38 @@
                   />
                 </div>
                 <button
-                  class="accountDetailUpdateBTn"
                   style="padding: 0.3vmax"
-                  class=""
+                  class="accountDetailUpdateBTn"
+                  c
                 >
                   Save Changes
                 </button>
               </form>
             </div>
-            <div>
+            <div class="updatePassBox">
               <form
                 class="updateForm updatePasswordForm"
                 action="/updatePassword"
                 method="post"
               >
                 <input
-                  style="width: 30vmax"
                   type="password"
                   placeholder="Current Password"
                   name="currentPassword"
                 />
-                <div style="display: flex">
+                <div>
                   <input
-                    style="width: 14.5vmax"
                     type="password"
                     placeholder="New Password"
                     name="newPassword"
                   />
                   <input
-                    style="width: 14.5vmax; margin-left: 0.9vmax"
                     type="password"
                     placeholder="Confirm Password"
                     name="confirmPassword"
                   />
                 </div>
-                <button
-                  class="accountDetailUpdateBTn"
-                  style="padding: 0.3vmax"
-                  class=""
-                >
+                <button class="accountDetailUpdateBTn" style="padding: 0.3vmax">
                   Save Changes
                 </button>
               </form>
