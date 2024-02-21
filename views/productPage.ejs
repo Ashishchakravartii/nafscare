@@ -234,36 +234,36 @@
           <div class="buyers-rating">
             <div class="buyers-left">
               <h1>
-                5.6
+                <%= overallRatingOutOf5 %>
                 <i class="ri-star-s-fill"></i>
               </h1>
-              <p>29 verified buyers</p>
+              <p><%= reviewCount %> verified buyers</p>
             </div>
             <div class="buyers-right">
               <div class="rating-line">
                 <p>5 <i class="ri-star-s-fill"></i></p>
                 <div class="line"></div>
-                <p>21</p>
+                <p><%= starRatingsCount["5"] %></p>
               </div>
               <div class="rating-line">
                 <p>4 <i class="ri-star-s-fill"></i></p>
                 <div class="line2"></div>
-                <p>21</p>
+                <p><%= starRatingsCount["4"] %></p>
               </div>
               <div class="rating-line">
                 <p>3 <i class="ri-star-s-fill"></i></p>
                 <div class="line3"></div>
-                <p>21</p>
+                <p><%= starRatingsCount["3"] %></p>
               </div>
               <div class="rating-line">
                 <p>2 <i class="ri-star-s-fill"></i></p>
                 <div class="line4"></div>
-                <p>21</p>
+                <p><%= starRatingsCount["2"] %></p>
               </div>
               <div class="rating-line">
                 <p>1 <i class="ri-star-s-fill"></i></p>
                 <div class="line5"></div>
-                <p>21</p>
+                <p><%= starRatingsCount["1"] %></p>
               </div>
             </div>
           </div>
@@ -271,24 +271,59 @@
 
         <!--___________________________________- customer reviews _______________________________-->
         <div class="customer-rev">
-          <h4>Customer Reviews (3)</h4>
+          <h4>Customer Reviews (<%= reviewCount %>)</h4>
+
+          <% if (reviewFormVisible) { %>
+          <form
+            class="reviewForm"
+            action="/submit-review/<%=productId %>"
+            method="post"
+          >
+            <span class="reviewSpan">
+              <textarea
+                style="resize: none"
+                class="reviewTxtArea"
+                name="review"
+              >
+Write a review...</textarea
+              >
+              <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label for="star5"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label for="star4"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label for="star2"><i class="fas fa-star"></i></label>
+
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label for="star1"><i class="fas fa-star"></i></label>
+              </div>
+
+              <button class="reviewBtn">Submit</button>
+            </span>
+          </form>
+          <% } %>
+
           <div class="customer-box">
+            <% reviews.map((review)=>{ %>
+
             <div class="cr-star">
               <div class="star-5">
-                <h6>5</h6>
+                <h6><%= review.rating %></h6>
                 <i class="ri-star-s-fill"></i>
               </div>
-              <p>Nice work</p>
+              <p><%= review.review %></p>
             </div>
             <div class="cr-date">
-              <p>Rajesh Prashad</p>
-              <p>28-3-1990</p>
-
-              <div class="thumb">
-                <i class="ri-thumb-up-line"> 0</i>
-                <i class="ri-thumb-down-line">0</i>
-              </div>
+              <p><%= review.customerName %></p>
+              <p><%= review.timestamp.toDateString() %></p>
             </div>
+            <% }) %>
           </div>
         </div>
 

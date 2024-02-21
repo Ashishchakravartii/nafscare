@@ -515,6 +515,9 @@ body {
   font-family: gilroy-b;
 }
 .customer-box {
+  width: 41vmax;
+  height: 20vmax;
+  overflow-y: scroll;
   margin-top: 2vmax;
   border-bottom: 1px solid rgba(161, 157, 157, 0.388);
 }
@@ -523,7 +526,8 @@ body {
   display: flex;
   gap: 10px;
   align-items: center;
-  /* background-color: red; */
+  padding-top: 1.2vmax;
+  border-top: 1px solid rgb(212, 212, 212);
 }
 .cr-star .star-5 {
   display: flex;
@@ -702,18 +706,19 @@ button {
   /* flex-wrap: wrap; */
   /* justify-content: center; */
   text-align: center;
-  /* background-color: red; */
 
   label {
     flex: 1 0 100%;
   }
   input {
-    width: 5rem;
-    height: 3rem;
+    width: 2.5rem;
+    margin-top: 0.5vmax;
+    height: 2rem;
     font-size: 1.3rem;
     text-align: center;
-    /* border: 1px solid #575757; */
+    border: 1px solid #c6c6c6;
     outline: none;
+    border-radius: 5px;
   }
   /* input[type="number"]{
         outline: none;
@@ -728,11 +733,15 @@ button {
     border-radius: 10px;
   }
   button.qtyminus {
-    margin-right: 0.3rem;
+    margin-right: 0.1rem;
+    scale: 0.6;
   }
   button.qtyplus {
     margin-left: 0.3rem;
   }
+}
+.qtyplus123 {
+  scale: 0.6;
 }
 
 /* -------------------------------- footer ----------------------------------------- */

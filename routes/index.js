@@ -466,13 +466,13 @@ router.post("/addCart", async (req, res) => {
   const qty = req.body.qty;
   const ipAdd = ip.address();
 
+  console.log("je raha khilesh bhai==========", pid, qty, vid);
 
   const [vidRows] = await pool.execute(
     "SELECT id FROM variant WHERE name = ?",
     [vid]
   );
 
-  
   vid = vidRows[0].id;
 
   try {
@@ -649,196 +649,208 @@ router.post("/updatePassword", checkLoggedIn, async (req, res, next) => {
   }
 });
 
-/* GET Product page. */
-// router.get("/product/:pid", async function (req, res, next) {
-//   const productId = req.params.pid;
-
-//   const [productRows] = await pool.execute(
-//     "SELECT * FROM product WHERE id = ?",
-//     [productId]
-//   );
-//   if (productRows.length === 0) {
-//     return res.send("<script>alert('PRODUCT NOT FOUND!');</script>");
-//   }
-//   const product = productRows[0];
-//   // console.log(product);
-
-//   const [provarRows] = await pool.execute(
-//     "SELECT * FROM provar WHERE pid = ?",
-//     [productId]
-//   );
-//   if (provarRows.length === 0) {
-//     return res.send("<script>alert('PRODUCT NOT FOUND!');</script>");
-//   }
-//   const provar = provarRows;
-
-//   // console.log("from provar table ====================>", provar);
-
-//   const finalVariant = provar.map(async (variant) => {
-//     const [provarRows] = await pool.execute(
-//       "SELECT name FROM variant WHERE id = ?",
-//       [variant.vid]
-//     );
-
-//     variant.vName = provarRows;
-//     console.log("================= var >", variant);
-//   });
-//   console.log("================= final provar >", finalVariant);
-
-//   if (req.session.user) {
-//     const userId = req.session.user.id;
-
-//     // Check if the user has purchased the product but has not reviewed it
-//     pool
-//       .execute(
-//         "SELECT * FROM orders WHERE userId = ? AND pid = ? AND reviewed = 0",
-//         [userId, productId]
-//       )
-//       .then(([orderRows]) => {
-//         console.log("===================>", orderRows);
-
-//         if (orderRows.length > 0) {
-//           res.render("productPage", {
-//             title: "Product Page",
-//             user: req.session.user,
-//             reviewFormVisible: true,
-//             productId: productId,
-//             product,
-//             provar,
-//           });
-//         } else {
-//           res.render("productPage", {
-//             title: "Product Page",
-//             user: req.session.user,
-//             reviewFormVisible: false,
-//             productId: productId,
-//             product,
-//             provar,
-//           });
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error executing query:", error);
-//         // Handle the error appropriately
-//       });
-//   } else {
-//     res.render("productPage", {
-//       title: "Product Page",
-//       user: null,
-//       reviewFormVisible: false,
-//       productId: productId,
-//       product,
-//       finalVariant,
-//     });
-//   }
-// });
-
 router.get("/product/:pid", async (req, res, next) => {
-  const productId = req.params.pid;
-  console.log("productId", productId);
+  try {
+    const productId = req.params.pid;
+    console.log("productId", productId);
 
-  const sql = `SELECT * FROM product where id=?`;
-  connection.query(sql, [productId], (error, results) => {
-    if (error) {
-      console.error("Error fetching product:", error);
-      res.status(500).send("Error fetching product");
+    // Fetch product details
+    const productQuery = "SELECT * FROM product where id=?";
+    const product = await queryAsync(connection, productQuery, [productId]);
+    if (!product.length) {
+      res.status(404).send("Product not found");
       return;
     }
 
-    connection.query("SELECT * FROM product", (err, itemCart) => {
-      if (err) {
-        console.error("Error fetching products:", err);
-        res.status(500).send("Error fetching products");
-        return;
+    // Fetch all products from the shop
+    const itemCartQuery = "SELECT * FROM product";
+    const itemCart = await queryAsync(connection, itemCartQuery);
+
+    // Fetch prices for each shop
+    for (const item of itemCart) {
+      const shopId = item.id;
+      const pricesQuery = "SELECT * FROM provar WHERE pid = ?";
+      const prices = await queryAsync(connection, pricesQuery, [shopId]);
+      item.price = prices;
+      console.log("Prices for shop_id", shopId, "are", prices);
+    }
+
+    // Fetch variant sizes for the product
+    const provarQuery = "SELECT * FROM provar where pid=?";
+    const results1 = await queryAsync(connection, provarQuery, [productId]);
+    const sizeNames = [];
+    for (const row of results1) {
+      const vid = row.vid;
+      const variantQuery = "SELECT * FROM variant where id=?";
+      const variant = await queryAsync(connection, variantQuery, [vid]);
+      console.log("size----", variant[0].name);
+      sizeNames.push(variant[0].name);
+    }
+
+    let reviewFormVisible = false;
+
+    // Check if req.session.user is available
+    if (req.session.user) {
+      const userId = req.session.user.id;
+
+      // Check if the user has reviewed the product
+      const sqlCheckReview = `SELECT * FROM orders WHERE userId = ? AND pid = ? AND reviewed = 0`;
+      const reviewResult = await queryAsync(connection, sqlCheckReview, [
+        userId,
+        productId,
+      ]);
+      console.log("user is available", reviewResult);
+      if (reviewResult.length > 0) {
+        reviewFormVisible = true;
+        console.log("upr wala if", reviewFormVisible);
       }
+    }
 
-      // Iterate through each item in the shop
-      itemCart.forEach((item) => {
-        const shop_id = item.id;
-        // Query to fetch price from provar table based on shop_id
-        const sql = "SELECT * FROM provar WHERE pid = ?";
-        connection.query(sql, [shop_id], (error, prices) => {
-          if (error) {
-            console.error("Error fetching prices:", error);
-            // Handle the error
-            return;
-          }
+    // Fetch product reviews
+    // const reviewsQuery = "SELECT * FROM product_reviews WHERE productId = ?";
+    // const reviews = await queryAsync(connection, reviewsQuery, [productId]);
+    // const reviewCount = reviews.length;
+    // console.log("===================", reviews.length);
 
-          // Extract the price value from the result
-          // const priceValues = prices.map(price => price.price);
-          const priceValues = prices;
+    // Fetch product reviews
+    const reviewsQuery = "SELECT * FROM product_reviews WHERE productId = ?";
+    const reviews = await queryAsync(connection, reviewsQuery, [productId]);
 
-          // Assign the extracted price value to the item
-          item.price = priceValues;
-          console.log("Prices for shop_id", shop_id, "are", priceValues);
-        });
-      });
+    // Calculate separate counts for each star rating
+    const starRatingsCount = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
 
-      const sql1 = `SELECT * FROM provar where pid=?`;
-      connection.query(sql1, [productId], (error, results1) => {
-        if (error) {
-          console.error("Error fetching provar:", error);
-          res.status(500).send("Error fetching provar");
-          return;
-        }
+    for (const review of reviews) {
+      starRatingsCount[review.rating]++;
+    }
 
-        const sizeNames = [];
-        const promises = [];
+    console.log("Star Ratings Count:", starRatingsCount["5"]);
 
-        results1.forEach(async (row) => {
-          const vid = row.vid;
-          const sql3 = `SELECT * FROM variant where id=?`;
+    // Calculate the overall rating
+    let totalRating = 0;
+    for (const review of reviews) {
+      totalRating += review.rating;
+    }
 
-          // Create a promise for each query
-          const promise = new Promise((resolve, reject) => {
-            connection.query(sql3, [vid], (error, variant) => {
-              if (error) {
-                console.error("Error fetching size:", error);
-                reject(error);
-              } else {
-                console.log("size----", variant[0].name);
-                sizeNames.push(variant[0].name);
-                resolve();
-              }
-            });
-          });
+    const reviewCount = reviews.length;
+    const overallRating = reviewCount > 0 ? totalRating / reviewCount : 0;
+    console.log("Overall Rating:", overallRating);
 
-          promises.push(promise); // Add the promise to the promises array
-        });
+    // Calculate the overall rating out of 5 stars
+    const maxRating = 5;
+    const overallRatingOutOf5 = overallRating * (maxRating / 5);
+    console.log("Overall Rating out of 5:", overallRatingOutOf5);
 
-        if (req.session.user) {
-          user = req.session.user;
-        } else {
-          user = null;
-        }
+    // Render the product page with the fetched data including reviews
+    res.render("productPage", {
+      product: product[0],
+      results1,
+      sizeN: sizeNames,
+      itemCart,
+      user: req.session.user,
+      reviewFormVisible,
+      productId,
+      reviewCount,
+      overallRatingOutOf5,
+      starRatingsCount,
+      reviews, // Add reviews data to send to the frontend
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
-        // Wait for all promises to resolve
-        Promise.all(promises)
-          .then(() => {
-            var sizeN = sizeNames;
-            console.log("new-name", sizeN);
-            const product = results[0];
-            // console.log("product-cart", results1);
-            console.log(
-              "item-cart yeh raha=====================",
-              itemCart[0].price[0].price
-            );
-            res.render("productPage", {
-              product,
-              results1,
-              sizeN,
-              itemCart,
-              user,
-            });
-          })
-          .catch((error) => {
-            console.error("Error fetching size:", error);
-            res.status(500).send("Error fetching size");
-          });
-      });
+// router.get("/product/:pid", async (req, res, next) => {
+//   try {
+//     const productId = req.params.pid;
+//     console.log("productId", productId);
+
+//     // Fetch product details
+//     const productQuery = "SELECT * FROM product where id=?";
+//     const product = await queryAsync(connection, productQuery, [productId]);
+//     if (!product.length) {
+//       res.status(404).send("Product not found");
+//       return;
+//     }
+
+//     // Fetch all products from the shop
+//     const itemCartQuery = "SELECT * FROM product";
+//     const itemCart = await queryAsync(connection, itemCartQuery);
+
+//     // Fetch prices for each shop
+//     for (const item of itemCart) {
+//       const shopId = item.id;
+//       const pricesQuery = "SELECT * FROM provar WHERE pid = ?";
+//       const prices = await queryAsync(connection, pricesQuery, [shopId]);
+//       item.price = prices;
+//       console.log("Prices for shop_id", shopId, "are", prices);
+//     }
+
+//     // Fetch variant sizes for the product
+//     const provarQuery = "SELECT * FROM provar where pid=?";
+//     const results1 = await queryAsync(connection, provarQuery, [productId]);
+//     const sizeNames = [];
+//     for (const row of results1) {
+//       const vid = row.vid;
+//       const variantQuery = "SELECT * FROM variant where id=?";
+//       const variant = await queryAsync(connection, variantQuery, [vid]);
+//       console.log("size----", variant[0].name);
+//       sizeNames.push(variant[0].name);
+//     }
+
+//     let reviewFormVisible = false;
+
+//     // Check if req.session.user is available
+//     if (req.session.user) {
+//       const userId = req.session.user.id;
+
+//       // Check if the user has reviewed the product
+//       const sqlCheckReview = `SELECT * FROM orders WHERE userId = ? AND pid = ? AND reviewed = 0`;
+//       const reviewResult = await queryAsync(connection, sqlCheckReview, [
+//         userId,
+//         productId,
+//       ]);
+//       console.log("user is available", reviewResult);
+//       if (reviewResult.length > 0) {
+//         reviewFormVisible = true;
+//         console.log("upr wala if", reviewFormVisible);
+//       }
+//     }
+
+//     // Render the product page with the fetched data
+//     res.render("productPage", {
+//       product: product[0],
+//       results1,
+//       sizeN: sizeNames,
+//       itemCart,
+//       user: req.session.user,
+//       reviewFormVisible,
+//       productId,
+//     });
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
+
+// Utility function to execute SQL queries asynchronously
+const queryAsync = (connection, sql, values) => {
+  return new Promise((resolve, reject) => {
+    connection.query(sql, values, (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
     });
   });
-});
+};
 
 // -------------------- checkout route -----------------------
 
@@ -900,7 +912,6 @@ router.get("/checkout", checkLoggedIn, async (req, res, next) => {
         image2: product.image2,
         quantity: quantity,
         individualPrice: price,
-        finalVariant,
       };
     });
 
@@ -909,7 +920,6 @@ router.get("/checkout", checkLoggedIn, async (req, res, next) => {
       title: "checkout",
       user: req.session.user,
       products: products,
-      finalVariant,
     });
   } catch (error) {
     console.error("Error fetching product details:", error);
@@ -1172,6 +1182,7 @@ router.post("/submit-review/:pid", async (req, res) => {
   try {
     const productId = req.params.pid;
     const userId = req.session.user.id;
+    const username = req.session.user.name;
     const { rating, review } = req.body;
 
     console.log(
@@ -1185,14 +1196,14 @@ router.post("/submit-review/:pid", async (req, res) => {
 
     // Save the rating and review to the product_reviews table
     const query =
-      "INSERT INTO product_reviews (productId, userId, rating, review) VALUES (?, ?, ?, ?)";
-    await pool.execute(query, [productId, userId, rating, review]);
+      "INSERT INTO product_reviews (productId, userId, customerName, rating, review) VALUES (?, ?, ?, ?, ?)";
+    await pool.execute(query, [productId, userId, username, rating, review]);
 
     const updateQuery =
       "UPDATE orders SET reviewed = ? WHERE userId = ? AND pid = ?";
     await pool.execute(updateQuery, [1, userId, productId]);
 
-    res.redirect("/product");
+    res.redirect(`/product/${productId}`);
   } catch (error) {
     console.error("Error submitting review:", error);
     res.status(500).json({ error: "Internal Server Error" });
