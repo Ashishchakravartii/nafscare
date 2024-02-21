@@ -69,60 +69,32 @@
 
     <div class="product">
       <!-- left-box -->
-      <div class="p-left-box productImgDiv">
-        <section class="productImgDiv-section" id="gallery">
-          <div class="container productImgDiv-container">
-            <div id="image-gallery productImgDiv-imageGallery">
-              <div class="row mainImgBoxProduct">
-                <div class="k_imgLeftBox">
-                  <div class="image">
-                    <div class="img-wrapper">
-                      <a href="/images/chimney.webp"
-                        ><img
-                          src="/images/<%= product.image1 %>"
-                          class="img-responsive"
-                      /></a>
-                      <div class="img-overlay">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="image">
-                    <div class="img-wrapper">
-                      <a href="/images/image2.jpg"
-                        ><img
-                          src="/images/<%= product.image1 %>"
-                          class="img-responsive"
-                      /></a>
-                      <div class="img-overlay">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                      </div>
+      <div class="p-left-box">
+        <section id="gallery">
+          <div class="container">
+            <div id="image-gallery">
+              <div class="row">
+                <div class="image">
+                  <div class="img-wrapper">
+                    <a href="/images/<%= product.img_1 %>"
+                      ><img
+                        src="/images/<%= product.image1 %>"
+                        class="img-responsive"
+                    /></a>
+                    <div class="img-overlay">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
-                <div class="k_imgRightBox">
-                  <div class="image">
-                    <div class="img-wrapper">
-                      <a href="/images/chimney.webp"
-                        ><img
-                          src="/images/<%= product.image2 %>"
-                          class="img-responsive"
-                      /></a>
-                      <div class="img-overlay">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="image">
-                    <div class="img-wrapper">
-                      <a href="/images/image2.jpg"
-                        ><img
-                          src="/images/<%= product.image2 %>"
-                          class="img-responsive"
-                      /></a>
-                      <div class="img-overlay">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                      </div>
+                <div class="image">
+                  <div class="img-wrapper">
+                    <a href="/images/<%= product.img_2 %>"
+                      ><img
+                        src="/images/<%= product.image2 %>"
+                        class="img-responsive"
+                    /></a>
+                    <div class="img-overlay">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
@@ -135,86 +107,98 @@
         </section>
       </div>
       <!-- right-box -->
+
+      <form action="/addCart" id="formId" method="post"></form>
       <div class="p-right-box">
         <!-- title-box -->
         <div class="title-box">
-          <h2>Door Handle Bar</h2>
-          <h3>Boys Yellow Cotton T-shirt</h3>
-          <div class="rating-box">
-            <div class="rb-left">
-              <h5>
-                5.6
-                <i class="ri-star-s-fill"></i>
-              </h5>
-            </div>
-            <div class="rb-right">
-              <p>29 Ratings</p>
-            </div>
-          </div>
+          <input
+            type="hidden"
+            form="formId"
+            value="<%= product.id %>"
+            name="pid"
+          />
+          <!-- <button type="">submit</button> -->
+
+          <h2><%= product.name %></h2>
+          <h3><%= product.description %></h3>
+          <!-- ____________rating box____________ -->
+          <!-- <div class="rating-box">
+                    <div class="rb-left">
+                        <h5>5.6 
+                            <i class="ri-star-s-fill"></i>
+                        </h5>
+                    </div>
+                    <div class="rb-right">
+                    <p>29 Ratings</p>
+                    </div>
+                </div> -->
         </div>
         <!-- price-box -->
         <div class="price-box">
           <div class="mrp-price">
-            <h3>$ 170</h3>
-            <h4>MRP <span class="mrp">$ 500</span></h4>
+            <h3>Rs <%= results1[0].price %></h3>
+            <h4>MRP <span class="mrp">Rs <%= results1[0].mrp %></span></h4>
             <h3 class="off">(Rs. 499 OFF)</h3>
           </div>
 
           <h5>inclusive of all taxes</h5>
 
+          <!-- size-box -->
           <div class="select-size">
-            <h4>SELECT SIZE (Age Group)</h4>
-            <a href="">SIZE CHART <i class="ri-arrow-right-s-line"></i> </a>
+            <h4>SELECT VARIANT</h4>
+            <a href="">VARIANT CHART <i class="ri-arrow-right-s-line"></i> </a>
           </div>
           <div class="size-box">
-            <label>
-              <input type="radio" name="size" value="4-5Y" hidden />
-              <div class="size-circle">4-5Y</div>
-            </label>
-            <label>
-              <input type="radio" name="size" value="4-5Y" hidden />
-              <div class="size-circle">5-7Y</div>
-            </label>
-            <label>
-              <input type="radio" name="size" value="4-5Y" hidden />
-              <div class="size-circle">7-10Y</div>
-            </label>
-            <label>
-              <input type="radio" name="size" value="4-5Y" hidden />
-              <div class="size-circle">10-15Y</div>
-            </label>
-            <label>
-              <input type="radio" name="size" value="4-5Y" hidden />
-              <div class="size-circle">15-18Y</div>
-            </label>
-          </div>
-          <div>
-            <h3>
-              Quantity
+            <% for(var i = 0; i< sizeN.length; i++){ %>
+            <label class="btn btn-light size-btn">
               <input
-                name="qty"
-                style="width: 2.5vmax"
-                value="1"
-                type="number"
+                type="radio"
+                form="formId"
+                class="size-radio"
+                id="size_s"
+                name="vid"
+                value="<%= sizeN[i] %>"
+                hidden
               />
-            </h3>
-          </div>
-          <div class="payment-box">
-            <!-- <a class="pyt-btn" href=""> -->
-            <i class="ri-shopping-bag-line"></i>
-            <h4>
-              <form action="/addCart/<%= productId %>" method="post">
-                <button>Add to cart</button>
-              </form>
-            </h4>
-            <!-- </a> -->
 
-            <a class="pyt-btn" href="">
-              <h4>Pay Now</h4>
-            </a>
+              <div class="size-circle"><%= sizeN[i] %></div>
+            </label>
+            <%}%>
+          </div>
+          <!-- quantity -->
+
+          <div class="qty">
+            <button onclick="dec()" class="qtyminus" aria-hidden="true">
+              &minus;
+            </button>
+            <input
+              type="number"
+              form="formId"
+              name="qty"
+              id="qty"
+              min="1"
+              max="10"
+              step="1"
+              value="1"
+            />
+            <button class="qtyplus123" aria-hidden="true" onclick="inc()">
+              &plus;
+            </button>
+          </div>
+
+          <!-- payment-box -->
+          <div class="payment-box">
+            <div class="pyt-btn">
+              <i class="ri-shopping-bag-line"></i>
+              <button form="formId" type="submit">Add Cart</button>
+            </div>
+
+            <div class="pyt-btn">
+              <button>Enquiry</button>
+            </div>
           </div>
         </div>
-
         <!-- 4 line text -->
         <div class="text">
           <h5>100% Original Products</h5>
@@ -240,8 +224,7 @@
           <h5>Cotton</h5>
           <h5>Machine wash</h5>
         </div>
-
-        <!-- star rating  -->
+        <!------____________________ star rating ___________________________ -->
         <div class="star-rating">
           <div class="rating-hadline">
             <h4>RATINGS</h4>
@@ -286,45 +269,9 @@
           </div>
         </div>
 
-        <!-- customer reviews -->
+        <!--___________________________________- customer reviews _______________________________-->
         <div class="customer-rev">
           <h4>Customer Reviews (3)</h4>
-          <% if (reviewFormVisible) { %>
-          <form
-            class="reviewForm"
-            action="/submit-review/<%=productId %>"
-            method="post"
-          >
-            <span class="reviewSpan">
-              <textarea
-                style="resize: none"
-                class="reviewTxtArea"
-                name="review"
-              >
-Write a review...</textarea
-              >
-              <div class="star-rating">
-                <input type="radio" id="star5" name="rating" value="5" />
-                <label for="star5"><i class="fas fa-star"></i></label>
-
-                <input type="radio" id="star4" name="rating" value="4" />
-                <label for="star4"><i class="fas fa-star"></i></label>
-
-                <input type="radio" id="star3" name="rating" value="3" />
-                <label for="star3"><i class="fas fa-star"></i></label>
-
-                <input type="radio" id="star2" name="rating" value="2" />
-                <label for="star2"><i class="fas fa-star"></i></label>
-
-                <input type="radio" id="star1" name="rating" value="1" />
-                <label for="star1"><i class="fas fa-star"></i></label>
-              </div>
-
-              <button type="submit" class="reviewBtn">Submit</button>
-            </span>
-          </form>
-          <% } %>
-
           <div class="customer-box">
             <div class="cr-star">
               <div class="star-5">
@@ -354,77 +301,26 @@ Write a review...</textarea
 
     <!-- _____item-box html code________ -->
     <div class="item-box">
+      <% for(var i = 0; i< itemCart.length; i++){ %>
       <div class="item">
         <div class="img">
-          <img src="./images/chimney.webp" alt="" />
+          <img src="/images/<%= itemCart[i].image1 %>" alt="" />
         </div>
         <div class="img-text">
-          <h3>kids wear tup</h3>
-          <p>the is the riht place to</p>
-          <div class="mrp-price">
-            <h3>Rs 170</h3>
-            <h4>MRP <span class="mrp">$ 500</span></h4>
-            <h3 class="off">(Rs. 499 OFF)</h3>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="img">
-          <img src="./images/chimney.webp" alt="" />
-        </div>
-        <div class="img-text">
-          <h3>kids wear tup</h3>
-          <p>the is the riht place to</p>
-          <div class="mrp-price">
-            <h3>Rs 170</h3>
-            <h4>MRP <span class="mrp">$ 500</span></h4>
-            <h3 class="off">(Rs. 499 OFF)</h3>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="img">
-          <img src="./images/chimney.webp" alt="" />
-        </div>
-        <div class="img-text">
-          <h3>kids wear tup</h3>
-          <p>the is the riht place to</p>
-          <div class="mrp-price">
-            <h3>Rs 170</h3>
-            <h4>MRP <span class="mrp">$ 500</span></h4>
-            <h3 class="off">(Rs. 499 OFF)</h3>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="img">
-          <img src="./images/chimney.webp" alt="" />
-        </div>
-        <div class="img-text">
-          <h3>kids wear tup</h3>
-          <p>the is the riht place to</p>
-          <div class="mrp-price">
-            <h3>Rs 170</h3>
-            <h4>MRP <span class="mrp">$ 500</span></h4>
-            <h3 class="off">(Rs. 499 OFF)</h3>
-          </div>
-        </div>
-      </div>
+          <h3><%= itemCart[i].name %></h3>
+          <p><%= itemCart[i].description %></p>
 
-      <div class="item">
-        <div class="img">
-          <img src="./images/chimney.webp" alt="" />
-        </div>
-        <div class="img-text">
-          <h3>kids wear tup</h3>
-          <p>the is the riht place to</p>
           <div class="mrp-price">
-            <h3>Rs 170</h3>
-            <h4>MRP <span class="mrp">$ 500</span></h4>
+            <h3>Rs <%= itemCart[0].price[0].price %></h3>
+            <h4>
+              MRP <span class="mrp">Rs- <%= itemCart[0].price[0].mrp %></span>
+            </h4>
+
             <h3 class="off">(Rs. 499 OFF)</h3>
           </div>
         </div>
       </div>
+      <%}%>
     </div>
 
     <!--------------------------------------Footer --------------------------------------  -->
@@ -567,6 +463,44 @@ Write a review...</textarea
           }
         }
       }
+    </script>
+    <script>
+      function inc() {
+        console.log("Increase");
+        const q1 = parseInt(document.getElementById("qty").value);
+
+        const q2 = q1 + 1;
+        console.log(q2);
+        document.getElementById("qty").value = q2;
+      }
+
+      function dec() {
+        console.log("Decrease");
+        const q1 = parseInt(document.getElementById("qty").value);
+
+        const q2 = q1 - 1;
+        console.log(q2);
+        if (q2 <= 0) {
+          document.getElementById("qty").value = 1;
+        } else {
+          document.getElementById("qty").value = q2;
+        }
+      }
+
+      function size_button() {
+        document.addEventListener("DOMContentLoaded", function () {
+          var sizeRadios = document.querySelectorAll(".size-radio");
+          sizeRadios.forEach(function (radio) {
+            radio.addEventListener("change", function () {
+              document.querySelectorAll(".size-btn").forEach(function (btn) {
+                btn.classList.remove("active");
+              });
+              this.parentNode.classList.add("active");
+            });
+          });
+        });
+      }
+      size_button();
     </script>
   </body>
 </html>

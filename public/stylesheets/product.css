@@ -122,13 +122,13 @@ body {
   display: flex;
 }
 
-/* _________top__________ */
+/* ==========================top============================================== */
 
 /* ____________left-box_____________ */
 .p-left-box {
   padding: 2vmax 1vmax;
   width: 55%;
-  height: 100vh;
+  /* height: 100vh; */
   /* background-color: green; */
 }
 
@@ -259,7 +259,7 @@ body {
   padding: 1vmax;
   width: 45%;
   /* height: 100vh; */
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
 }
 /* ____________________title-box_____________ */
 .p-right-box .title-box {
@@ -340,26 +340,32 @@ body {
 .select-size > a > i {
   font-size: 1.3vmax;
 }
-/* size-box */
+/* size-box =========*/
 .size-box {
   margin-top: 2vmax;
   display: flex;
   align-items: center;
-  gap: 2vmax;
-  width: 30vw;
-  height: 10vh;
+  gap: 1vmax;
+  /* background-color: red;    */
 }
-.size-box .size-circle {
+
+.size-btn {
+  display: inline-block;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 10px 15px;
   border-radius: 50px;
-  width: 70px;
-  height: 50px;
-  color: rgb(59, 56, 56);
-  font-family: gilroy-b;
-  border: 1px solid rgb(82, 74, 74);
+  margin-right: 10px;
+  background-color: rgb(238, 240, 240);
+  color: black;
+}
+
+.size-btn.active {
+  background-color: #343a40;
+  color: white;
+}
+
+.size-radio {
+  display: none;
 }
 
 /* payment-box */
@@ -376,20 +382,25 @@ body {
   text-decoration: none;
   cursor: pointer;
   display: flex;
-  gap: 10px;
+  gap: 5px;
   border: none;
-  padding: 1vmax 4.7vmax;
+  padding: 1vmax 3.7vmax;
   color: white;
   border-radius: 10px;
   background-color: #9ee281;
-  box-shadow: 6px 6px 12px -2px rgba(218, 217, 217, 0.5),
+  box-shadow: 6px 6px 12px -2px rgba(222, 222, 222, 0.5),
     -6px -6px 12px -2px rgba(255, 255, 255, 0.5);
+}
+.pyt-btn > button {
+  width: 70px;
+  /* background-color: green; */
+  color: white;
+  /* background-color: green; */
 }
 .pyt-btn > i {
   color: white;
   font-size: 1.3vmax;
 }
-
 /* _________4 line text____________ */
 .text {
   border-bottom: 1px solid black;
@@ -546,7 +557,6 @@ body {
   margin-left: 4vmax;
   font-size: 1.5vw;
 }
-
 /* product-code */
 .product-code {
   padding: 1vmax;
@@ -555,6 +565,8 @@ body {
   font-weight: 100;
 }
 
+/* quantity css here  */
+
 /* item-box css start here  */
 
 .item-box {
@@ -562,16 +574,23 @@ body {
   align-items: center;
   justify-content: center;
   gap: 3vmax;
-  padding: 2vmax;
+  padding: 5vmax;
+  padding-left: 5vw;
   /* background-color: red; */
   /* height: 10vh; */
-  width: 100%;
+  /* width: 200vw; */
   font-family: gilroy;
+  flex-wrap: wrap;
+  /* overflow-y: auto; */
+  /* overflow-x: hidden; */
+  /* overflow: auto; */
+  /* white-space: nowrap; */
 }
 .item-box .item {
-  width: 15vmax;
-  height: 25vmax;
-  /* border: 1px solid rgb(172, 166, 166); */
+  /* padding-bottom: 5px; */
+  width: 250px;
+  height: 350px;
+  /* background-color: green; */
   box-shadow: 6px 6px 12px -2px rgba(57, 70, 94, 0.5),
     -6px -6px 12px -2px rgba(255, 255, 255, 0.5);
 }
@@ -599,41 +618,121 @@ body {
   font-family: gilroy;
 }
 .img-text > h4 > span {
-  font-size: 0.7vmax;
+  font-size: 20px;
   color: gray;
   margin: 0px 5px;
   text-decoration: line-through;
 }
 .img-text .mrp-price {
-  font-size: 0.7vmax;
-}
-.mrp-price > h3 {
-  color: #9ee281;
+  font-size: 10px;
 }
 
-.productImgDiv {
-  height: 200vh;
+/* item box css end here */
+
+@media screen and (max-width: 600px) {
+  .product {
+    flex-direction: column;
+  }
+  .p-left-box {
+    width: 100%;
+  }
+  #image-gallery > .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .row > .image {
+    width: 80vw;
+    height: 30vh;
+  }
+
+  .p-right-box {
+    width: 100%;
+  }
+
+  .text > h5 {
+    font-size: 1.4vmax;
+  }
+  .product-details > h5 {
+    line-height: 2.2vmax;
+  }
+
+  .item-box {
+    gap: 0.5vmax;
+    padding: 0.2vmax;
+    padding-left: 0vw;
+  }
+  .item-box .item {
+    width: 180px;
+    height: 250px;
+  }
+
+  .img-text {
+    gap: 0.3vmax;
+  }
+  .img-text > h3 {
+    font-size: 10px;
+  }
+  .img-text > p {
+    font-size: 10px;
+  }
+  .img-text > p {
+    font-family: gilroy;
+  }
+  .img-text > h4 > span {
+    font-size: 10px;
+  }
+  .img-text .mrp-price {
+    font-size: 7px;
+  }
 }
-.productImgDiv-section {
-  width: 100%;
-  height: 100%;
+button {
+  padding: 0;
+  margin: 0;
+  border-style: none;
+  touch-action: manipulation;
+  display: inline-block;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
-.productImgDiv-container {
-  width: 100%;
-  height: 100%;
-}
-.productImgDiv-imageGallery {
-  width: 100%;
-  height: 100%;
-}
-.mainImgBoxProduct {
+
+.qty {
+  margin-top: 2vmax;
   display: flex;
-  width: 100%;
-  height: 100%;
-}
-.mainImgBoxProduct > div {
-  width: 50%;
-  height: 100%;
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
+  text-align: center;
+  /* background-color: red; */
+
+  label {
+    flex: 1 0 100%;
+  }
+  input {
+    width: 5rem;
+    height: 3rem;
+    font-size: 1.3rem;
+    text-align: center;
+    /* border: 1px solid #575757; */
+    outline: none;
+  }
+  /* input[type="number"]{
+        outline: none;
+        border: none;
+    } */
+  button {
+    width: 3rem;
+    height: 3rem;
+    color: #fff;
+    font-size: 2rem;
+    background: #575757;
+    border-radius: 10px;
+  }
+  button.qtyminus {
+    margin-right: 0.3rem;
+  }
+  button.qtyplus {
+    margin-left: 0.3rem;
+  }
 }
 
 /* -------------------------------- footer ----------------------------------------- */
