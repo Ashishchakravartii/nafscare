@@ -93,3 +93,18 @@ $exitButton.click(function () {
   // Fade out the overlay
   $("#overlay").fadeOut("slow");
 });
+
+
+// --------------------------- Nav dropdown ----------------------------------
+
+const dropDownNav = document.querySelector(".dropDownNav");
+const closeBtn = document.querySelector("#closeBtn");
+const menuBtn = document.querySelector("#menuBtn");
+
+closeBtn.addEventListener("click", () => {
+  dropDownNav.style.top = "-20%";
+});
+
+menuBtn.addEventListener("click", () => {
+  dropDownNav.style.top = "13%";
+});

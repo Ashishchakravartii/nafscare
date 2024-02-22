@@ -2328,7 +2328,7 @@ input:focus {
   .shopping-cart {
     width: 100vw;
     height: 100vh;
-    margin: 15px auto;
+    margin: 37px auto;
     /* background: #ffffff; */
     box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
@@ -2499,7 +2499,9 @@ input:focus {
   }
   .cart_quantity {
     padding-top: 20px;
-    margin-right: 60px;
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
   }
   .cart_quantity input {
     border: none;
@@ -2754,6 +2756,7 @@ input:focus {
     height: 6vmax;
     display: flex;
     align-items: center;
+    margin-top: 4vmax;
   }
 
   .orderTab {
@@ -2788,7 +2791,7 @@ input:focus {
     justify-content: start;
     min-height: 3.5vmax;
     padding-top: 0vmax;
-    margin-right: 2vmax;
+    margin-left: 2vmax;
   }
 
   .userInfoUpdateBox {

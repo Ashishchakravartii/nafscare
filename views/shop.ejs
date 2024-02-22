@@ -34,6 +34,7 @@
       </form>
       <div id="searchResults"></div>
     </div>
+
     <div class="main">
       <!-------------------------------- Nav bar -------------------------------------->
 
@@ -50,7 +51,7 @@
         <div class="subNavBar">
           <div class="navimgbox">
             <img src="/images/logo.png" alt="logo" />
-            <a href="/" class="brandName"><h5>NAFSCARE</h5></a>
+            <h5 class="brandName">NAFSCARE</h5>
           </div>
           <div class="navLiBox">
             <ul>
@@ -62,14 +63,25 @@
             </ul>
           </div>
           <div class="navCartDiv">
-            <div class="navCartDiv-searchDiv"></div>
-            <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+            <!-- <div class="navCartDiv-searchDiv"></div> -->
+            <a href="/cart"> <img src="/images/cartIcon.png" alt="" /></a>
             <a href="/account"
               ><img width="25px" src="/images/icons/myAccount.png" alt=""
             /></a>
+            <div class="menuDiv">
+              <i style="scale: 2" id="menuBtn" class="ri-menu-line"></i>
+            </div>
           </div>
         </div>
       </nav>
+      <div class="dropDownNav">
+        <ul>
+          <li><a style="color: #9ee281" href="/home">HOME</a></li>
+          <li><a href="/home">SHOP</a></li>
+          <li><a href="/home">MY ACCOUNT</a></li>
+        </ul>
+        <i id="closeBtn" style="scale: 1.6" class="ri-close-circle-fill"></i>
+      </div>
 
       <!-------------------------------- Shop content -------------------------------------->
 
@@ -241,7 +253,7 @@
     ></script>
     <script src="/javascripts/script.js"></script>
     <script src="/javascripts/shop.js"></script>
-    
+
     <script>
       function newf(event) {
         //  event.preventDefault()

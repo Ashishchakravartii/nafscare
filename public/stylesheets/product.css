@@ -23,6 +23,7 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 .product {
   display: flex;
@@ -34,6 +35,13 @@ body {
 }
 
 /* =============================          Nav styles              ================================= */
+
+.productNavBoxMain {
+  width: 100vw;
+  height: 13vh;
+  background-color: green;
+  position: relative;
+}
 
 .navBox {
   width: 100vw;
@@ -630,10 +638,216 @@ body {
 .img-text .mrp-price {
   font-size: 10px;
 }
+.menuDiv {
+  display: none;
+}
+
+.dropDownNav {
+  display: none;
+}
+
+/*  */
+
+.navBox {
+  width: 100vw;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+.topGreenBar {
+  width: 100%;
+  background-color: #9ee281;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2vmax 6vmax;
+  color: white;
+  font-family: "jostRegular";
+  font-size: 01vmax;
+  font-weight: 400;
+}
+
+.dropDownNav {
+  display: none;
+}
+
+.topGreenBar-btnDiv > button {
+  border: 0;
+  background-color: transparent;
+  color: white;
+}
+.topGreenBar-btnDiv > button > a {
+  text-decoration: none;
+  color: white;
+}
+
+.subNavBar {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vmax;
+  font-weight: 400;
+}
+
+.navimgbox {
+  width: 5vmax;
+  display: flex;
+  align-items: center;
+  gap: 1vmax;
+  margin-left: -3vmax;
+}
+.navimgbox > img {
+  width: 100%;
+  object-fit: cover;
+}
+.brandName {
+  letter-spacing: 0.2vmax;
+  text-decoration: none;
+  color: black;
+}
+
+.navLiBox {
+  margin-left: 6vmax;
+}
+.navLiBox > ul {
+  display: flex;
+  list-style: none;
+  gap: 3.5vmax;
+  font-weight: 400;
+  font-size: 0.9vmax;
+}
+.navLiBox > ul > li > a {
+  color: black;
+  text-decoration: none;
+}
+.navCartDiv {
+  display: flex;
+  gap: 0.3vmax;
+}
+.navCartDiv > img {
+  width: 1.8vmax;
+  scale: 0.85;
+  margin-bottom: 0.3vmax;
+}
+.navCartDiv-searchDiv > input {
+  border: 0;
+}
+.navCartDiv-searchDiv {
+  scale: 0.85;
+  display: flex;
+  flex-direction: column;
+}
+#searchResults {
+  width: 15vw;
+  position: absolute;
+  z-index: 100;
+  top: 120%;
+  left: 15%;
+  background-color: white;
+  border-top: 0;
+}
+
+.searchDiv {
+  position: absolute;
+  right: 6%;
+  top: 9%;
+  z-index: 100;
+}
+
+#searchForm {
+  padding: 0vmax 3vmax;
+}
+#searchInput {
+  width: 15vw;
+  padding: 0.2vmax;
+  font-size: 1.1vmax;
+  border: 0;
+}
+/*  */
 
 /* item box css end here */
 
 @media screen and (max-width: 600px) {
+  #searchForm {
+    background-color: red;
+    width: 100vw;
+    height: 4vh;
+    padding-left: revert-layer;
+    position: absolute;
+  }
+  .searchDiv {
+    position: absolute;
+    right: 0%;
+    top: 8.8%;
+    z-index: 100;
+    width: 100vw;
+    height: 4vh;
+  }
+  #searchInput {
+    width: 100vw;
+    padding: 1vmax 0 0.5vmax 1vmax;
+    font-size: 1.1vmax;
+    border: 0;
+    font-size: 2vmax;
+    border-bottom: 1px solid #e4e4e4;
+  }
+  #searchResults {
+    width: 100vw;
+    position: absolute;
+    z-index: 100;
+    top: 120%;
+    left: 0%;
+    background-color: white;
+    border-top: 0;
+    color: #9ee281;
+    font-weight: 500;
+    padding-left: 2vmax;
+  }
+  .navLiBox {
+    display: none;
+  }
+
+  .topGreenBar-btnDiv {
+    font-size: 1.7vmax;
+  }
+  .menuDiv {
+    display: initial;
+  }
+
+  .dropDownNav {
+    width: 100vw;
+    height: 15vh;
+    position: absolute;
+    z-index: 5;
+    top: -20%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    transition: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.3s;
+    border-bottom: 1px solid grey;
+  }
+  .dropDownNav > i {
+    margin-bottom: 2vmax;
+  }
+  .dropDownNav > ul {
+    width: 100%;
+    height: 80%;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2vmax;
+  }
+  .dropDownNav > ul > li > a {
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+  }
+
   .product {
     flex-direction: column;
   }

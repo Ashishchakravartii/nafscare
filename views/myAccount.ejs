@@ -176,7 +176,7 @@
               </div>
               <div class="amountDivAccount">
                 <!-- <h6>Amount</h6> -->
-                <span style="color: #9ee281"><%= order.price %></span
+                <span style="color: #9ee281">Rs <%= order.price %></span
                 >&nbsp;&nbsp;&nbsp;
               </div>
             </div>
@@ -435,5 +435,27 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="/javascripts/script.js"></script>
+    <script>
+      function newf(event) {
+        //  event.preventDefault()
+        var news = document.getElementById("searchInput").value;
+        const searchTerm = news.trim();
+
+        fetch(`/search/${searchTerm}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Clear previous results
+            searchResults.innerHTML = "";
+
+            // Display search results
+            data.forEach((product) => {
+              const productElement = document.createElement("div");
+              productElement.textContent = product.name;
+              searchResults.appendChild(productElement);
+            });
+          });
+        //.catch((error) => console.error("Error:", error));
+      }
+    </script>
   </body>
 </html>
