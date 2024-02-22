@@ -777,6 +777,16 @@ body {
     padding-left: revert-layer;
     position: absolute;
   }
+
+  
+    #searchResults > a > li {
+      text-decoration: none;
+      list-style: none;
+    }
+    #searchResults > a {
+      color: #9ee281;
+      text-decoration: none;
+    }
   .searchDiv {
     position: absolute;
     right: 0%;

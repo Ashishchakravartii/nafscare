@@ -48,10 +48,12 @@
           </div>
         </div>
         <div class="subNavBar">
-          <div class="navimgbox">
-            <img src="/images/logo.png" alt="logo" />
-            <h5 class="brandName">NAFSCARE</h5>
-          </div>
+           <a style="text-decoration: none" href="/">
+            <div class="navimgbox">
+              <img src="/images/logo.png" alt="logo" />
+              <h5 class="brandName">NAFSCARE</h5>
+            </div></a
+          >
           <div class="navLiBox">
             <ul>
               <li><span style="color: #9ee281">HOME</span></li>
@@ -75,9 +77,9 @@
       </nav>
       <div class="dropDownNav">
         <ul>
-          <li><a style="color: #9ee281" href="/home">HOME</a></li>
-          <li><a href="/home">SHOP</a></li>
-          <li><a href="/home">MY ACCOUNT</a></li>
+          <li><a style="color: #9ee281" href="/">HOME</a></li>
+          <li><a href="/shop">SHOP</a></li>
+          <li><a href="/account">MY ACCOUNT</a></li>
         </ul>
         <i id="closeBtn" style="scale: 1.6" class="ri-close-circle-fill"></i>
       </div>
@@ -437,25 +439,38 @@
     <script src="/javascripts/script.js"></script>
     <script>
       function newf(event) {
-        //  event.preventDefault()
         var news = document.getElementById("searchInput").value;
         const searchTerm = news.trim();
+        const searchResults = document.getElementById("searchResults");
 
-        fetch(`/search/${searchTerm}`)
-          .then((response) => response.json())
-          .then((data) => {
-            // Clear previous results
-            searchResults.innerHTML = "";
+        // Clear previous results
+        searchResults.innerHTML = "";
 
-            // Display search results
-            data.forEach((product) => {
-              const productElement = document.createElement("div");
-              productElement.textContent = product.name;
-              searchResults.appendChild(productElement);
-            });
-          });
-        //.catch((error) => console.error("Error:", error));
+        if (searchTerm === "") {
+          const defaultAnchorElement = document.createElement("a");
+          defaultAnchorElement.textContent = "";
+          searchResults.appendChild(defaultAnchorElement);
+        } else {
+          fetch(`/search/${searchTerm}`)
+            .then((response) => response.json())
+            .then((data) => {
+              // Display search results
+              data.forEach((product) => {
+                const anchorElement = document.createElement("a");
+                anchorElement.href = "/product/" + product.id; // Set the href attribute
+
+                const listItem = document.createElement("li");
+                listItem.textContent = product.name;
+
+                anchorElement.appendChild(listItem); // Append list item to anchor element
+                searchResults.appendChild(anchorElement);
+              });
+            })
+            .catch((error) => console.error("Error:", error));
+        }
       }
+
+      document.getElementById("searchInput").addEventListener("input", newf);
     </script>
   </body>
 </html>

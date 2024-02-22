@@ -51,11 +51,17 @@ router.post("/signup", async (req, res, next) => {
 
     // If email or phone number already exists, return error
     if (emailRows.length > 0) {
-      return res.send("<script>alert('Email already exists');</script>");
+      return res.send(` <script>
+            alert("Email already exists. Try with another email.");
+            window.location.href = "/auth";
+          </script>`);
     }
 
     if (phoneRows.length > 0) {
-      return res.send("<script>alert('Phone number already exists');</script>");
+      return res.send(` <script>
+            alert("Phone no. already exists. Try with another phone no.");
+            window.location.href = "/auth";
+          </script>`);
     }
 
     // Insert user into database
@@ -70,9 +76,11 @@ router.post("/signup", async (req, res, next) => {
       hashedPassword,
     ]);
 
-    console.log("Registration successful");
     sendmail(req, res, email, name);
-    res.redirect("/auth");
+    return res.send(` <script>
+            alert("Registration successful");
+            window.location.href = "/";
+          </script>`);
   } catch (error) {
     console.error("Error registering user:", error);
     return res.status(500).json({ message: "Error registering user" });
@@ -103,7 +111,10 @@ router.post("/login", async (req, res, next) => {
     // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.send("<script>alert('INVALID PASSWORD');</script>");
+      return res.send(` <script>
+            alert("INVALID PASSWORD. PLEASE TRY AGAIN.");
+            window.location.href = "/auth";
+          </script>`);
     }
 
     // Generate tokens
@@ -564,7 +575,10 @@ router.post("/updateAddress", checkLoggedIn, async (req, res, next) => {
       ]);
     }
 
-    return res.send("<script>alert(`UPDATED SUCCESSFULLY`)</script>"); // Respond with JavaScript alert after updating or inserting address
+     return res.send(` <script>
+            alert("Updated successfully");
+            window.location.href = "/account";
+          </script>`); // Respond with JavaScript alert after updating or inserting address
   } catch (error) {
     console.error("Error updating or inserting address:", error);
     return res
@@ -1042,7 +1056,7 @@ router.get("/cod", async (req, res, next) => {
     pool.execute("DELETE FROM cart");
     return res.send(`
           <script>
-            alert("Order placed successfully. Redirecting to order page ?");
+            alert("Order placed successfully.");
             window.location.href = "/account";
           </script>
         `);
@@ -1161,7 +1175,10 @@ router.post("/change-password/:id", async (req, res, next) => {
 
     await pool.execute(updateQuery, [hashedPassword, user.id]);
 
-    res.send(`<script>alert('Password updated successsfully!')</script>`);
+    return res.send(` <script>
+            alert("Password changed successfully.");
+            window.location.href = "/auth";
+          </script>`);
   } catch (error) {
     res.send(error);
   }

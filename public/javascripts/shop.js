@@ -101,7 +101,7 @@ function filterData() {
                                     <p class="retailPrice">INR-${item.individualPrice}</p>
                                     <p class="mrp">${item.mrp} INR</p>
                                 </span>
-                                <button class="addBtn">Add to cart</button>
+                                <button class="addBtn">View Product</button>
                             </div>
                         </div>
         </a>
