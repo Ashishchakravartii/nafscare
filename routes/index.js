@@ -484,9 +484,13 @@ router.post("/addCart", async (req, res) => {
 
     if (existingRows.length > 0) {
       // If the combination of pid and vid already exists, return a message
-      return res.send(
-        "<script> alert('Item already exists in the cart') </script>"
-      );
+      
+     return res.send(`
+          <script>
+            alert("Item already exists in the cart");
+            window.location.href = '/product/${pid}';
+          </script>
+        `);
     }
 
     // Fetch price from provar table based on pid and vid
@@ -1036,7 +1040,12 @@ router.get("/cod", async (req, res, next) => {
     }
 
     pool.execute("DELETE FROM cart");
-    res.redirect("/account");
+     return res.send(`
+          <script>
+            alert("Order placed successfully. Redirecting to order page ?");
+            window.location.href = "/account";
+          </script>
+        `);
   } catch (error) {
     console.error("Error fetching product details:", error);
     res.status(500).json({ message: "Internal server error." });
@@ -1203,7 +1212,13 @@ router.post("/submit-review/:pid", async (req, res) => {
       "UPDATE orders SET reviewed = ? WHERE userId = ? AND pid = ?";
     await pool.execute(updateQuery, [1, userId, productId]);
 
-    res.redirect(`/product/${productId}`);
+    return res.send(`
+          <script>
+            alert("Review save Successfully");
+            window.location.href = "/product/${productId}";
+          </script>
+        `);
+    // res.redirect(`/product/${productId}`);
   } catch (error) {
     console.error("Error submitting review:", error);
     res.status(500).json({ error: "Internal Server Error" });

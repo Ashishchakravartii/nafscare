@@ -6,9 +6,12 @@ async function checkLoggedIn(req, res, next) {
   try {
     // Check if user data exists in session
     if (!req.session.user) {
-      return res.send(
-        "<script>alert('Please login to see this page.')</script>"
-      );
+      return res.send(`
+          <script>
+            alert("Please login to see this page.");
+            window.location.href = "/auth";
+          </script>
+        `);
     }
 
     // Retrieve user ID from session
@@ -22,9 +25,13 @@ async function checkLoggedIn(req, res, next) {
 
     // Check if accessToken is present
     if (rows.length === 0 || !rows[0].accessToken) {
-      return res.send(
-        "<script>alert('Please login to see this page.')</script>"
-      );
+  
+      res.send(`
+          <script>
+            alert("Please login to see this page.");
+            window.location.href = "/auth";
+          </script>
+        `);
     }
 
     // User is logged in, proceed to the next middleware or route handler

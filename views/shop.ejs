@@ -87,7 +87,10 @@
 
       <div class="shopBox">
         <div class="shop-top">
-          <h6 class="filterHead">Filters</h6>
+          <h6 class="filterHead">
+              Filter
+              <i class="ri-arrow-down-double-line"></i>
+            </h6>
 
           <h6>
             <a style="text-decoration: none; color: gray" href="/">HOME </a> >
@@ -275,6 +278,36 @@
           });
         //.catch((error) => console.error("Error:", error));
       }
+
+var menutoggle = document.querySelector('.filterHead>i');
+var toggle = document.querySelector('.filters');
+var flag = 0;
+
+menutoggle.addEventListener('click', function(){
+    if (flag === 0) {
+        toggle.style.display = "flex";
+        flag = 1;
+    } else {
+        toggle.style.display = "none";
+        flag = 0;
+    }
+});
+
+function handleClickOutside(event) {
+    var isClickInside = toggle.contains(event.target) || menutoggle.contains(event.target);
+    if (!isClickInside) {
+        toggle.style.display = "none";
+        flag = 0;
+    }
+}
+
+if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+    document.body.addEventListener('click', handleClickOutside);
+} else {
+    document.body.removeEventListener('click', handleClickOutside);
+}
+
+
     </script>
   </body>
 </html>
