@@ -21,6 +21,19 @@
     />
   </head>
   <body>
+    <div class="searchDiv">
+      <form id="searchForm">
+        <input
+          type="text"
+          id="searchInput"
+          name="q"
+          onchange="newf()"
+          placeholder="Search products..."
+        />
+      </form>
+      <div id="searchResults"></div>
+    </div>
+
     <div class="main">
       <!-------------------------------- Nav bar -------------------------------------->
 
@@ -31,9 +44,7 @@
             <% if (!user) { %>
             <button><a href="/auth">Sign In</a></button> /
             <button><a href="/auth">Register</a></button>
-            <% } else { %>
-            <button><a href="/logout">Logout</a></button>
-            <% } %>
+            <% } else { %> <button><a href="/logout">Logout</a></button> <% } %>
           </div>
         </div>
         <div class="subNavBar">
@@ -51,17 +62,25 @@
             </ul>
           </div>
           <div class="navCartDiv">
-            <div class="navCartDiv-searchDiv">
-              <input type="search" placeholder="" />
-              <label for=""><img src="/images/searchIcon.png" alt="" /></label>
-            </div>
-            <a href="/cart"><img src="/images/cartIcon.png" alt="" /></a>
+            <!-- <div class="navCartDiv-searchDiv"></div> -->
+            <a href="/cart"> <img src="/images/cartIcon.png" alt="" /></a>
             <a href="/account"
               ><img width="25px" src="/images/icons/myAccount.png" alt=""
             /></a>
+            <div class="menuDiv">
+              <i style="scale: 2" id="menuBtn" class="ri-menu-line"></i>
+            </div>
           </div>
         </div>
       </nav>
+      <div class="dropDownNav">
+        <ul>
+          <li><a style="color: #9ee281" href="/home">HOME</a></li>
+          <li><a href="/home">SHOP</a></li>
+          <li><a href="/home">MY ACCOUNT</a></li>
+        </ul>
+        <i id="closeBtn" style="scale: 1.6" class="ri-close-circle-fill"></i>
+      </div>
 
       <!-- ------------------------------- checkout page start------------------------------ -->
       <div class="myAccountMainBox">

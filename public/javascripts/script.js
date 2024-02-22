@@ -125,5 +125,5 @@ closeBtn.addEventListener("click", () => {
 });
 
 menuBtn.addEventListener("click", () => {
-  dropDownNav.style.top = "8.5%";
+  dropDownNav.style.top = "13%";
 });

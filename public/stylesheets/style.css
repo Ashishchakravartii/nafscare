@@ -1890,6 +1890,10 @@ input:focus {
   .navLiBox {
     display: none;
   }
+
+  .topGreenBar-btnDiv {
+    font-size: 1.7vmax;
+  }
   .menuDiv {
     display: initial;
   }
@@ -1907,6 +1911,7 @@ input:focus {
     align-items: center;
     background-color: white;
     transition: cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.3s;
+    border-bottom: 1px solid grey;
   }
   .dropDownNav > i {
     margin-bottom: 2vmax;
@@ -2579,7 +2584,7 @@ input:focus {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    padding-left: 9vmax;
+    padding-left: 14vmax;
   }
   .signUpHead {
     margin-bottom: -2vmax;
@@ -2721,10 +2726,14 @@ input:focus {
     width: 6vmax;
     margin-right: 3vmax;
     text-align: right;
+    padding-top: 2vmax;
+    font-size: 0.5vmax;
   }
   .subOrderTab-topHead > div:nth-child(4) {
     width: 6vmax;
     margin-left: -2vmax;
+    padding-top: 2vmax;
+    font-size: 0.5vmax;
   }
 
   .orderTab-topHeadBox {
@@ -2753,8 +2762,33 @@ input:focus {
 
   .subOrderTab {
     width: 100vw;
-    padding: 0 2vmax;
+    padding: 0 0vmax;
     overflow-x: scroll;
+    display: flex;
+    justify-content: start;
+  }
+  .subOrderTab > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-height: 3.5vmax;
+    padding-top: 0vmax;
+  }
+  .subOrderTab > div:nth-child(5) {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-height: 3.5vmax;
+    padding-top: 0vmax;
+    margin-right: 2 vmax;
+  }
+  .subOrderTab > div:nth-child(6) {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-height: 3.5vmax;
+    padding-top: 0vmax;
+    margin-right: 2vmax;
   }
 
   .userInfoUpdateBox {
@@ -2774,5 +2808,40 @@ input:focus {
     width: 100%;
     height: 40vh;
     margin-right: 50vmax;
+  }
+
+  #searchForm {
+    background-color: red;
+    width: 100vw;
+    height: 4vh;
+    padding-left: revert-layer;
+  }
+  .searchDiv {
+    position: absolute;
+    right: 0%;
+    top: 8.8%;
+    z-index: 100;
+    width: 100vw;
+    height: 4vh;
+  }
+  #searchInput {
+    width: 100vw;
+    padding: 1vmax 0 0.5vmax 1vmax;
+    font-size: 1.1vmax;
+    border: 0;
+    font-size: 2vmax;
+    border-bottom: 1px solid #e4e4e4;
+  }
+  #searchResults {
+    width: 100vw;
+    position: absolute;
+    z-index: 100;
+    top: 120%;
+    left: 0%;
+    background-color: white;
+    border-top: 0;
+    color: #9ee281;
+    font-weight: 500;
+    padding-left: 2vmax;
   }
 }
