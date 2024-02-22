@@ -484,8 +484,8 @@ router.post("/addCart", async (req, res) => {
 
     if (existingRows.length > 0) {
       // If the combination of pid and vid already exists, return a message
-      
-     return res.send(`
+
+      return res.send(`
           <script>
             alert("Item already exists in the cart");
             window.location.href = '/product/${pid}';
@@ -1040,7 +1040,7 @@ router.get("/cod", async (req, res, next) => {
     }
 
     pool.execute("DELETE FROM cart");
-     return res.send(`
+    return res.send(`
           <script>
             alert("Order placed successfully. Redirecting to order page ?");
             window.location.href = "/account";

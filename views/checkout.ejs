@@ -21,6 +21,19 @@
     />
   </head>
   <body>
+    <div class="searchDiv">
+      <form id="searchForm">
+        <input
+          type="text"
+          id="searchInput"
+          name="q"
+          onchange="newf()"
+          placeholder="Search products..."
+        />
+      </form>
+      <div id="searchResults"></div>
+    </div>
+
     <div class="main">
       <!-------------------------------- Nav bar -------------------------------------->
 
@@ -42,22 +55,32 @@
           <div class="navLiBox">
             <ul>
               <li><span style="color: #9ee281">HOME</span></li>
-              <li>BEAUTY</li>
-              <li>HAIR</li>
-              <li>FACE</li>
-              <li>BODY</li>
-              <li>STORES</li>
+              <li><a href="/shop">SHOP</a></li>
+              <li><a href="/shop">FACE</a></li>
+              <li><a href="/shop">BODY</a></li>
+              <li><a href="/shop">STORES</a></li>
             </ul>
           </div>
           <div class="navCartDiv">
-            <div class="navCartDiv-searchDiv">
-              <input type="search" placeholder="" />
-              <label for=""><img src="/images/searchIcon.png" alt="" /></label>
+            <!-- <div class="navCartDiv-searchDiv"></div> -->
+            <a href="/cart"> <img src="/images/cartIcon.png" alt="" /></a>
+            <a href="/account"
+              ><img width="25px" src="/images/icons/myAccount.png" alt=""
+            /></a>
+            <div class="menuDiv">
+              <i style="scale: 2" id="menuBtn" class="ri-menu-line"></i>
             </div>
-            <img src="/images/cartIcon.png" alt="" />
           </div>
         </div>
       </nav>
+      <div class="dropDownNav">
+        <ul>
+          <li><a style="color: #9ee281" href="/home">HOME</a></li>
+          <li><a href="/home">SHOP</a></li>
+          <li><a href="/home">MY ACCOUNT</a></li>
+        </ul>
+        <i id="closeBtn" style="scale: 1.6" class="ri-close-circle-fill"></i>
+      </div>
 
       <!-- ------------------------------- checkout page start------------------------------ -->
       <div id="r_page1">
@@ -88,7 +111,6 @@
                   />
                 </div>
               </div>
-              <h4>OR CONTINUE BELOW TO PAY WITH A CREDIT CARD</h4>
             </div>
           </div>
           <!-- contact info -->
@@ -160,7 +182,9 @@
               </div>
             </div>
             <div class="checkoutBtnsBox">
-              <a href="/cod"><button class="codBtn">COD - PLACE ORDER</button></a>
+              <a href="/cod"
+                ><button class="codBtn">COD - PLACE ORDER</button></a
+              >
             </div>
           </div>
         </div>
